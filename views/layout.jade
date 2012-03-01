@@ -1,0 +1,23 @@
+!!! 5
+html(lang="en")
+  - if(typeof user !== "undefined")
+    script
+      window.config = {user: !{JSON.stringify(user)}} 
+  include header
+  body
+    .navbar.navbar-static
+      .navbar-inner
+        .container
+          a.brand(href='/')
+            //img(src="/images/logo.png", alt="brasilia usa logo")
+            | Brasilia USA
+          ul.nav
+            include nav
+          ul.nav.user-menu.pull-right
+ 
+    #app.container
+      != body
+
+    footer.container
+      ul.nav.nav-pills
+        include footer

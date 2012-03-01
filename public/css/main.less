@@ -1,0 +1,110 @@
+// Bootstrap
+@import "../bootstrap/less/bootstrap.less";
+
+[class^="icon-"]{
+  background-image: url(/bootstrap/img/glyphicons-halflings.png);
+}
+.icon-white {
+  background-image: url(/bootstrap/img/glyphicons-halflings-white.png);
+}
+
+
+#home h2 {
+  font-size: 20px;
+}
+
+.navbar {
+  .brand {
+    color: #FF5D03;
+  }
+  .navbar-inner {
+    border-radius: 0;  
+  }
+}
+
+.bd img {
+  clear: right;
+  float: right;
+  padding: 15px 15px 15px 20px;
+}
+
+.caption {
+  float: right;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.hd {
+  overflow: hidden;
+}
+
+footer {
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+  .tabs, .pills {
+      margin: 0 auto;
+      padding: 0;
+      width: 725px;
+  }
+
+}
+
+#what-we-do {
+  text-align: center;
+  margin: 0 auto;
+  p {
+    margin-top: 50px;
+    font-size: 28px;
+  }
+  p a {
+    font-size: 50px;
+  }
+}
+
+.well {
+  min-height: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  #gradient > .vertical( #f5f5f5,  #fdfdfd);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
+  .border-radius(6px);
+  box-shadow: none;
+  border: 1px solid #e1e1e1;
+}
+
+.body-content-small {
+  .well;
+  margin: 0 auto;
+  margin-top: 30px;
+  float: none; //override bootstrap
+}
+
+#app {
+  min-height: 500px;
+}
+
+.alert {
+//  .box-shadow(0 1px 2px rgba(0,0,0,0.05));
+  top: 30px !important;
+  z-index: 9999;
+  border-width: 7px; 
+  border-style: solid; 
+  padding: 8px 14px;
+  background-color: #fff;
+  .box-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+}
+
+form .btn {
+  display: block;   
+}
+
+form label.error {
+  color: @errorText;
+}
+
+.sidebar-nav a.btn {
+  display: inline-block;
+}
+
+.loading { 
+  background: #eee url(/img/spinner.gif) 5px 50% no-repeat;
+}
