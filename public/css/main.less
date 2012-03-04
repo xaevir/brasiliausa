@@ -8,14 +8,20 @@
   background-image: url(/bootstrap/img/glyphicons-halflings-white.png);
 }
 
-
 #home h2 {
   font-size: 20px;
 }
 
 .navbar {
   .brand {
-    color: #FF5D03;
+    overflow: hidden;
+    text-indent: 5000px;
+    background: url(/img/logo.png) no-repeat top left;
+    width: 149px;
+    height: 28px;
+    margin-top: 5px;
+    padding: 0 20px 0 0;
+    line-height: 2;
   }
   .navbar-inner {
     border-radius: 0;  
@@ -108,3 +114,71 @@ form label.error {
 .loading { 
   background: #eee url(/img/spinner.gif) 5px 50% no-repeat;
 }
+/* Product Details */
+#details h1 {
+	color:#666;
+	font-family:Arial,Helvetica,sans-serif;
+	letter-spacing:4px;
+	text-transform:uppercase;
+}
+#details h1 span{
+    text-transform:none;
+    letter-spacing:0;
+    font-size: 20px;
+    display: block;
+}
+
+#details h3 {
+    color: #000;
+    margin-bottom: 15px;
+}
+
+#details h4 {
+    color: #000;
+}
+
+#details b {
+    color: #000;
+}
+
+.product-description-container img{
+   float: right;
+   margin: 0 15px;
+}
+
+.product-pdf {
+	margin: 20px 0;	
+}
+.product-pdf a {
+	text-decoration: none;
+}
+.product-pdf a:hover {
+	text-decoration: underline;
+}
+
+.product-details-grid dt {
+	float:left;
+	font-weight:bold;
+	margin-bottom:6px;
+	width:140px;
+}
+
+.products {  
+  margin-top: 10px;
+  li {
+    float: left;
+    width: 175px;
+    margin: 0 20px;
+    display: inline;
+    border: 4px solid white;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+      border:4px solid #5FBDFF !important;
+    }
+  }
+
+}
+.products li a:hover {
+  text-decoration: none;
+} 

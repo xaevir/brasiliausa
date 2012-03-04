@@ -8,12 +8,12 @@ html(lang="en")
     .navbar.navbar-static
       .navbar-inner
         .container
-          a.brand(href='/')
-            //img(src="/images/logo.png", alt="brasilia usa logo")
-            | Brasilia USA
+          a.brand(href='/') Brasilia USA
           ul.nav
             include nav
           ul.nav.user-menu.pull-right
+          ul.nav.pull-right
+            include nav2
  
     #app.container
       != body

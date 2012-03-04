@@ -3,7 +3,7 @@ define(function(require) {
   return Backbone.Model.extend({
 
     validation: {
-      email:        {required: true},
+      login:        {required: true},
       password:     {required: true}
     }, 
 

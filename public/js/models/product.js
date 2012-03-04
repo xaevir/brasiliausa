@@ -17,7 +17,6 @@ return Backbone.Model.extend({
     name: {required: true},
     description: {required: true},
     category: {required: true},
-    subcategory: {required: true},
 },
   })
 })

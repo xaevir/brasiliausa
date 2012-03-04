@@ -1,8 +1,8 @@
 define(function(require) {
 
-var tpl = require('text!templates/products/edit.jade')
-  , AlertView = require('views/site/alert')         
-  , Product = require('models/product') 
+var tpl = require('text!templates/products/product_details.jade')
+  , AlertView = require('views/site/alert')
+  , Product = require('models/product')
 
 _.extend(Backbone.Validation.callbacks, {
   valid: function(view, attr, selector) {
@@ -27,7 +27,6 @@ return Backbone.View.extend({
 
   events: {
     'submit form' : 'submit',
-    'change input[type="file"]':  'fileUpload',
   },
 
   initialize: function(options){
@@ -37,29 +36,6 @@ return Backbone.View.extend({
     this.model.on('sync', this.synched, this)
   },
 
-  fileUpload: function(e){
-    var inputEl = $(e.currentTarget)
-    inputEl.addClass("loading")
-    self = this
-    $.ajax('/upload', {
-      files: inputEl,
-      iframe: true,
-      dataType: "json",
-    }).always(function() {
-      inputEl.removeClass("loading")
-    }).done(function(data) {
-      inputEl.val('')
-      self.showThumb()
-    });
-  
-
-  },
-
-  showThumb: function(){
-    this.$('.product-pics').append('<img src="/images/thumbs/biggie.jpg">')
-    var el = 'hi'
-  },
-
   render: function(){
     var locals = this.model.toJSON()
     var template = this.template(locals)
@@ -67,17 +43,9 @@ return Backbone.View.extend({
     return this; 
   },
 
-  newProduct: function(){
-    this.model = new Product()  
-    this.render()
-  },
-
-  editProduct: function(model){
-    this.model = model 
-    this.render()
-  },
-
   submit: function(e) {
+    if (!window.user.isLoggedIn()) 
+      return this.navigate('/', true)
     e.preventDefault()
     var params = this.$('form').serializeObject();
     this.model.set(params)
@@ -88,17 +56,15 @@ return Backbone.View.extend({
   },
 
   synched: function(){
-    this.newProduct()
+    //this.newProduct()
+    // navigate to this product
     var successAlert = new AlertView({
-      message: '<strong>Product Saved</strong>',
+      message: '<strong>Saved</strong>',
       type: 'info'
     })
     successAlert.fadeOut()
   },
 
-  close: function(){
-    this.remove()
-  },
 
 });
 

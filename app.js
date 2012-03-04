@@ -9,6 +9,13 @@ var express = require('express')
   , bcrypt = require('bcrypt')
   , imagemagick = require('imagemagick')
   , fs = require('fs')
+  , check = require('validator').check
+
+
+_ = require('underscore')
+Backbone = require('backbone')
+require(__dirname + '/public/js/libs/backbone.validation/backbone.validation') 
+_.extend(Backbone.Model.prototype, Backbone.Validation.mixin)
 
 db = mongo.db('localhost/brasiliausa?auto_reconnect');
 
@@ -43,7 +50,7 @@ function restrict(req, res, next) {
   }
 }
 
-function isXhr(req, res, next) {
+function forceXhr(req, res, next) {
   if (!(req.xhr)) {
     if (req.session.user)
       res.render('layout', {body: '',  user: {username: req.session.user.username, _id:  req.session.user._id}});
@@ -68,6 +75,7 @@ function showStatic(req, res, path, pageTitle){
     res.render(path, {layout: true, pageTitle: pageTitle, user: user });
   }
 }
+
 
 app.get('/', function(req, res) {
   var pageTitle = 'Brasilia USA - For the Finest in Brasilia Espresso Machines';
@@ -94,18 +102,29 @@ app.get('/what-we-do', function(req, res) {
   showStatic(req, res, 'static/what-we-do', 'What We Do')
 });
 
+app.get('/dash', forceXhr, function(req, res) {});
 
-app.get('/dash', isXhr, function(req, res) {});
+app.get('/login', forceXhr, function(req, res) {});
 
-app.get('/login', isXhr, function(req, res) {});
+app.get('/new-product', forceXhr, function(req, res) {});
 
 app.post('/session', function(req, res) {
-  db.collection('users').findOne({email: req.body.email}, function(err, user){
+  var key
+  var spec = {}
+  try {
+    check(req.body.login).isEmail()
+    key = 'email'
+  } catch(e) {
+    key = 'username'
+  }
+  spec[key] = req.body.login  
+
+  db.collection('users').findOne(spec, function(err, user){
     if (!user)
-      return res.send({hi: 'hi'});
+      return res.send({message: 'user not found'});
     bcrypt.compare(req.body.password, user.password, function(err, match) {
       if (!match) 
-        return res.send({hi: 'hi'})
+        return res.send({message: 'user not found'});
       req.session.user = user;
       user.password = '';
       res.send(user)
@@ -121,7 +140,7 @@ app.del('/session', function(req, res) {
   });
 });
 
-app.get('/signup', restrict, isXhr, function(req, res) { });
+app.get('/signup', restrict, forceXhr, function(req, res) { });
 
 app.post('/signup', restrict, function(req, res){ 
   bcrypt.genSalt(10, function(err, salt){
@@ -160,7 +179,15 @@ app.get('/products', function(req, res) {
   })
 })
 
+function toSlug(text, options){
+  return text
+    .toLowerCase()
+    .replace(/[^\w ]+/g, '')
+    .replace(/ +/g, '-')
+}
+
 app.post('/products', restrict, function(req, res) {
+  req.body.slug = toSlug(req.body.name)
   db.collection('products').insert(req.body, function(err, result){
     var product = result[0]
     res.send(product)
@@ -174,8 +201,25 @@ app.put('/products', restrict, function(req, res) {
 })
 
 
+app.get('/espresso-machines', forceXhr, function(req, res) {
+  db.collection('products').find().toArray(function(err, products) {
+    res.render('products', {products: products, category: 'Espresso Machines'}, function(err, str){
+      res.send({title: 'Espresso Machines', body: str});
+    })
+  })
+})
 
-app.post('/upload', function(req, res){
+
+app.get('/espresso-machines/:name', forceXhr, function(req, res) {
+  db.collection('products').findOne({slug: req.params.name}, function(err, product){
+    res.render('product', product, function(err, str){
+      res.send({title: product.name + ' - Espresso Machines', body: str});
+    })
+  })
+})
+
+
+app.post('/upload', restrict, function(req, res){
   // the uploaded file can be found as `req.files.image` and the
 //  res.send(req.files.file)
 

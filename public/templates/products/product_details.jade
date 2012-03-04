@@ -1,0 +1,26 @@
+h2 Product Details 
+  form(method="post", action="#")
+
+    label Name
+    input.span3(name="name", value=name) 
+
+    label Description
+    textarea.span3(name="description")= description 
+
+    label Category
+    select.span3(name="category")
+      option(value="") -- Select Category --
+      - var options = [{value: 'espresso-machines', label: 'Espresso Machines'}, {value: 'espresso-grinders', label: 'Espresso Grinders'}]
+      each option in options
+        option(value=option.value, selected=(category==option.value))= option.label 
+
+    label Subcategory
+    select.span3(name="subcategory")
+      option(value="") -- Select Subcategory --
+      - var options = [{value: 'bar-line', label: 'Bar Line'}, {value: 'compact', label: 'Compact'}]
+      each option in options
+        option(value=option.value, selected=(subcategory==option.value))= option.label 
+
+    button.btn(type='submit') Save
+
+

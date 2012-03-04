@@ -1,6 +1,6 @@
 define(function(require) {
 
-var MainRouter = require('routers/main')
+var Router = require('router')
   , User = require('models/user')
   , NavBar = require('views/navbar/navbar')         
 
@@ -19,7 +19,7 @@ var MainRouter = require('routers/main')
     var navBar = new NavBar()
     navBar.render()
 
-    var mainRouter = new MainRouter()
+    var router = new Router()
     Backbone.history.start({pushState: true});
   }
 

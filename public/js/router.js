@@ -2,12 +2,11 @@ define(function(require) {
 
 var SignupView = require('views/users/signup')
   , LoginView = require('views/users/login')         
-  , ProductsNavView = require('views/products/products_nav')
-  , ProductEditView = require('views/products/edit')
   , Products = require('collections/products') 
   , Product = require('models/product') 
-  , ProductsRouter = require('routers/products') 
-  
+  , ProductView = require('views/products/product')
+  , ProductsLinks = require('views/products/products-links')
+
 function showStatic(path) {
     $.get(path, function(obj) {
       $('#app').html(obj.body);
@@ -15,14 +14,17 @@ function showStatic(path) {
     });
 }
 
+
+
 return Backbone.Router.extend({
 
   initialize: function() {
     _.bindAll(this, 'signup', 'login', 'logout'); 
     this.on('all', this.highlight)
     window.dispatcher.on('session:logout', this.logout, this)
+    this.products = new Products()
+    this.products.fetch()
   },
-
 
   routes: {
       '':               'home'
@@ -34,32 +36,46 @@ return Backbone.Router.extend({
     , 'what-we-do':     'what-we-do'
     , 'signup':         'signup'
     , 'login':          'login'
-    , 'dash':           'dash'
-  }
+    , 'new-product':    'new-product'
+    , 'espresso-machines': 'espresso-machines'
+    , 'espresso-machines/:name': 'espresso-machine'
+  },
 
-  , home: function() { showStatic('/') }
+  home: function() { showStatic('/') },
 
-  , support: function(){ showStatic('/support') }
+  support: function(){ showStatic('/support') },
 
-  , technology: function(){ showStatic('/technology') }
+  technology: function(){ showStatic('/technology') },
 
-  , history: function(){ showStatic('/history') }
+  history: function(){ showStatic('/history') },
 
-  , 'our-team': function(){ showStatic('/our-team') }
+  'our-team': function(){ showStatic('/our-team') },
 
-  , 'what-we-do': function(){ showStatic('/what-we-do') },
+  'what-we-do': function(){ showStatic('/what-we-do')},
 
-  dash: function(){
-    if (window.user.isLoggedIn() == false) 
+
+  'espresso-machine': function(name){
+     $.get('/espresso-machines/' + name, function(res) {
+      $('#app').html(res.body);
+       document.title = res.title 
+    })
+  },
+
+  'espresso-machines': function(){ 
+    $.get('/espresso-machines', function(res) {
+      $('#app').html(res.body);
+      document.title = res.title 
+      var productsLink = new ProductsLinks() 
+    })
+  },  
+
+  'new-product': function(){
+    if (!window.user.isLoggedIn()) 
       return this.navigate('/login', true)
-    var collection = new Products()
-    var router = new ProductsRouter({collection: collection})
-    $('#app').html('<div class="row"><div class="span3"><div class="sidebar-nav"></div></div><div class="span4 product-edit"></div></div>')
-    var productsNavView = new ProductsNavView({collection: collection})
-    $('.sidebar-nav').html(productsNavView.el)
-    document.title = 'Documents';
-    var productEditView = new ProductEditView({collection: collection, model: new Product()})
-    $('.product-edit').html(productEditView.render().el)
+    var productView = new ProductView({model: new Product, collection: this.products})
+    $('#app').html(productView.renderEdit().el)
+    document.title = 'New Product'
+    // var productEditView = new ProductEditView({collection: collection, model: new Product()})
   },
 
   signup: function(){ 
