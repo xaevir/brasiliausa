@@ -10,8 +10,9 @@ return Backbone.View.extend({
   className: 'product',
 
   initialize: function(options){
-    $(this.el).append('<div class="details"></div>')
-    $(this.el).append('<div class="files"></div>')
+    $(this.el).append('<div class="row">')
+    $('.row', this.el).append('<div class="details span4"></div>')
+    $('.row', this.el).append('<div class="files span4"></div>')
     _.bindAll(this, 'render'); 
   },
 
@@ -25,17 +26,15 @@ return Backbone.View.extend({
     var productDetailsEdit = new ProductDetailsEdit({ 
       el: this.$(".details"), 
       model: this.model,
-      //collection: this.collection
     })
     productDetailsEdit.render()
 
     var uploadView = new UploadView({
       el: this.$('.files'), 
       model: this.model,
-      collection
-    
     })
-
+    uploadView.render()
+  
     return this; 
   },
 

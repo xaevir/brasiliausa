@@ -27,8 +27,9 @@ return Backbone.View.extend({
       dataType: "json",
     }).always(function() {
       inputEl.removeClass("loading")
-    }).done(function(data) {
+    }).done(function(res) {
       inputEl.val('')
+      self.model.set({'image_name': res.data.name})
       self.showThumb()
     });
 

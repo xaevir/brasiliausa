@@ -49,10 +49,7 @@ return Backbone.View.extend({
     e.preventDefault()
     var params = this.$('form').serializeObject();
     this.model.set(params)
-    if (this.model.isNew()) 
-      this.collection.create(this.model);
-    else 
-      this.model.save();
+    this.model.save();
   },
 
   synched: function(){

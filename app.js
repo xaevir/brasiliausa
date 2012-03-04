@@ -213,15 +213,18 @@ app.get('/espresso-machines', forceXhr, function(req, res) {
 app.get('/espresso-machines/:name', forceXhr, function(req, res) {
   db.collection('products').findOne({slug: req.params.name}, function(err, product){
     res.render('product', product, function(err, str){
-      res.send({title: product.name + ' - Espresso Machines', body: str});
+      res.send({
+        title: product.name + ' - Espresso Machines', 
+        body: str,
+        doc: product
+      })
     })
   })
 })
 
 
 app.post('/upload', restrict, function(req, res){
-  // the uploaded file can be found as `req.files.image` and the
-//  res.send(req.files.file)
+  req.files.file.name = toSlug(req.files.file.name)
 
   var file = req.files.file
   var input = file.path
@@ -261,14 +264,18 @@ app.post('/upload', restrict, function(req, res){
       gs.writeFile(input, function(err, reply) {
         console.log('original image saved in mongo')
         fs.unlink(input)
-        done()
+        done(file.name)
       })
     })
   }
  
-  function done() {
+  function done(name) {
     console.log('image manipulation done and saved')
-    res.send({'success': true, 'message': 'image resized and saved'})    
+    res.send({
+      success: true, 
+      message: 'image resized and saved', 
+      data: {name: name}
+    })    
   }
    
 })

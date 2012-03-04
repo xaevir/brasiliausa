@@ -6,6 +6,7 @@ var SignupView = require('views/users/signup')
   , Product = require('models/product') 
   , ProductView = require('views/products/product')
   , ProductsLinks = require('views/products/products-links')
+  , ContextualMenu = require('views/products/contextual-menu')
 
 function showStatic(path) {
     $.get(path, function(obj) {
@@ -19,11 +20,23 @@ function showStatic(path) {
 return Backbone.Router.extend({
 
   initialize: function() {
-    _.bindAll(this, 'signup', 'login', 'logout'); 
+    _.bindAll(this); 
+    this.autoResetRouter()
     this.on('all', this.highlight)
     window.dispatcher.on('session:logout', this.logout, this)
     this.products = new Products()
     this.products.fetch()
+  },
+
+  autoResetRouter: function(){
+    _(this.routes).each(function(destination) {
+      _(this.routes).each(function(other) {
+        if (destination === other) return;
+        // route:x => reset_y
+        if(_.has(this, 'reset_'+other))
+          this.bind('route:'+destination, this['reset_'+other]);
+      }, this);
+    }, this);
   },
 
   routes: {
@@ -38,11 +51,11 @@ return Backbone.Router.extend({
     , 'login':          'login'
     , 'new-product':    'new-product'
     , 'espresso-machines': 'espresso-machines'
-    , 'espresso-machines/:name': 'espresso-machine'
+    , 'espresso-machines/:name': 'product'
   },
 
   home: function() { showStatic('/') },
-
+   
   support: function(){ showStatic('/support') },
 
   technology: function(){ showStatic('/technology') },
@@ -53,12 +66,21 @@ return Backbone.Router.extend({
 
   'what-we-do': function(){ showStatic('/what-we-do')},
 
-
-  'espresso-machine': function(name){
-     $.get('/espresso-machines/' + name, function(res) {
-      $('#app').html(res.body);
-       document.title = res.title 
+  'product': function(name){
+    $.get('/espresso-machines/' + name, function(res) {
+      $('#app').html(res.body)
+      document.title = res.title 
+      if (window.user.isLoggedIn()){ 
+        this.contextualMenu = new ContextualMenu({doc: res.doc})  
+        var template = this.contextualMenu.render().el
+        $('.user-menu').before(template)
+      }
     })
+  },
+
+  'reset_product': function(){
+    if (this.contextualMenu)
+      this.contextualMenu.remove()
   },
 
   'espresso-machines': function(){ 
@@ -66,6 +88,7 @@ return Backbone.Router.extend({
       $('#app').html(res.body);
       document.title = res.title 
       var productsLink = new ProductsLinks() 
+
     })
   },  
 
@@ -79,8 +102,8 @@ return Backbone.Router.extend({
   },
 
   signup: function(){ 
-    if (window.user.isLoggedIn()) 
-      return this.navigate('/', true)
+//    if (window.user.isLoggedIn()) 
+//      return this.navigate('/', true)
     this.signupView = new SignupView({context: 'main'})
     this.signupView.render();
     $('#app').html(this.signupView.el);
