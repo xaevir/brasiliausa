@@ -72,34 +72,46 @@ function showStatic(req, res, path, pageTitle){
       var user = {username: req.session.user.username, _id:  req.session.user._id}
     else
       var user = {}
-    res.render(path, {layout: true, pageTitle: pageTitle, user: user });
+    res.render('layout', {layout: true, pageTitle: pageTitle, user: user });
   }
 }
 
 
-app.get('/', function(req, res) {
+app.get('/', forceXhr, function(req, res) {
   var pageTitle = 'Brasilia USA - For the Finest in Brasilia Espresso Machines';
-  showStatic(req, res, 'index', pageTitle)
+  res.render('index', function(err, html){
+    res.send({title: pageTitle, body: html});
+  });
 });
 
-app.get('/support', function(req, res) {
-  showStatic(req, res, 'static/support', 'Support')
+app.get('/support', forceXhr, function(req, res) {
+  res.render('static/support', function(err, html){
+    res.send({title: 'Support', body: html});
+  });
 });
 
-app.get('/history', function(req, res) {
-  showStatic(req, res, 'static/history', 'History')
+app.get('/history', forceXhr, function(req, res) {
+  res.render('static/history', function(err, html){
+    res.send({title: 'History', body: html});
+  });
 });
 
-app.get('/our-team', function(req, res) {
-  showStatic(req, res, 'static/our-team', 'Our Team')
+app.get('/our-team', forceXhr, function(req, res) {
+  res.render('static/our-team', function(err, html){
+    res.send({title: 'Our Team', body: html});
+  });
 });
 
-app.get('/technology', function(req, res) {
-  showStatic(req, res, 'static/technology', 'Technology')
+app.get('/technology', forceXhr, function(req, res) {
+  res.render('static/technology', function(err, html){
+    res.send({title: 'Technology', body: html});
+  });
 });
 
-app.get('/what-we-do', function(req, res) {
-  showStatic(req, res, 'static/what-we-do', 'What We Do')
+app.get('/what-we-do', forceXhr, function(req, res) {
+  res.render('static/what-we-do', function(err, html){
+    res.send({title: 'What We Do', body: html});
+  });
 });
 
 app.get('/dash', forceXhr, function(req, res) {});
@@ -172,20 +184,55 @@ app.get("/check-email", function(req, res){
   })
 })
 
+/* Products */
+function getProducts(cat, res){
+  db.collection('products').find({'category.slug': cat}).toArray(function(err, products) {
+    res.send(products);
+  })
+}
+
+app.get('/:category/:slug/edit', forceXhr, function(req, res) {})
+
+
+app.get('/espresso-machines', forceXhr, function(req, res) { 
+  getProducts('espresso-machines', res) 
+})
+
+app.get('/espresso-grinders', forceXhr, function(req, res) { 
+  getProducts('espresso-grinders', res) 
+})
+
+/* Product */
+function getProduct(slug, res){
+  db.collection('products').findOne({slug: slug}, function(err, product){
+    res.send(product);
+  })
+}
+
+app.get('/espresso-machines/:slug', forceXhr, function(req, res) {
+  getProduct(req.params.slug, res)
+})
+
+app.get('/espresso-grinders/:slug', forceXhr, function(req, res) {
+  getProduct(req.params.slug, res)
+})
+
+
+/*
 app.get('/products', function(req, res) {
   db.collection('products').find().toArray(function(err, result) {
       if (err) throw err
       res.send(result)
   })
 })
-
+*/
 function toSlug(text, options){
   return text
     .toLowerCase()
     .replace(/[^\w ]+/g, '')
     .replace(/ +/g, '-')
 }
-
+/*
 app.post('/products', restrict, function(req, res) {
   req.body.slug = toSlug(req.body.name)
   db.collection('products').insert(req.body, function(err, result){
@@ -193,38 +240,26 @@ app.post('/products', restrict, function(req, res) {
     res.send(product)
   })
 })
+*/
 
-app.put('/products', restrict, function(req, res) {
+app.put('/espresso-machines/:slug', restrict, function(req, res) {
   req.body._id = db.ObjectID.createFromHexString(req.body._id)
   db.collection('products').save(req.body)
   res.send(req.body)
 })
 
-
-app.get('/espresso-machines', forceXhr, function(req, res) {
-  db.collection('products').find().toArray(function(err, products) {
-    res.render('products', {products: products, category: 'Espresso Machines'}, function(err, str){
-      res.send({title: 'Espresso Machines', body: str});
-    })
-  })
-})
-
-
-app.get('/espresso-machines/:name', forceXhr, function(req, res) {
-  db.collection('products').findOne({slug: req.params.name}, function(err, product){
-    res.render('product', product, function(err, str){
-      res.send({
-        title: product.name + ' - Espresso Machines', 
-        body: str,
-        doc: product
-      })
-    })
-  })
-})
+function toSlugFile(filename){
+  var regex = /^(.+)\.([a-z]+)/
+  var match = regex.exec(filename);
+  var name = match[1]
+  var extension = match[2]
+  name = toSlug(name) 
+  return name + '.' + extension
+}
 
 
 app.post('/upload', restrict, function(req, res){
-  req.files.file.name = toSlug(req.files.file.name)
+  req.files.file.name = toSlugFile(req.files.file.name)
 
   var file = req.files.file
   var input = file.path

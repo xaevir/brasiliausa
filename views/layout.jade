@@ -1,9 +1,10 @@
 !!! 5
 html(lang="en")
-  - if(typeof user !== "undefined")
-    script
-      window.config = {user: !{JSON.stringify(user)}} 
-  include header
+  head
+    - if(typeof user !== "undefined")
+      script
+        window.config = {user: !{JSON.stringify(user)}} 
+    include header
   body
     .navbar.navbar-static
       .navbar-inner

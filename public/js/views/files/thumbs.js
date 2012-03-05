@@ -1,56 +1,46 @@
 define(function(require) {
 
-//var hogan = require('libs/hogan.js/web/builds/1.0.5/hogan-1.0.5.min.amd')         
-//  , Reply = require('models/reply') 
-
 var ItemView = Backbone.View.extend({
 
   tagName:  "li",
-  className: 'thumb',
 
-  initialize: function() {
-    _.bindAll(this, 'render');
+  template: function(filename){
+    return '<img src="/images/thumbs/' + filename +'">'
+  },
+
+  initialize: function(options){
+    this.filename = options.filename
+    _.bindAll(this, 'render') 
   },
 
   render: function() {
-    var body = this.model.get('body')
-    var template = this.template.render({body: body});
-    $(this.el).html(template);
+    var template = this.template(this.filename)
+    $(this.el).html(template)
     return this;
   },
 
-})
+});
 
+return Backbone.View.extend({
 
-return  Backbone.View.extend({
-
-  className: 'messages',  
   tagName: 'ul',
-
-  counter: 1,
-
-  template: hogan.compile('<li {{#stripe}}class="{{className}}"{{/stripe}}>{{body}}</li>'),
+  className: 'thumbs',
 
   initialize: function() {
-    _.bindAll(this, 'render');
-    this.collection.bind('add', this.addOne, this)
+    _.bindAll(this); 
+    this.model.on('change:files', this.render, this)
   },
 
-  addOne: function(model) {
-    var tplVars = {
-      body: model.get('body'),
-    }
-    if (!(this.counter % 2)) {
-      tplVars.stripe = true;
-      tplVars.className = 'even'
-    }
-    var template = this.template.render(tplVars)
-    $(this.el).append(template)
-    this.counter += 1
+  addOne: function(filename) {
+    var view = new ItemView({filename: filename});
+    var html = view.render().el
+    $(this.el).append(html)
   },
 
   render: function() {
-    this.collection.each(this.addOne, this);
+    var files = this.model.get('files')
+    if (files)
+      _.each(files, this.addOne, this);
     return this
   },
 })

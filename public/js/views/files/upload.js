@@ -14,7 +14,7 @@ return Backbone.View.extend({
   initialize: function(options){
     _.bindAll(this); 
 //    this.model.on('validated:valid', this.save, this) 
-    this.model.on('sync', this.synched, this)
+//    this.model.on('sync', this.synched, this)
   },
 
   fileUpload: function(e){
@@ -29,8 +29,14 @@ return Backbone.View.extend({
       inputEl.removeClass("loading")
     }).done(function(res) {
       inputEl.val('')
-      self.model.set({'image_name': res.data.name})
-      self.showThumb()
+      if (self.model.get('files')){
+        var files = self.model.get('files')
+        files.push(res.data.name)
+        self.model.set({files: files}) 
+      }
+      else
+        self.model.set({'files': [res.data.name]})
+      self.model.save() 
     });
 
   },
@@ -46,7 +52,6 @@ return Backbone.View.extend({
     $(this.el).html(template);
     return this; 
   },
-
 
 });
 

@@ -4,7 +4,20 @@ return Backbone.Model.extend({
 
   idAttribute: "_id",
 
-  url: '/products',
+/*  initialize: function(options){
+    _.bindAll(this, 'url'); 
+  },
+*/
+  isNew: function(){
+    return this.get('slug') == null
+  },
+
+  url : function() {
+    if (!this.get('slug')) throw 'model needs to be set first'
+    var base = '/' + this.get('category').slug + '/'
+    if (this.isNew()) return base;
+    return base + this.get('slug');
+  },
 
   defaults: {
     name: '',
@@ -17,6 +30,7 @@ return Backbone.Model.extend({
     name: {required: true},
     description: {required: true},
     category: {required: true},
-},
-  })
+  },
+
+})
 })

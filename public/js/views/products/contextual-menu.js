@@ -4,7 +4,7 @@ var tpl = require('text!templates/products/contextual-menu.jade')
 
 return Backbone.View.extend({
 
-  className: 'contextual-menu nav',
+  className: 'nav nav-pills',
   tagName: 'ul',
 
   template: jade.compile(tpl),
@@ -15,15 +15,12 @@ return Backbone.View.extend({
   },
 
   initialize: function(options){
-    this.doc = options.doc
     _.bindAll(this, 'render') 
   },
 
   render: function() {
-    var template = this.template({
-      slug: this.doc.slug, 
-      category: this.doc.category
-    })
+    var locals =this.model.toJSON()
+    var template = this.template(locals)
     $(this.el).html(template)
     return this
   },

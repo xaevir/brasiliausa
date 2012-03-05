@@ -1,44 +1,26 @@
 define(function(require) {
 
-var AlertView = require('views/site/alert')         
-  , ProductDetails = require('views/products/details') 
-  , ProductDetailsEdit = require('views/products/details-edit') 
-  , UploadView = require('views/files/upload') 
+var AlertView = require('views/site/alert')
+  , tpl = require('text!templates/products/product.jade')
+
 
 return Backbone.View.extend({
 
-  className: 'product',
+  className:  "details",
 
-  initialize: function(options){
-    $(this.el).append('<div class="row">')
-    $('.row', this.el).append('<div class="details span4"></div>')
-    $('.row', this.el).append('<div class="files span4"></div>')
-    _.bindAll(this, 'render'); 
+  template: jade.compile(tpl),
+
+  initialize: function(){
+    _.bindAll(this, 'render') 
   },
 
-  render: function(){
-    var productDetails = new ProductDetails({ el: this.$(".details"), model: this.model })
-    return this; 
+  render: function() {
+    var locals = this.model.toJSON()
+    var template = this.template(locals)
+    $(this.el).html(template);
+    return this;
   },
-
-
-  renderEdit: function(){
-    var productDetailsEdit = new ProductDetailsEdit({ 
-      el: this.$(".details"), 
-      model: this.model,
-    })
-    productDetailsEdit.render()
-
-    var uploadView = new UploadView({
-      el: this.$('.files'), 
-      model: this.model,
-    })
-    uploadView.render()
-  
-    return this; 
-  },
-
 
 });
 
-});
+})

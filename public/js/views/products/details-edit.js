@@ -3,6 +3,7 @@ define(function(require) {
 var tpl = require('text!templates/products/product_details.jade')
   , AlertView = require('views/site/alert')
   , Product = require('models/product')
+  , Products = require('collections/products')
 
 _.extend(Backbone.Validation.callbacks, {
   valid: function(view, attr, selector) {
@@ -48,8 +49,11 @@ return Backbone.View.extend({
       return this.navigate('/', true)
     e.preventDefault()
     var params = this.$('form').serializeObject();
-    this.model.set(params)
-    this.model.save();
+    var catLabel = this.$('option[value="' + params.category + '"]').html()
+    params.category = {slug: params.category, name: catLabel}
+    var subcatLabel = this.$('option[value="' + params.subcategory + '"]').html()
+    params.subcategory = {slug: params.subcategory, name: subcatLabel}
+    this.model.save(params);
   },
 
   synched: function(){
