@@ -4,7 +4,7 @@ var tpl = require('text!templates/products/contextual-menu.jade')
 
 return Backbone.View.extend({
 
-  className: 'nav nav-pills',
+  className: 'contextual-menu',
   tagName: 'ul',
 
   template: jade.compile(tpl),

@@ -3,15 +3,9 @@ define(function(require) {
   
   return Backbone.Collection.extend({
 
-    initialize: function(options) {
-      this.category = options.category
-    },
-
     model: Product,
 
-    url : function() {
-      return '/' + this.category + '/'
-    },
+    url : 'products',
 
   })
 })

@@ -3385,6 +3385,9 @@ a.thumbnail:hover {
 .navbar .navbar-inner {
   border-radius: 0;
 }
+.navbar .user-menu .btn {
+  float: left;
+}
 .bd img {
   clear: right;
   float: right;
@@ -3510,25 +3513,12 @@ form label.error {
   letter-spacing: 4px;
   text-transform: uppercase;
 }
-.details h1 span {
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 20px;
-  display: block;
-}
-.details h3 {
-  color: #000;
-  margin-bottom: 15px;
-}
-.details h4 {
-  color: #000;
-}
-.details b {
-  color: #000;
-}
-.product-description-container img {
+.details img.main {
   float: right;
-  margin: 0 15px;
+  margin-left: 15px;
+}
+.details .description {
+  margin-top: 15px;
 }
 .product-pdf {
   margin: 20px 0;
@@ -3587,4 +3577,20 @@ form label.error {
 }
 .thumbs li {
   float: left;
+  margin-right: 10px;
+}
+.thumbs li .remove {
+  display: block;
+  text-align: center;
+}
+.thumbnail-wrapper {
+  height: 155px;
+}
+.contextual-menu {
+  margin: 0;
+  list-style: none;
+}
+.contextual-menu li {
+  float: left;
+  margin-left: 10px;
 }

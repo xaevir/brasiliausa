@@ -11,6 +11,7 @@ var express = require('express')
   , fs = require('fs')
   , check = require('validator').check
 
+GridStore = require('mongodb').GridStore;
 
 _ = require('underscore')
 Backbone = require('backbone')
@@ -184,55 +185,13 @@ app.get("/check-email", function(req, res){
   })
 })
 
-/* Products */
-function getProducts(cat, res){
-  db.collection('products').find({'category.slug': cat}).toArray(function(err, products) {
+
+app.get('/products', forceXhr, function(req, res) { 
+  db.collection('products').find().toArray(function(err, products) {
     res.send(products);
   })
-}
-
-app.get('/:category/:slug/edit', forceXhr, function(req, res) {})
-
-
-app.get('/espresso-machines', forceXhr, function(req, res) { 
-  getProducts('espresso-machines', res) 
 })
 
-app.get('/espresso-grinders', forceXhr, function(req, res) { 
-  getProducts('espresso-grinders', res) 
-})
-
-/* Product */
-function getProduct(slug, res){
-  db.collection('products').findOne({slug: slug}, function(err, product){
-    res.send(product);
-  })
-}
-
-app.get('/espresso-machines/:slug', forceXhr, function(req, res) {
-  getProduct(req.params.slug, res)
-})
-
-app.get('/espresso-grinders/:slug', forceXhr, function(req, res) {
-  getProduct(req.params.slug, res)
-})
-
-
-/*
-app.get('/products', function(req, res) {
-  db.collection('products').find().toArray(function(err, result) {
-      if (err) throw err
-      res.send(result)
-  })
-})
-*/
-function toSlug(text, options){
-  return text
-    .toLowerCase()
-    .replace(/[^\w ]+/g, '')
-    .replace(/ +/g, '-')
-}
-/*
 app.post('/products', restrict, function(req, res) {
   req.body.slug = toSlug(req.body.name)
   db.collection('products').insert(req.body, function(err, result){
@@ -240,13 +199,27 @@ app.post('/products', restrict, function(req, res) {
     res.send(product)
   })
 })
-*/
 
-app.put('/espresso-machines/:slug', restrict, function(req, res) {
+app.put('/products/:slug', restrict, function(req, res) {
   req.body._id = db.ObjectID.createFromHexString(req.body._id)
   db.collection('products').save(req.body)
   res.send(req.body)
 })
+
+app.get('/products/:slug', forceXhr, function(req, res) {
+  db.collection('products').findOne({slug: req.params.slug}, function(err, product){
+    res.send(product);
+  })
+})
+
+app.get('/products/:slug/edit', forceXhr, function(req, res) {})
+
+function toSlug(text, options){
+  return text
+    .replace(/[^\w ]+/g, '')
+    .replace(/ +/g, '-')
+}
+
 
 function toSlugFile(filename){
   var regex = /^(.+)\.([a-z]+)/
@@ -257,37 +230,156 @@ function toSlugFile(filename){
   return name + '.' + extension
 }
 
+function getContentType(filename){
+  var regex = /^(.+)\.([a-z]+)/
+  var match = regex.exec(filename);
+  var name = match[1]
+  var extension = match[2]
+  if (extension == 'pdf')
+    return 'pdf'
+  else
+    return 'image'
+}
+
+function getNameWithoutExt(){
+  nameNoExt+'_original.'+extension
+}
+
+app.del('/files/:slug', restrict, function(req, res){
+  var contentType = getContentType(req.params.slug)
+
+  if (contentType == 'pdf')
+    return removePdf()
+  if (contentType == 'image')
+    return removeImage()
+
+  function removePdf(){
+    GridStore.unlink(db.db, req.params.slug, {root: 'pdf'}, function(err, gridStore) {
+      console.log('pdf removed from /pdf ')
+      GridStore.unlink(db.db, req.params.slug + '.png', {root: 'pdf'}, function(err, gridStore) {
+        console.log('thumbnail removed from /pdf')
+        res.send({
+          success: true, 
+          message: 'pdf removed', 
+          data: {name: req.params.slug }
+        })   
+      })
+    })
+   }
+
+  function removeImage(){
+    GridStore.unlink(db.db, req.params.slug, {root: 'images'}, function(err, gridStore) {
+      console.log('image removed from /images ')
+      GridStore.unlink(db.db, req.params.slug, {root: 'images.thumbs'}, function(err, gridStore) {
+        console.log('image removed from /images/thumbs')
+        GridStore.unlink(db.db, req.params.slug, {root: 'images.originals'}, function(err, gridStore) {
+          console.log('image removed from /images/originals')
+          res.send({
+            success: true, 
+            message: 'image removed', 
+            data: {name: req.params.slug }
+          })
+        })
+      })
+    })
+   }
+})
+/*
+function createPdfThumb(req, res){
+  var file = req.files.file
+  var output = '/tmp/' + file.name + '.png'
+
+  options = { "content_type": 'image/png', "root": 'pdf' }
+
+  imagemagick.convert([file.path + '[0]', '-resize', '300x400', '-quality', '100', output], function(err, metadata){
+    db.gridfs().open(file.name+'.png', 'w', options, function(err, gs) {
+      gs.writeFile(output, function(err, reply) {
+        console.log('pdf thumb saved')
+        fs.unlink(file.path)
+        res.send({
+          success: true, 
+          message: 'pdf thumb created and pdf saved', 
+          data: {
+            name: file.name, 
+            contentType: file.type,
+            path: '/images/'
+            thumbpath: '/pdf/'+file.name+'.png'
+           }
+        })   
+      })
+    })
+  })
+}
+*/
+/*
+function uploadPdf(req, res){
+  var file = req.files.file
+  options = { "content_type": file.type, "root": 'pdf' }
+  db.gridfs().open(file.name, 'w', options, function(err, gs) {
+    gs.writeFile(file.path, function(err, reply) {
+      console.log('pdf saved')
+      createPdfThumb(req, res) 
+    })
+  })
+}
+*/
+/*
+ * handling all me.jpg pics. Create folder 
+ * for each person and save in 
+ */ 
 
 app.post('/upload', restrict, function(req, res){
   req.files.file.name = toSlugFile(req.files.file.name)
 
   var file = req.files.file
-  var input = file.path
-  var output = '/tmp/' + file.name
 
-  options_regular = { "content_type": file.type, "root": 'images' }
-  options_thumb = { "content_type": file.type, "root": 'images.thumbs' }
-  options_original = { "content_type": file.type, "root": 'images.originals' }
+  var regex = /^(.+)\.([a-z]+)/
+  var match = regex.exec(filename);
+  var nameNoExt = match[1]
+  var extension = match[2]
 
-  imagemagick.convert([input, '-resize', '400x500', output], function(err, metadata){
-    db.gridfs().open(file.name, 'w', options_regular, function(err, gs) {
-      gs.writeFile(output, function(err, reply) {
-        fs.unlink(output)
-        console.log('image resized to 400x500 and saved in mongo')
+  if (file.type == 'application/pdf') {
+    var thumbName = nameNoExt+'_thumb_pdf.png'
+    var mediumName = nameNoExt+'_medium_pdf.png'
+    var input = file.path + '[0]' 
+    var output = '/tmp/'+file.name+'.png'
+    var mediumSize = '300x400\\>'
+    var thumbnailSize = '175x155\\>'
+  } else {
+    var thumbName = nameNoExt+'_thumb.'+extension
+    var mediumName = nameNoExt+'_medium.'+extension
+    var input = file.path
+    var output = '/tmp/'+file.name
+  }
+ 
+  var fs_opts = {"content_type": file.type}
 
-        createThumb() 
-      })
-    })
-  })
+  var gs_original = new GridStore(db.db, file.name, "w", fs_opts)
+  var gs_medium = new GridStore(db.db, mediumName, "w", fs_opts)
+  var gs_thumb = new GridStore(db.db, thumbName, "w", fs_opts)
 
-  function createThumb(){
-    imagemagick.convert(['-define', 'jpeg:size=350x310', input,  
-                         '-thumbnail', '175x155', output], //'-unsharp',  '0x.5', 
-    function(err, metadata){
-      db.gridfs().open(file.name, 'w', options_thumb, function(err, gs) {
+  startWithMedium()
+
+  function startWithMedium(){
+    imagemagick.convert([input, '-resize', mediumSize, '-quality', '100', output], function(err, metadata){
+      gs_medium.open(function(err, gs) {
         gs.writeFile(output, function(err, reply) {
           fs.unlink(output)
-          console.log('image thumbnail created and saved in mongo')
+          console.log('image resized to 400x500 and saved')
+          gs.close()
+          createThumb() 
+        })
+      })
+    })
+  }
+
+  function createThumb(){
+    imagemagick.convert([input, '-resize', thumbnailSize, '-quality', '100', output], function(err, metadata){
+      gs_thumb.open(function(err, gs) {
+        gs.writeFile(output, function(err, reply) {
+          fs.unlink(output)
+          console.log('image thumbnail created and saved')
+          gs.close()
           saveOriginal()
         })
       })
@@ -295,10 +387,11 @@ app.post('/upload', restrict, function(req, res){
   }
 
   function saveOriginal(){
-    db.gridfs().open(file.name, 'w', options_original, function(err, gs) {
+    gs_original.open(function(err, gs) {
       gs.writeFile(input, function(err, reply) {
-        console.log('original image saved in mongo')
+        console.log('original saved')
         fs.unlink(input)
+        gs.close()
         done(file.name)
       })
     })
@@ -308,38 +401,24 @@ app.post('/upload', restrict, function(req, res){
     console.log('image manipulation done and saved')
     res.send({
       success: true, 
-      message: 'image resized and saved', 
-      data: {name: name}
+      message: file.type+' resized and saved',
+      data: {
+        name: name, 
+        type: file.type,
+        medium: mediumName 
+        thumb: thumbName,
+      }
     })    
   }
-   
 })
 
-
-app.get('/images/thumbs/:name', function(req, res){
-  db.gridfs().open(req.params.name, 'r', {root: 'images.thumbs'}, function(err, file) {
+app.get('/files/:slug', function(req, res){
+  db.gridfs().open(req.params.slug, 'r', function(err, file) {
     res.header('Content-Type', file.content_type);
     res.header('Content-Length', file.length);
     file.stream(true).pipe(res)
   })
 })
-
-app.get('/images/:name', function(req, res){
-  db.gridfs().open(req.params.name, 'r', {root: 'images'}, function(err, file) {
-    res.header('Content-Type', file.content_type);
-    res.header('Content-Length', file.length);
-    file.stream(true).pipe(res)
-  })
-})
-
-app.get('/images/originals/:name', function(req, res){
-  db.gridfs().open(req.params.name, 'r', {root: 'images.originals'}, function(err, file) {
-    res.header('Content-Type', file.content_type);
-    res.header('Content-Length', file.length);
-    file.stream(true).pipe(res)
-  })
-})
-
 
 
 app.listen(3000);

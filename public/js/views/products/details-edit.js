@@ -34,7 +34,6 @@ return Backbone.View.extend({
     _.bindAll(this); 
     Backbone.Validation.bind(this);
 //    this.model.on('validated:valid', this.save, this) 
-    this.model.on('sync', this.synched, this)
   },
 
   render: function(){
@@ -54,11 +53,10 @@ return Backbone.View.extend({
     var subcatLabel = this.$('option[value="' + params.subcategory + '"]').html()
     params.subcategory = {slug: params.subcategory, name: subcatLabel}
     this.model.save(params);
+    this.synched()
   },
 
   synched: function(){
-    //this.newProduct()
-    // navigate to this product
     var successAlert = new AlertView({
       message: '<strong>Saved</strong>',
       type: 'info'

@@ -37,7 +37,6 @@ return Backbone.View.extend({
     return this; 
   },
 
-
 });
 
 });

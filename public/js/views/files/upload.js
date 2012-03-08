@@ -29,21 +29,14 @@ return Backbone.View.extend({
       inputEl.removeClass("loading")
     }).done(function(res) {
       inputEl.val('')
-      if (self.model.get('files')){
-        var files = self.model.get('files')
-        files.push(res.data.name)
-        self.model.set({files: files}) 
-      }
-      else
-        self.model.set({'files': [res.data.name]})
+      var files = _.clone(self.model.get('files'))
+      files.push(res.data.name)
+      self.model.set({'files': files}) 
       self.model.save() 
+      self.model.trigger('change:files:added', res.data.name)
+      self.success()
     });
 
-  },
-
-  showThumb: function(){
-    this.$('.product-pics').append('<img src="/images/thumbs/biggie.jpg">')
-    var el = 'hi'
   },
 
   render: function(){
@@ -52,6 +45,15 @@ return Backbone.View.extend({
     $(this.el).html(template);
     return this; 
   },
+
+  success: function(){
+    var successAlert = new AlertView({
+      message: '<strong>Uploaded</strong>',
+      type: 'info'
+    })
+    successAlert.fadeOut()
+  },
+
 
 });
 
