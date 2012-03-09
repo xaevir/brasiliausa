@@ -9,59 +9,41 @@ var ItemView = Backbone.View.extend({
 
   events: {
     "click a.remove": "remove",
-    "click a.mainImage": 'setMainImage'
+    "click a.setMainImage": 'setMainImage'
   },
 
   template: jade.compile(tpl),
 
   initialize: function(options){
-    this.filename = options.filename
-    this.contentType = options.contentType
-    _.bindAll(this) 
+    this.file = options.file
+    _.bindAll(this)
   },
 
   setMainImage: function() {
-  
+    this.model.collection.parent.set({'mainImage': this.model.toJSON()})
+    this.model.collection.parent.save()
+    this.notice('Main image selected')
+    this.model.collection.parent.trigger('mainImage:selected', this.model)
   },
 
   remove: function(e) {
-    e.preventDefault() 
-    $.ajax('/files/' + this.filename, { type: 'DELETE' })
-    var files = this.model.get('files')
-    var arr = _.clone(files)
-    var len=arr.length;
-    for(var i=0; i<len; i++) {
-      if (arr[i] == this.filename)
-        arr.splice(i,1)
-    }
-    this.model.set({'files': arr})
-    this.model.save()
+    e.preventDefault()
+    this.model.destroy({data: this.model})
     $(this.el).remove()
-    this.notice()
+    this.notice('Removed')
   },
 
   render: function() {
-    var path = this.getPath()
-    var template = this.template({path: path})
+    var locals = this.model.toJSON()
+    var template = this.template(locals)
     $(this.el).html(template)
-    return this;
+    this.model.view = this
+    return this
   },
 
-  getPath: function(){
-    var regex = /^(.+)\.([a-z]+)/
-    var match = regex.exec(this.filename);
-    var extension = match[2]
-    if (extension == 'pdf')
-      var path = '/pdf/' + this.filename + '.png' 
-    else 
-      var path = '/images/thumbs/'+ this.filename 
-    return path
-  },
-
-
-  notice: function(){
+  notice: function(msg){
     var successAlert = new AlertView({
-      message: '<strong>Removed</strong>',
+      message: '<strong>'+msg+'</strong>',
       type: 'info'
     })
     successAlert.fadeOut()
@@ -77,17 +59,36 @@ return Backbone.View.extend({
   initialize: function() {
     _.bindAll(this); 
     this.model.on('change:files:added', this.addOne, this)
+    this.model.on('mainImage:selected', this.addMainImageHeader, this)
   },
 
-  addOne: function(file){
-    var view = new ItemView({ model: file });
+  addMainImageHeader: function(model){
+    if(this.mainImageModel)
+      this.mainImageModel.view.render()       
+    this.mainImageModel = model
+    $('.mainImage', model.view.el).html('<p class="main"><i class="icon-ok"></i> main image</p>')
+  },
+
+  getMainImage: function(files){
+    var curMain = files.parent.get('mainImage')
+    if (!curMain) return
+    return files.find(function(model){ 
+      if (model.get('name') == curMain.name)
+        return model 
+    })
+  },
+
+  addOne: function(model){
+    var view = new ItemView({ model: model })
     $(this.el).append(view.render().el)
   },
 
-
   render: function() {
     var files = this.model.get('files')
-    _.each(files, this.addOne, this) 
+    files.each(this.addOne, this)
+    var mainImage = this.getMainImage(files)
+    if (mainImage)
+      this.addMainImageHeader(mainImage)
     return this
   },
 })

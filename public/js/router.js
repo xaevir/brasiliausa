@@ -65,6 +65,14 @@ return Backbone.Router.extend({
       }})
     }, restrict))
 
+    this.route('products/new', 'new', _.wrap( function(slug){
+      var product = new Product()
+      var productEditView = new ProductEditView({model: product})
+      $('#app').html(productEditView.render().el)
+      document.title = 'New Product'
+    }, restrict))
+
+
   },
 
   routes: {
@@ -76,7 +84,6 @@ return Backbone.Router.extend({
     , 'technology':     'technology'
     , 'what-we-do':     'what-we-do'
     , 'signup':         'signup'
-    , 'new-product':    'new-product'
     , 'products':       'products'
     , 'products/:slug': 'product'
   },
@@ -111,28 +118,22 @@ return Backbone.Router.extend({
       this.pageHeaderView.remove()
   },
 
-  'new-product': function(){
-    if (!window.user.isLoggedIn()) 
-      return this.navigate('/login', true)
-    var productView = new ProductView({model: new Product, collection: this.products})
-    $('#app').html(productView.renderEdit().el)
-    document.title = 'New Product'
-    // var productEditView = new ProductEditView({collection: collection, model: new Product()})
+  contextualMenu: function(model){
+    if (window.user.isLoggedIn()){ 
+      this.contextualMenuView = new ContextualMenuView({model: model})
+      var template = this.contextualMenuView.render().el
+      $('.nav.main').after(template)
+    }
   },
 
   product: function(slug){
     var product = new Product({slug: slug})
+    self = this
     product.fetch({success: function(model, res){
       var productView = new ProductView({model: model})
       $('#app').html(productView.render().el)
-      document.title = res.title 
-
-      if (window.user.isLoggedIn()){ 
-        this.contextualMenuView = new ContextualMenuView({model: model})
-        var template = this.contextualMenuView.render().el
-        $('.nav.main').after(template)
-        document.title = model.get('name') + ' - ' + model.get('category').name
-      }
+      document.title = model.get('name')+' - '+model.get('category').name
+      self.contextualMenu(model) 
     }})
   },
 

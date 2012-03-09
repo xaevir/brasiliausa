@@ -2,6 +2,7 @@ define(function(require) {
 
 var tpl = require('text!templates/files/upload.jade')
   , AlertView = require('views/site/alert')         
+  , File = require('models/file')
 
 return Backbone.View.extend({
 
@@ -13,30 +14,28 @@ return Backbone.View.extend({
 
   initialize: function(options){
     _.bindAll(this); 
-//    this.model.on('validated:valid', this.save, this) 
-//    this.model.on('sync', this.synched, this)
   },
 
   fileUpload: function(e){
-    var inputEl = $(e.currentTarget)
-    inputEl.addClass("loading")
-    self = this
+    this.inputEl = $(e.currentTarget)
+    this.inputEl.addClass("loading")
     $.ajax('/upload', {
-      files: inputEl,
+      files: this.inputEl,
       iframe: true,
       dataType: "json",
-    }).always(function() {
-      inputEl.removeClass("loading")
-    }).done(function(res) {
-      inputEl.val('')
-      var files = _.clone(self.model.get('files'))
-      files.push(res.data.name)
-      self.model.set({'files': files}) 
-      self.model.save() 
-      self.model.trigger('change:files:added', res.data.name)
-      self.success()
-    });
+      success: this.successUpload
+    })
+  },
 
+  successUpload: function(res){
+    var file = new File(res.data)
+    this.inputEl.removeClass("loading")
+    this.inputEl.val('')
+    var files = this.model.get('files')
+    files.add(file)
+    this.model.save() 
+    this.model.trigger('change:files:added', file)
+    this.notice()
   },
 
   render: function(){
@@ -46,7 +45,7 @@ return Backbone.View.extend({
     return this; 
   },
 
-  success: function(){
+  notice: function(){
     var successAlert = new AlertView({
       message: '<strong>Uploaded</strong>',
       type: 'info'

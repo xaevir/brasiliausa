@@ -1188,6 +1188,7 @@
     // Ensure that we have the appropriate request data.
     if (!options.data && model && (method == 'create' || method == 'update')) {
       params.contentType = 'application/json';
+      var test = model.toJSON()
       params.data = JSON.stringify(model.toJSON());
     }
 

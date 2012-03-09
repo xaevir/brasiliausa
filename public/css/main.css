@@ -3484,6 +3484,7 @@ footer .tabs, footer .pills {
   min-height: 500px;
 }
 .alert {
+  position: fixed !important;
   top: 30px !important;
   z-index: 9999;
   border-width: 7px;
@@ -3506,22 +3507,21 @@ form label.error {
 .loading {
   background: #eeeeee url(/img/spinner.gif) 5px 50% no-repeat;
 }
-/* Product Details */
-.details h1 {
+.product h1 {
   color: #666;
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 4px;
   text-transform: uppercase;
 }
-.details img.main {
+.product img.main {
   float: right;
   margin-left: 15px;
 }
-.details .description {
-  margin-top: 15px;
+.product .description {
+  margin: 15px 0;
 }
-.product-pdf {
-  margin: 20px 0;
+.product .pdf {
+  border: 1px solid #f7f7f7;
 }
 .product-pdf a {
   text-decoration: none;
@@ -3575,16 +3575,33 @@ form label.error {
 .thumbs {
   list-style: none;
 }
-.thumbs li {
+.thumbs > li {
   float: left;
   margin-right: 10px;
-}
-.thumbs li .remove {
-  display: block;
+  margin-bottom: 15px;
+  border: 1px solid #eaeaea;
   text-align: center;
+}
+.thumbs > li .pdf {
+  border: 1px solid #f7f7f7;
+}
+.thumbs > li .actions {
+  text-align: center;
+}
+.thumbs > li .actions a {
+  margin: 0 10px;
+}
+.thumbs > li .actions .main {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin: 0;
+  line-height: 0;
 }
 .thumbnail-wrapper {
   height: 155px;
+  width: 175px;
 }
 .contextual-menu {
   margin: 0;

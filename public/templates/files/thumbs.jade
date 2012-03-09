@@ -1,0 +1,8 @@
+.thumbnail-wrapper
+  img(src='/files/#{thumb}', class=(type == 'application/pdf') ? 'pdf' : 'image')
+.actions.nav.nav-pills
+  li
+    a.remove(href="#") delete
+  -if (/^image/.test(type))
+    li.mainImage
+      a.setMainImage(href="#") set main

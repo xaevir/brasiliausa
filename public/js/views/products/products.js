@@ -43,7 +43,7 @@ return Backbone.View.extend({
 
   tagName: 'ul',
 
-  className: 'products container',
+  className: 'products',
 
   initialize: function() {
     //this.collection.bind('reset', this.addAll, this)

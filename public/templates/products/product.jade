@@ -2,11 +2,18 @@ h1= name
 h3 #{category.name} 
   -if (subcategory.name)
     | - #{subcategory.name}
-img(alt=name, src="/images/#{files[0]}", class='main')
-.description= description
 
--if (files)
-  each file in files
-    - if ()
-
+.row
+  .span6
+    .description= description
+    -if (pdfs)
+      h2 Spec Sheets
+      ul.thumbnails
+        each pdf in pdfs
+          li.span3
+            a(href="/files/#{pdf.name}", class="thumbnail", target='_blank')
+              img(src="/files/#{pdf.thumb}", class="pdf")
+  .span6
+    - if (mainImage)
+      img(alt=name, src="/files/#{mainImage.medium}", class='main')
 

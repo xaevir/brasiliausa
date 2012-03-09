@@ -214,6 +214,8 @@ app.get('/products/:slug', forceXhr, function(req, res) {
 
 app.get('/products/:slug/edit', forceXhr, function(req, res) {})
 
+app.get('/products/new', forceXhr, function(req, res) {})
+
 function toSlug(text, options){
   return text
     .replace(/[^\w ]+/g, '')
@@ -246,83 +248,22 @@ function getNameWithoutExt(){
 }
 
 app.del('/files/:slug', restrict, function(req, res){
-  var contentType = getContentType(req.params.slug)
 
-  if (contentType == 'pdf')
-    return removePdf()
-  if (contentType == 'image')
-    return removeImage()
-
-  function removePdf(){
-    GridStore.unlink(db.db, req.params.slug, {root: 'pdf'}, function(err, gridStore) {
-      console.log('pdf removed from /pdf ')
-      GridStore.unlink(db.db, req.params.slug + '.png', {root: 'pdf'}, function(err, gridStore) {
-        console.log('thumbnail removed from /pdf')
+  GridStore.unlink(db.db, req.params.slug, function(err, gs) {
+    console.log('orginal deleted')
+    GridStore.unlink(db.db, req.body.thumbName, function(err, gs) {
+      console.log('thumbnail removed')
+      GridStore.unlink(db.db, req.body.mediumName, function(err, gridStore) {
+        console.log('medium removed')
         res.send({
           success: true, 
-          message: 'pdf removed', 
+          message: 'file removed', 
           data: {name: req.params.slug }
-        })   
-      })
-    })
-   }
-
-  function removeImage(){
-    GridStore.unlink(db.db, req.params.slug, {root: 'images'}, function(err, gridStore) {
-      console.log('image removed from /images ')
-      GridStore.unlink(db.db, req.params.slug, {root: 'images.thumbs'}, function(err, gridStore) {
-        console.log('image removed from /images/thumbs')
-        GridStore.unlink(db.db, req.params.slug, {root: 'images.originals'}, function(err, gridStore) {
-          console.log('image removed from /images/originals')
-          res.send({
-            success: true, 
-            message: 'image removed', 
-            data: {name: req.params.slug }
-          })
         })
       })
     })
-   }
+  })
 })
-/*
-function createPdfThumb(req, res){
-  var file = req.files.file
-  var output = '/tmp/' + file.name + '.png'
-
-  options = { "content_type": 'image/png', "root": 'pdf' }
-
-  imagemagick.convert([file.path + '[0]', '-resize', '300x400', '-quality', '100', output], function(err, metadata){
-    db.gridfs().open(file.name+'.png', 'w', options, function(err, gs) {
-      gs.writeFile(output, function(err, reply) {
-        console.log('pdf thumb saved')
-        fs.unlink(file.path)
-        res.send({
-          success: true, 
-          message: 'pdf thumb created and pdf saved', 
-          data: {
-            name: file.name, 
-            contentType: file.type,
-            path: '/images/'
-            thumbpath: '/pdf/'+file.name+'.png'
-           }
-        })   
-      })
-    })
-  })
-}
-*/
-/*
-function uploadPdf(req, res){
-  var file = req.files.file
-  options = { "content_type": file.type, "root": 'pdf' }
-  db.gridfs().open(file.name, 'w', options, function(err, gs) {
-    gs.writeFile(file.path, function(err, reply) {
-      console.log('pdf saved')
-      createPdfThumb(req, res) 
-    })
-  })
-}
-*/
 /*
  * handling all me.jpg pics. Create folder 
  * for each person and save in 
@@ -334,53 +275,63 @@ app.post('/upload', restrict, function(req, res){
   var file = req.files.file
 
   var regex = /^(.+)\.([a-z]+)/
-  var match = regex.exec(filename);
+  var match = regex.exec(file.name);
   var nameNoExt = match[1]
   var extension = match[2]
 
   if (file.type == 'application/pdf') {
     var thumbName = nameNoExt+'_thumb_pdf.png'
     var mediumName = nameNoExt+'_medium_pdf.png'
-    var input = file.path + '[0]' 
+    var image_input = file.path + '[0]' 
+    var input = file.path
     var output = '/tmp/'+file.name+'.png'
-    var mediumSize = '300x400\\>'
-    var thumbnailSize = '175x155\\>'
+    var mediumSize = '300x400>'
+    var thumbnailSize = '175x155>'
+    var fs_opts = {"content_type": file.type}
+    var fs_opts_thumb = {"content_type": 'image/png'}
+    var fs_opts_medium = {"content_type": 'image/png'}
   } else {
     var thumbName = nameNoExt+'_thumb.'+extension
     var mediumName = nameNoExt+'_medium.'+extension
-    var input = file.path
+    var input = image_input = file.path
     var output = '/tmp/'+file.name
+    var mediumSize = '400x500>'
+    var thumbnailSize = '175x155>'
+    var fs_opts = fs_opts_thumb =  fs_opts_medium = {"content_type": file.type}
   }
  
-  var fs_opts = {"content_type": file.type}
 
   var gs_original = new GridStore(db.db, file.name, "w", fs_opts)
-  var gs_medium = new GridStore(db.db, mediumName, "w", fs_opts)
-  var gs_thumb = new GridStore(db.db, thumbName, "w", fs_opts)
+  var gs_medium = new GridStore(db.db, mediumName, "w", fs_opts_medium)
+  var gs_thumb = new GridStore(db.db, thumbName, "w", fs_opts_thumb)
 
   startWithMedium()
 
   function startWithMedium(){
-    imagemagick.convert([input, '-resize', mediumSize, '-quality', '100', output], function(err, metadata){
+    imagemagick.convert([image_input, '-resize', mediumSize, '-quality', '100', output], function(err, metadata){
       gs_medium.open(function(err, gs) {
         gs.writeFile(output, function(err, reply) {
-          fs.unlink(output)
-          console.log('image resized to 400x500 and saved')
-          gs.close()
-          createThumb() 
+          fs.unlink(output, function (err) {
+            console.log('image resized to 400x500 and saved')
+            gs.close(function(err, reply){
+              createThumb() 
+            })
+          })
         })
       })
     })
   }
 
   function createThumb(){
-    imagemagick.convert([input, '-resize', thumbnailSize, '-quality', '100', output], function(err, metadata){
+    imagemagick.convert([image_input, '-resize', thumbnailSize, '-quality', '100', output], function(err, metadata){
       gs_thumb.open(function(err, gs) {
         gs.writeFile(output, function(err, reply) {
-          fs.unlink(output)
-          console.log('image thumbnail created and saved')
-          gs.close()
-          saveOriginal()
+          fs.unlink(output, function (err) {
+            console.log('image thumbnail created and saved')
+            gs.close(function(err, reply){
+              saveOriginal()
+            })
+          })
         })
       })
     })
@@ -389,10 +340,12 @@ app.post('/upload', restrict, function(req, res){
   function saveOriginal(){
     gs_original.open(function(err, gs) {
       gs.writeFile(input, function(err, reply) {
-        console.log('original saved')
-        fs.unlink(input)
-        gs.close()
-        done(file.name)
+        fs.unlink(input, function (err) {
+          console.log('original saved')
+          gs.close(function(err, reply){
+            done(file.name)
+          })
+        })
       })
     })
   }
@@ -405,17 +358,28 @@ app.post('/upload', restrict, function(req, res){
       data: {
         name: name, 
         type: file.type,
-        medium: mediumName 
+        medium: mediumName,
         thumb: thumbName,
       }
     })    
   }
 })
 
+
+app.get('/images/:slug', function(req, res){
+  db.gridfs().open(req.params.slug, 'r', function(err, file) {
+    res.header('Content-Type', file.contentType);
+    res.header('Content-Length', file.length);
+    file.stream(true).pipe(res)
+  })
+})
+
+
 app.get('/files/:slug', function(req, res){
   db.gridfs().open(req.params.slug, 'r', function(err, file) {
-    res.header('Content-Type', file.content_type);
+    res.header('Content-Type', file.contentType);
     res.header('Content-Length', file.length);
+    //res.header('Content-Disposition', 'attachment; filename='+req.params.slug)
     file.stream(true).pipe(res)
   })
 })

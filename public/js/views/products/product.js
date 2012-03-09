@@ -3,12 +3,9 @@ define(function(require) {
 var AlertView = require('views/site/alert')
   , tpl = require('text!templates/products/product.jade')
 
-
-
-
 return Backbone.View.extend({
 
-  className:  "details",
+  className:  "product",
 
   template: jade.compile(tpl),
 
@@ -16,29 +13,18 @@ return Backbone.View.extend({
     _.bindAll(this) 
   },
 
-  getMainImage: function(){
-  
-  
-  },
-
   getPdfs: function(files){
-    files = _.map(files, function(filename){ 
-      return {name: filename, contentType: getContentType(filename)}     
-    })
-    var pdfs = _.reduce(files, function(memo, file) {
-      if (file.contentType == 'pdf') {
-        memo.push(file)
-      } 
+    return files.reduce(function(memo, file) {
+      if (file.get('type') == 'application/pdf') 
+        memo.push(file.toJSON())
       return memo
     }, [])
-    
-    return pdfs
+    return pdfs ? pdfs : ''
   },
 
   render: function() {
-    var pdfs = this.getPdfs(this.model.get('files'))
     var locals = this.model.toJSON()
-    locals.pdfs = pdfs
+    locals.pdfs = this.getPdfs(this.model.get('files'))
     var template = this.template(locals)
     $(this.el).html(template);
     return this;

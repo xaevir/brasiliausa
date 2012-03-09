@@ -32,7 +32,7 @@ return Backbone.View.extend({
 
   initialize: function(options){
     _.bindAll(this); 
-    Backbone.Validation.bind(this);
+    Backbone.Validation.bind(this)
 //    this.model.on('validated:valid', this.save, this) 
   },
 
