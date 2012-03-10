@@ -10,7 +10,7 @@ h2 Product Details
     label Category
     select.span3(name="category")
       option(value="") -- Select Category --
-      - var options =  [{value: 'espresso-machines', label: 'Espresso Machines'}, {value: 'espresso-grinders', label: 'Espresso Grinders'} ]
+      - var options =  [{value: 'espresso-machines', label: 'Espresso Machines'}, {value: 'espresso-grinders', label: 'Espresso Grinders'}, {value: 'juicers', label: 'Juicers'}, {value: 'panini-grills', label: 'Panini Grills'} ]
       each option in options
         option(value=option.value, selected=(category.slug==option.value))= option.label 
 

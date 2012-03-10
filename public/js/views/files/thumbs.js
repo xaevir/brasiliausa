@@ -9,7 +9,10 @@ var ItemView = Backbone.View.extend({
 
   events: {
     "click a.remove": "remove",
-    "click a.setMainImage": 'setMainImage'
+    "click a.setMainImage": 'setMainImage',
+    "click a.editCaption": 'editCaption',
+    "keypress .caption-input"  : "updateOnEnter",
+    "dblclick div.caption-text"    : "editCaption",
   },
 
   template: jade.compile(tpl),
@@ -17,6 +20,29 @@ var ItemView = Backbone.View.extend({
   initialize: function(options){
     this.file = options.file
     _.bindAll(this)
+    this.model.on('change', this.render, this)
+  },
+
+  addInputBlur: function(){
+   //adding here so it can be cleared when el re-rendered
+   this.input.on('blur', this.close, this)
+  },
+
+  editCaption: function() {
+    $(this.el).addClass("editing");
+    this.input.val(this.model.get('caption'))
+    this.input.focus()
+  },
+
+  close: function() {
+    this.model.set({'caption': this.input.val()});
+    this.model.collection.parent.set('files', this.model.collection)
+    this.model.collection.parent.save()
+    $(this.el).removeClass("editing");
+  },
+
+  updateOnEnter: function(e) {
+    if (e.keyCode == 13) this.close();
   },
 
   setMainImage: function() {
@@ -27,8 +53,14 @@ var ItemView = Backbone.View.extend({
   },
 
   remove: function(e) {
-    e.preventDefault()
-    this.model.destroy({data: this.model})
+    var params = {}
+    params.contentType = "application/json"
+    params.data = JSON.stringify(this.model.toJSON())
+    var parentModel = this.model.collection.parent
+    var collection = this.model.collection
+    this.model.destroy(params)
+    parentModel.set({files: collection})
+    parentModel.save()
     $(this.el).remove()
     this.notice('Removed')
   },
@@ -37,6 +69,8 @@ var ItemView = Backbone.View.extend({
     var locals = this.model.toJSON()
     var template = this.template(locals)
     $(this.el).html(template)
+    this.input = $('.caption-input', this.el)
+    this.addInputBlur()
     this.model.view = this
     return this
   },
@@ -66,7 +100,7 @@ return Backbone.View.extend({
     if(this.mainImageModel)
       this.mainImageModel.view.render()       
     this.mainImageModel = model
-    $('.mainImage', model.view.el).html('<p class="main"><i class="icon-ok"></i> main image</p>')
+    $('.mainImage', model.view.el).html('<p class="pretend-thumb"><i class="icon-ok"></i> main image</p>')
   },
 
   getMainImage: function(files){

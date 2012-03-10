@@ -50,8 +50,14 @@ return Backbone.View.extend({
     var params = this.$('form').serializeObject();
     var catLabel = this.$('option[value="' + params.category + '"]').html()
     params.category = {slug: params.category, name: catLabel}
-    var subcatLabel = this.$('option[value="' + params.subcategory + '"]').html()
+
+    //setting name even tho the form value is empty 
+    if (params.subcategory)
+      var subcatLabel = this.$('option[value="' + params.subcategory + '"]').html()
+    else 
+      var subcatLabel = ''
     params.subcategory = {slug: params.subcategory, name: subcatLabel}
+
     this.model.save(params);
     this.synched()
   },

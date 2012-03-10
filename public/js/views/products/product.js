@@ -19,7 +19,6 @@ return Backbone.View.extend({
         memo.push(file.toJSON())
       return memo
     }, [])
-    return pdfs ? pdfs : ''
   },
 
   render: function() {

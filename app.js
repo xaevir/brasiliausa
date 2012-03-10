@@ -201,6 +201,8 @@ app.post('/products', restrict, function(req, res) {
 })
 
 app.put('/products/:slug', restrict, function(req, res) {
+  // Hack: this is repeated from post action
+  req.body.slug = toSlug(req.body.name)
   req.body._id = db.ObjectID.createFromHexString(req.body._id)
   db.collection('products').save(req.body)
   res.send(req.body)
@@ -218,13 +220,15 @@ app.get('/products/new', forceXhr, function(req, res) {})
 
 function toSlug(text, options){
   return text
-    .replace(/[^\w ]+/g, '')
+    .replace(/[^a-zA-z0-9_-]+/g, '')
     .replace(/ +/g, '-')
 }
 
 
 function toSlugFile(filename){
-  var regex = /^(.+)\.([a-z]+)/
+  // if this doesnt match. server stops
+  // ie. pic.JPG was killing unit added A-Z to regex
+  var regex = /^(.+)\.([a-zA-Z]+)/
   var match = regex.exec(filename);
   var name = match[1]
   var extension = match[2]
@@ -248,12 +252,11 @@ function getNameWithoutExt(){
 }
 
 app.del('/files/:slug', restrict, function(req, res){
-
   GridStore.unlink(db.db, req.params.slug, function(err, gs) {
     console.log('orginal deleted')
-    GridStore.unlink(db.db, req.body.thumbName, function(err, gs) {
+    GridStore.unlink(db.db, req.body.thumb, function(err, gs) {
       console.log('thumbnail removed')
-      GridStore.unlink(db.db, req.body.mediumName, function(err, gridStore) {
+      GridStore.unlink(db.db, req.body.medium, function(err, gridStore) {
         console.log('medium removed')
         res.send({
           success: true, 
@@ -269,12 +272,12 @@ app.del('/files/:slug', restrict, function(req, res){
  * for each person and save in 
  */ 
 
-app.post('/upload', restrict, function(req, res){
+app.post('/upload/:product_id', restrict, function(req, res){
   req.files.file.name = toSlugFile(req.files.file.name)
 
   var file = req.files.file
 
-  var regex = /^(.+)\.([a-z]+)/
+  var regex = /^(.+)\.([a-zA-Z]+)/
   var match = regex.exec(file.name);
   var nameNoExt = match[1]
   var extension = match[2]
@@ -287,9 +290,9 @@ app.post('/upload', restrict, function(req, res){
     var output = '/tmp/'+file.name+'.png'
     var mediumSize = '300x400>'
     var thumbnailSize = '175x155>'
-    var fs_opts = {"content_type": file.type}
-    var fs_opts_thumb = {"content_type": 'image/png'}
-    var fs_opts_medium = {"content_type": 'image/png'}
+    var fs_opts = {"content_type": file.type, product_id: req.params.product_id, main_file: file.name}
+    var fs_opts_thumb = {"content_type": 'image/png',  product_id: req.params.product_id, main_file: file.name}
+    var fs_opts_medium = {"content_type": 'image/png', product_id: req.params.product_id, main_file: file.name}
   } else {
     var thumbName = nameNoExt+'_thumb.'+extension
     var mediumName = nameNoExt+'_medium.'+extension
@@ -297,7 +300,7 @@ app.post('/upload', restrict, function(req, res){
     var output = '/tmp/'+file.name
     var mediumSize = '400x500>'
     var thumbnailSize = '175x155>'
-    var fs_opts = fs_opts_thumb =  fs_opts_medium = {"content_type": file.type}
+    var fs_opts = fs_opts_thumb =  fs_opts_medium = {"content_type": file.type, product_id: req.params.product_id, main_file: file.name}
   }
  
 
@@ -381,6 +384,12 @@ app.get('/files/:slug', function(req, res){
     res.header('Content-Length', file.length);
     //res.header('Content-Disposition', 'attachment; filename='+req.params.slug)
     file.stream(true).pipe(res)
+  })
+})
+
+app.get('/files', forceXhr, function(req, res){
+  db.collection('fs.files').find().toArray(function(err, products) {
+    res.send(products);
   })
 })
 

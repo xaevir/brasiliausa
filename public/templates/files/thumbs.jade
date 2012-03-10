@@ -6,3 +6,12 @@
   -if (/^image/.test(type))
     li.mainImage
       a.setMainImage(href="#") set main
+  -if (/application\/pdf/.test(type))
+    li.pdfCaption
+      - if (typeof caption !== 'undefined' && caption)
+        .caption-text.display.pretend-thumb=caption
+      - else 
+        a.editCaption.display(href="#") caption 
+        .caption-destroy.display
+      .edit
+        input.caption-input(type="text", value="")

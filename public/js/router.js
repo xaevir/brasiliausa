@@ -9,6 +9,7 @@ var SignupView = require('views/users/signup')
   , ProductEditView = require('views/products/product-edit')
   , ContextualMenuView = require('views/products/contextual-menu')
   , PageHeaderView = require('views/site/page-header')
+  , SubnavView = require('views/products/subnav')
 
 function showStatic(path) {
     $.get(path, function(obj) {
@@ -49,29 +50,11 @@ return Backbone.Router.extend({
     autoResetRouter.call(this)
     window.dispatcher.on('session:logout', this.logout, this)
 
-    this.route("login", "login", _.wrap( function(){
-      this.loginView = new LoginView({context: 'main'})
-      this.loginView.render()
-      $('#app').html(this.loginView.el)
-      document.title = 'Login'
-    }, alreadyLoggedIn))
 
-    this.route('products/:slug/edit', 'edit', _.wrap( function(slug){
-      var product = new Product({slug:slug})
-      product.fetch({success: function(model, res){
-        var productEditView = new ProductEditView({model: model})
-        $('#app').html(productEditView.render().el)
-        document.title = 'Edit Product'
-      }})
-    }, restrict))
 
-    this.route('products/new', 'new', _.wrap( function(slug){
-      var product = new Product()
-      var productEditView = new ProductEditView({model: product})
-      $('#app').html(productEditView.render().el)
-      document.title = 'New Product'
-    }, restrict))
-
+//    _.each(['newProduct'], function(method){ 
+//      this[method] = _.wrap(this[method], restrict); 
+//    }, this)
 
   },
 
@@ -85,8 +68,19 @@ return Backbone.Router.extend({
     , 'what-we-do':     'what-we-do'
     , 'signup':         'signup'
     , 'products':       'products'
+    , 'products/:slug/edit': 'productEdit'
+    , 'products/new'  : 'newProduct'
     , 'products/:slug': 'product'
+    , 'files'         : 'files'
+    , 'login'         : 'login'
   },
+
+  newProduct: _.wrap(function(){
+      var product = new Product()
+      var productEditView = new ProductEditView({model: product})
+      $('#app').html(productEditView.render().el)
+      document.title = 'New Product'
+    }, restrict),
 
   home: function() { showStatic('/') },
    
@@ -100,13 +94,32 @@ return Backbone.Router.extend({
 
   'what-we-do': function(){ showStatic('/what-we-do')},
 
+  'files': function(){
+    $.get('/files', function(files){
+      _.each(files, function(file){
+        $('body').append('<img src="/files/'+file.filename+'" />')    
+      })  
+    
+    })   
+  },
+
+  productEdit: _.wrap(function(slug){
+    var product = new Product({slug:slug})
+    product.fetch({success: function(model, res){
+      var productEditView = new ProductEditView({model: model})
+      $('#app').html(productEditView.render().el)
+      document.title = 'Edit Product'
+    }})
+  }, restrict),
+
   products: function(){ 
     var products = new Products()
     var self = this
     products.fetch({success: function(collection, res){
-      var productsView = new ProductsView({collection: collection})  
+      this.productsView = new ProductsView({collection: collection})  
       var template = productsView.render().el
       $('#app').html(template)
+      self.subnavView = new SubnavView()
       //self.pageHeaderView = new PageHeaderView({header: header}) 
       //self.pageHeaderView.render()
       document.title = 'Products' 
@@ -116,6 +129,8 @@ return Backbone.Router.extend({
   'reset_products': function(){
     if (this.pageHeaderView)
       this.pageHeaderView.remove()
+    if (this.subnavView)
+      this.subnavView.remove()
   },
 
   contextualMenu: function(model){
@@ -134,13 +149,32 @@ return Backbone.Router.extend({
       $('#app').html(productView.render().el)
       document.title = model.get('name')+' - '+model.get('category').name
       self.contextualMenu(model) 
+
+      var header = model.get('category').name
+      if (model.get('subcategory').name)
+        header += ' / ' +model.get('subcategory').name
+
+      self.pageHeaderView = new PageHeaderView({header: header}) 
+      self.pageHeaderView.render()
+
     }})
   },
 
   'reset_product': function(){
     if (this.contextualMenuView)
       this.contextualMenuView.remove()
+    if (this.pageHeaderView)    
+      this.pageHeaderView.remove()
   },
+
+
+  login: _.wrap(function(){
+    this.loginView = new LoginView({context: 'main'})
+    this.loginView.render()
+    $('#app').html(this.loginView.el)
+    document.title = 'Login'
+  }, alreadyLoggedIn),
+
 
   signup: function(){ 
     if (window.user.isLoggedIn()) 

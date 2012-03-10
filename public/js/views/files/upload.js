@@ -19,7 +19,14 @@ return Backbone.View.extend({
   fileUpload: function(e){
     this.inputEl = $(e.currentTarget)
     this.inputEl.addClass("loading")
-    $.ajax('/upload', {
+    var valid = this.model.isValid(true)
+    if (!valid) {
+      this.render()
+      this.notice('Please add the product name and details first', 'error')
+      return
+    }
+    $.ajax('/upload/'+ this.model._id, {
+      //data: JSON.stringify(this.model.toJSON()),
       files: this.inputEl,
       iframe: true,
       dataType: "json",
@@ -35,7 +42,7 @@ return Backbone.View.extend({
     files.add(file)
     this.model.save() 
     this.model.trigger('change:files:added', file)
-    this.notice()
+    this.notice('Uploaded', 'info')
   },
 
   render: function(){
@@ -45,10 +52,10 @@ return Backbone.View.extend({
     return this; 
   },
 
-  notice: function(){
+  notice: function(msg, type){
     var successAlert = new AlertView({
-      message: '<strong>Uploaded</strong>',
-      type: 'info'
+      message: '<strong>'+msg+'</strong>',
+      type: type 
     })
     successAlert.fadeOut()
   },

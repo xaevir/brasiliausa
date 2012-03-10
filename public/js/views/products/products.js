@@ -38,15 +38,13 @@ var ItemView = Backbone.View.extend({
 });
 
 
-
-return Backbone.View.extend({
+var ListView = Backbone.View.extend({
 
   tagName: 'ul',
 
-  className: 'products',
-
-  initialize: function() {
-    //this.collection.bind('reset', this.addAll, this)
+  initialize: function(options) {
+    this.products = options.products
+    _.bindAll(this); 
   },
 
   addOne: function(model) {
@@ -55,9 +53,133 @@ return Backbone.View.extend({
   },
 
   render: function() {
-    this.collection.each(this.addOne, this);
+    _.each(this.products, this.addOne, this);
     return this
   },
 })
+
+var CategoryView = Backbone.View.extend({
+
+  tagName: 'section',
+
+  initialize: function(options) {
+    this.header = options.header 
+    this.id = options.id
+  },
+
+  render: function() {
+    $(this.el).append('<h1>'+this.header+'</h1>')
+    return this
+  },
+
+})
+
+var SubcategoryView = Backbone.View.extend({
+
+  className: 'sub-section',
+
+  initialize: function(options) {
+    this.header = options.header 
+    this.id = options.id
+  },
+
+  render: function() {
+    $(this.el).append('<h2>'+this.header+'</h2>')
+    return this
+  },
+})
+
+
+return  Backbone.View.extend({
+
+  className: 'products',
+
+  initialize: function() {
+    _.bindAll(this) 
+  },
+
+  getCategories: function(){ 
+    return {
+      'espresso-machines': {
+        label: 'Espresso Machines',
+        subcats: {
+          _array: [
+            'bar-line',
+            'compact',
+          ], 
+          'bar-line': {
+            label: 'Bar Line', 
+            products: []
+          },
+          'compact': {
+            label: 'Compact',
+            products: [] 
+          } 
+        }
+      }, 
+      'espresso-grinders': {
+        label: 'Espresso Grinders', 
+        products: []
+      },
+      'juicers':  {
+        label: 'Juicers',
+        products: []
+      },
+      'panini-grills': { 
+        label: 'Panini Grills', 
+        products: []
+      },
+
+      _array: [
+        'espresso-machines', 
+        'espresso-grinders',
+        'juicers',
+        'panini-grills'
+      ],
+    } 
+  },
+
+  categorize: function(product){
+    var category = product.get('category').slug
+    var subcategory = product.get('subcategory') ? product.get('subcategory').slug : '';
+    if(subcategory)
+      this.categories[category].subcats[subcategory].products.push(product)
+    else
+      this.categories[category].products.push(product)
+  },
+
+  addCategory: function(category_array_el) {
+    category = this.categories[category_array_el]
+    var categoryView = new CategoryView({header: category.label, id: category_array_el})
+    $(this.el).append(categoryView.render().el)
+    if (!category.subcats){
+      var listView = new ListView({products: category.products })
+      $(categoryView.el).append(listView.render().el)
+    }
+    else{
+      _.each(category.subcats._array, function(subcat_el){
+        subcat = category.subcats[subcat_el]
+        this.addSubcategory(subcat, categoryView, subcat_el)
+      }, this) 
+    }
+  },
+
+  addSubcategory: function(subcategory, parentView, subcat_el){
+    var subcategoryView = new SubcategoryView({header: subcategory.label, id: subcat_el})
+    $(parentView.el).append(subcategoryView.render().el)
+    var listView = new ListView({products: subcategory.products })
+    $(subcategoryView.el).append(listView.render().el)
+  },
+
+  render: function() {
+    // reset categories.products[]
+    this.categories = this.getCategories()
+    this.collection.each(this.categorize, this);
+    _.each(this.categories._array, this.addCategory, this)
+    return this
+  },
+
+})
+
 
 })

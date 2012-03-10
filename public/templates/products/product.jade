@@ -1,19 +1,19 @@
 h1= name
-h3 #{category.name} 
-  -if (subcategory.name)
-    | - #{subcategory.name}
-
 .row
   .span6
-    .description= description
+    h2 Description
+    .description!= description
     -if (pdfs)
       h2 Spec Sheets
       ul.thumbnails
         each pdf in pdfs
-          li.span3
+          li(style="width: 187px")
+            - if (typeof pdf.caption !== 'undefined' && pdf.caption)
+              h4=pdf.caption
             a(href="/files/#{pdf.name}", class="thumbnail", target='_blank')
-              img(src="/files/#{pdf.thumb}", class="pdf")
+              .thumbnail-wrapper
+                img(src="/files/#{pdf.thumb}", class="pdf")
   .span6
     - if (mainImage)
       img(alt=name, src="/files/#{mainImage.medium}", class='main')
-
+  
