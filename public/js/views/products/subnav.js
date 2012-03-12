@@ -19,12 +19,14 @@ return Backbone.View.extend({
 
   compensateForStaticness: function(e){
     var linkEl = $(e.currentTarget);
-    var href = linkEl.attr("href");
-    var section = $(href)
+    var target = $(linkEl).data("target");
+    var one = $('#'+target)
+    var section = $('#espresso-grinders')
     var position = $(section).offset().top - 40
     $(document.body).animate({
-        'scrollTop': position 
+        'scrollTop': 500 
     }, 500);
+    e.preventDefault() 
   },
 
   initialize: function(options){
