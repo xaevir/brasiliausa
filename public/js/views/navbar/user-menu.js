@@ -1,6 +1,6 @@
 define(function(require) {
 
-var hogan = require('libs/hogan.js/web/builds/1.0.5/hogan-1.0.5.min.amd')
+var hogan = require('libs/hogan.js/web/builds/2.0.0/hogan-2.0.0.min.amd')
   , userMenuTpl = require('text!templates/users/userNav.mustache')
 
 
