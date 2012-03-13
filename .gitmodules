@@ -1,3 +1,6 @@
 [submodule "/home/bobby/apps/brasiliausa/public/js/libs/backbone.validation"]
 	path = /home/bobby/apps/brasiliausa/public/js/libs/backbone.validation
 	url = https://github.com/thedersen/backbone.validation.git
+[submodule "/home/bobby/apps/brasiliausa/public/bootstrap"]
+	path = /home/bobby/apps/brasiliausa/public/bootstrap
+	url = https://github.com/twitter/bootstrap.git
