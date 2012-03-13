@@ -10,4 +10,4 @@
   url = git://github.com/thedersen/backbone.validation.git
 [submodule "public/js/libs/hogan.js"]
 	path = public/js/libs/hogan.js
-	url = https://github.com/twitter/hogan.js.git
+  url = git://github.com/twitter/hogan.js.git
