@@ -13,11 +13,6 @@ var express = require('express')
 
 GridStore = require('mongodb').GridStore;
 
-_ = require('underscore')
-Backbone = require('backbone')
-require(__dirname + '/public/js/libs/backbone.validation/backbone.validation') 
-_.extend(Backbone.Model.prototype, Backbone.Validation.mixin)
-
 db = mongo.db('localhost/brasiliausa?auto_reconnect');
 
 var app = module.exports = express.createServer();
@@ -78,13 +73,21 @@ function showStatic(req, res, path, pageTitle){
 }
 
 
-app.get('/', forceXhr, function(req, res) {
-  var pageTitle = 'Brasilia USA - For the Finest in Brasilia Espresso Machines';
-  res.render('index', function(err, html){
-    res.send({title: pageTitle, body: html});
-  });
+app.get('/', function(req, res) {
+    if (req.session.user){
+      //res.send('bobby')
+      res.render('index', {layout: true, user: {username: req.session.user.username, _id:  req.session.user._id}});
+    } else  {
+      //res.send('bobby two')
+      res.render('index', {layout: true, user: {}});
+    }
 });
 
+
+app.get('/home', function(req, res) {
+  res.render('index');
+
+});
 app.get('/support', forceXhr, function(req, res) {
   res.render('static/support', function(err, html){
     res.send({title: 'Support', body: html});
@@ -394,5 +397,5 @@ app.get('/files', forceXhr, function(req, res){
 })
 
 
-app.listen(3000);
+app.listen(80);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

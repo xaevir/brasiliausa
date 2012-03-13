@@ -73,6 +73,7 @@ return Backbone.Router.extend({
     , 'products/:slug': 'product'
     , 'files'         : 'files'
     , 'login'         : 'login'
+    , '*actions'     :  'home'
   },
 
   newProduct: _.wrap(function(){
@@ -82,7 +83,12 @@ return Backbone.Router.extend({
       document.title = 'New Product'
     }, restrict),
 
-  home: function() { showStatic('/') },
+  home: function() { 
+    $.get('/home', function(html) {
+      $('#app').html(html);
+       document.title = 'Brasilia USA';
+    });
+  },
    
   support: function(){ showStatic('/support') },
 

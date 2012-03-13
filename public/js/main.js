@@ -23,13 +23,12 @@ require.config({
  */ 
 define(function(require) {
 
+  require('order!libs/jade/jade')
   require('order!jquery')
   require('order!libs/utilities')
   require('order!underscore')
   require('order!backbone')
-  require('order!libs/backbone-deep-model/src/deep-model')
   require('order!libs/backbone.validation/backbone.validation')
-  require('order!libs/jade/jade')
   require('order!/bootstrap/js/bootstrap-dropdown.js')
   require('order!/bootstrap/js/bootstrap-modal.js')
   require('order!/bootstrap/js/bootstrap-tab.js')

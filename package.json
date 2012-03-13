@@ -9,5 +9,6 @@
     , "bcrypt": "latest"
     , "imagemagick": "latest"
     , "mongoskin": "latest"
+    , "validator" : "latest"
   }
 }
