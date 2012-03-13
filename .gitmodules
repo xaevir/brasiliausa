@@ -4,3 +4,9 @@
 [submodule "/home/bobby/apps/brasiliausa/public/bootstrap"]
 	path = /home/bobby/apps/brasiliausa/public/bootstrap
 	url = https://github.com/twitter/bootstrap.git
+[submodule "/home/bobby/apps/brasiliausa/public/js/libs/jquery-iframe-transport"]
+	path = /home/bobby/apps/brasiliausa/public/js/libs/jquery-iframe-transport
+	url = https://github.com/cmlenz/jquery-iframe-transport.git
+[submodule "/home/bobby/apps/brasiliausa/public/js/libs/hogan"]
+	path = /home/bobby/apps/brasiliausa/public/js/libs/hogan
+	url = https://github.com/twitter/hogan.js.git
