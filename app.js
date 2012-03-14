@@ -11,7 +11,9 @@ var express = require('express')
   , fs = require('fs')
   , check = require('validator').check
 
-GridStore = require('mongodb').GridStore;
+
+GridStore = require('mongodb').GridStore
+
 
 db = mongo.db('localhost/brasiliausa?auto_reconnect');
 

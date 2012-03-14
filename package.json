@@ -8,6 +8,7 @@
     , "connect-redis": "latest"
     , "bcrypt": "latest"
     , "imagemagick": "latest"
+    , "mongodb": "latest"
     , "mongoskin": "latest"
     , "validator" : "latest"
   }
