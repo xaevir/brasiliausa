@@ -1,8 +1,3 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , mongo = require('mongoskin')
   , RedisStore = require('connect-redis')(express)
@@ -10,10 +5,14 @@ var express = require('express')
   , imagemagick = require('imagemagick')
   , fs = require('fs')
   , check = require('validator').check
+  , email = require('mailer')
+  , httpProxy = require('http-proxy')
+  , http = require('http')
+  , static = require('node-static')
 
+var fileServer = new(static.Server)('./public', { cache: 0 });
 
 GridStore = require('mongodb').GridStore
-
 
 db = mongo.db('localhost/brasiliausa?auto_reconnect');
 
@@ -40,6 +39,32 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+app.get('/*', function(req, res, next) {
+  if (req.headers.host.match(/^www/) !== null ) {
+    res.redirect('http://' + req.headers.host.replace(/^www\./, '') + req.url);
+  } else {
+    next();     
+  }
+})
+
+function userData(session){
+  var data = {user: {}}
+  if (session.user) {
+    data.user = {
+      username: session.user.username, 
+      _id:  session.user._id
+    }
+  }
+  return data
+}
+
+app.get('/*', function(req, res, next) { /* force xhr */
+  if (!(req.xhr)) 
+    res.render('layout', userData(req.session))
+  else 
+    next()
+})
+
 function restrict(req, res, next) {
   if (req.session.user) {
     next();
@@ -48,83 +73,57 @@ function restrict(req, res, next) {
   }
 }
 
-function forceXhr(req, res, next) {
-  if (!(req.xhr)) {
-    if (req.session.user)
-      res.render('layout', {body: '',  user: {username: req.session.user.username, _id:  req.session.user._id}});
-    else 
-      res.render('layout', {body: '', user: {}});
-  }
-  else
-    next()
-}
-
-function showStatic(req, res, path, pageTitle){
-  if (req.xhr) {
-    res.render(path, function(err, html){
-      res.send({title: pageTitle, body: html});
-    });
-  }
-  else {
-    if (req.session.user)
-      var user = {username: req.session.user.username, _id:  req.session.user._id}
-    else
-      var user = {}
-    res.render('layout', {layout: true, pageTitle: pageTitle, user: user });
-  }
-}
-
-
 app.get('/', function(req, res) {
-    if (req.session.user){
-      //res.send('bobby')
-      res.render('index', {layout: true, user: {username: req.session.user.username, _id:  req.session.user._id}});
-    } else  {
-      //res.send('bobby two')
-      res.render('index', {layout: true, user: {}});
-    }
-});
+  res.render('index', function(err, html){
+    res.send({title: 'Brasilia USA', body: html});
+  });
+})
 
-
-app.get('/home', function(req, res) {
-  res.render('index');
-
-});
-app.get('/support', forceXhr, function(req, res) {
+app.get('/support', function(req, res) {
   res.render('static/support', function(err, html){
     res.send({title: 'Support', body: html});
   });
 });
 
-app.get('/history', forceXhr, function(req, res) {
+app.get('/history', function(req, res) {
   res.render('static/history', function(err, html){
     res.send({title: 'History', body: html});
   });
 });
 
-app.get('/our-team', forceXhr, function(req, res) {
+app.get('/our-team', function(req, res) {
   res.render('static/our-team', function(err, html){
     res.send({title: 'Our Team', body: html});
   });
 });
 
-app.get('/technology', forceXhr, function(req, res) {
+app.get('/technology', function(req, res) {
   res.render('static/technology', function(err, html){
     res.send({title: 'Technology', body: html});
   });
 });
 
-app.get('/what-we-do', forceXhr, function(req, res) {
+app.get('/what-we-do', function(req, res) {
   res.render('static/what-we-do', function(err, html){
     res.send({title: 'What We Do', body: html});
   });
 });
 
-app.get('/dash', forceXhr, function(req, res) {});
+app.get('/dash', function(req, res) {});
 
-app.get('/login', forceXhr, function(req, res) {});
+app.get('/login', function(req, res) {});
 
-app.get('/new-product', forceXhr, function(req, res) {});
+app.get('/contact', function(req, res) {});
+
+app.get('/new-product', function(req, res) {});
+
+app.post('/contact', function(req, res) {
+  db.collection('products').insert(req.body, function(err, result){
+    var product = result[0]
+    res.send(product)
+  })
+})
+
 
 app.post('/session', function(req, res) {
   var key
@@ -158,7 +157,7 @@ app.del('/session', function(req, res) {
   });
 });
 
-app.get('/signup', restrict, forceXhr, function(req, res) { });
+app.get('/signup', restrict, function(req, res) { });
 
 app.post('/signup', restrict, function(req, res){ 
   bcrypt.genSalt(10, function(err, salt){
@@ -191,7 +190,7 @@ app.get("/check-email", function(req, res){
 })
 
 
-app.get('/products', forceXhr, function(req, res) { 
+app.get('/products', function(req, res) { 
   db.collection('products').find().toArray(function(err, products) {
     res.send(products);
   })
@@ -213,15 +212,15 @@ app.put('/products/:slug', restrict, function(req, res) {
   res.send(req.body)
 })
 
-app.get('/products/:slug', forceXhr, function(req, res) {
+app.get('/products/:slug', function(req, res) {
   db.collection('products').findOne({slug: req.params.slug}, function(err, product){
     res.send(product);
   })
 })
 
-app.get('/products/:slug/edit', forceXhr, function(req, res) {})
+app.get('/products/:slug/edit', function(req, res) {})
 
-app.get('/products/new', forceXhr, function(req, res) {})
+app.get('/products/new', function(req, res) {})
 
 function toSlug(text, options){
   return text
@@ -232,28 +231,13 @@ function toSlug(text, options){
 
 function toSlugFile(filename){
   // if this doesnt match. server stops
-  // ie. pic.JPG was killing unit added A-Z to regex
+  // ie. pic.JPG was crashing server added A-Z to regex
   var regex = /^(.+)\.([a-zA-Z]+)/
   var match = regex.exec(filename);
   var name = match[1]
   var extension = match[2]
   name = toSlug(name) 
   return name + '.' + extension
-}
-
-function getContentType(filename){
-  var regex = /^(.+)\.([a-z]+)/
-  var match = regex.exec(filename);
-  var name = match[1]
-  var extension = match[2]
-  if (extension == 'pdf')
-    return 'pdf'
-  else
-    return 'image'
-}
-
-function getNameWithoutExt(){
-  nameNoExt+'_original.'+extension
 }
 
 app.del('/files/:slug', restrict, function(req, res){
@@ -373,26 +357,7 @@ app.post('/upload/:product_id', restrict, function(req, res){
   }
 })
 
-
-app.get('/images/:slug', function(req, res){
-  db.gridfs().open(req.params.slug, 'r', function(err, file) {
-    res.header('Content-Type', file.contentType);
-    res.header('Content-Length', file.length);
-    file.stream(true).pipe(res)
-  })
-})
-
-
-app.get('/files/:slug', function(req, res){
-  db.gridfs().open(req.params.slug, 'r', function(err, file) {
-    res.header('Content-Type', file.contentType);
-    res.header('Content-Length', file.length);
-    //res.header('Content-Disposition', 'attachment; filename='+req.params.slug)
-    file.stream(true).pipe(res)
-  })
-})
-
-app.get('/files', forceXhr, function(req, res){
+app.get('/files', function(req, res){
   db.collection('fs.files').find().toArray(function(err, products) {
     res.send(products);
   })
@@ -401,3 +366,30 @@ app.get('/files', forceXhr, function(req, res){
 
 app.listen(8001);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+
+httpProxy.createServer(function (req, res, proxy) {
+  if (req.url.match(/^\/static/) !== null ) 
+    return fileServer.serve(req, res)
+
+  var match = /^\/files\/(.+)/.exec(req.url)
+  if (match !== null)
+    return serveDbFile(req, res, match[1]) 
+  
+  
+  proxy.proxyRequest(req, res, {
+    host: 'localhost',
+    port: 8001
+  })
+  
+}).listen(8000);
+
+
+function serveDbFile(req, res, slug){
+  db.gridfs().open(slug, 'r', function(err, file) {
+    res.header('Content-Type', file.contentType);
+    res.header('Content-Length', file.length);
+    //res.header('Content-Disposition', 'attachment; filename='+req.params.slug)
+    file.stream(true).pipe(res)
+  })
+}
+

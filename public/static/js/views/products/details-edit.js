@@ -5,20 +5,6 @@ var tpl = require('text!templates/products/product_details.jade')
   , Product = require('models/product')
   , Products = require('collections/products')
 
-_.extend(Backbone.Validation.callbacks, {
-  valid: function(view, attr, selector) {
-    var el = view.$('[' + selector + '~=' + attr + ']')
-    var errorEl = el.next() 
-    if (errorEl.hasClass('error'))  
-      errorEl.remove()
-  },
-  invalid: function(view, attr, error, selector) {
-    // TODO add multiple errors
-    var el = view.$('[' + selector + '~=' + attr + ']')
-    if (el.next().hasClass('error')) return 
-    el.after('<label class="error">' + error + '</label>')
-  }
-});
 
 return Backbone.View.extend({
 

@@ -15,8 +15,15 @@ html(lang="en")
           ul.nav.user-menu.pull-right
  
     #app.container
-      != body
 
     footer.container
       ul.nav.nav-pills
         include footer
+      .facebook
+        a(href="http://www.facebook.com/pages/Brasilia-USA/126213125623")
+          img(src="/static/img/facebook.png", alt="facebook")
+           br Become a fan
+      .details	
+        - var year = new Date().getFullYear()
+        | Copyright &copy;#{year} 
+        | <br> info@brasiliausa.com 

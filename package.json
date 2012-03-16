@@ -11,5 +11,8 @@
     , "mongodb": "latest"
     , "mongoskin": "latest"
     , "validator" : "latest"
+    , "mailer": "latest"
+    , "http-proxy": "latest"
+    , "connect": "latest"
   }
 }

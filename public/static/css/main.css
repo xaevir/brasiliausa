@@ -4064,10 +4064,15 @@ a.thumbnail:hover {
 }
 */
 [class^="icon-"] {
-  background-image: url(/bootstrap/img/glyphicons-halflings.png);
+  background-image: url(/static/bootstrap/img/glyphicons-halflings.png);
 }
 .icon-white {
-  background-image: url(/bootstrap/img/glyphicons-halflings-white.png);
+  background-image: url(/static/bootstrap/img/glyphicons-halflings-white.png);
+}
+h1,
+h2,
+h3 {
+  margin: .5em 0;
 }
 #home h2 {
   font-size: 20px;
@@ -4081,7 +4086,7 @@ a.thumbnail:hover {
 .navbar .brand {
   overflow: hidden;
   text-indent: 5000px;
-  background: url(/img/logo.png) no-repeat top left;
+  background: url(/static/img/logo.png) no-repeat top left;
   width: 149px;
   height: 28px;
   margin-top: 5px;
@@ -4093,6 +4098,9 @@ a.thumbnail:hover {
 }
 .navbar .user-menu .btn {
   float: left;
+}
+.navbar .container {
+  width: 940px;
 }
 .bd img {
   clear: right;
@@ -4109,13 +4117,19 @@ a.thumbnail:hover {
 }
 footer {
   border-top: 1px solid #eee;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 footer .tabs,
 footer .pills {
   margin: 0 auto;
   padding: 0;
   width: 725px;
+}
+footer .facebook {
+  text-align: center;
+}
+footer .details {
+  text-align: center;
 }
 #what-we-do {
   text-align: center;
@@ -4205,14 +4219,15 @@ footer .pills {
 form .btn {
   display: block;
 }
-form label.error {
+form span.error {
   color: #b94a48;
+  display: block;
 }
 .sidebar-nav a.btn {
   display: inline-block;
 }
 .loading {
-  background: #eeeeee url(/img/spinner.gif) 5px 50% no-repeat;
+  background: #eeeeee url(/static/img/spinner.gif) 5px 50% no-repeat;
 }
 .product h1 {
   color: #666;
@@ -4300,6 +4315,11 @@ form label.error {
   -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   margin-top: -18px;
+}
+.page-header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-shadow: 1px 1px #fff;
 }
 .thumbs {
   list-style: none;
@@ -4471,4 +4491,7 @@ img {
   width: 938px;
   margin: 0 auto;
   padding: 0 1px;
+}
+.contact textarea {
+  height: 100px;
 }

@@ -23,16 +23,16 @@ require.config({
  */ 
 define(function(require) {
 
-  require('order!libs/jade/jade')
   require('order!jquery')
-  require('order!libs/utilities')
   require('order!underscore')
   require('order!backbone')
   require('order!libs/backbone.validation/backbone.validation')
-  require('order!/bootstrap/js/bootstrap-dropdown.js')
-  require('order!/bootstrap/js/bootstrap-modal.js')
-  require('order!/bootstrap/js/bootstrap-tab.js')
-  require('order!/bootstrap/js/bootstrap-alert.js')
+  require('order!libs/utilities')
+  require('order!libs/jade/jade')
+  require('order!/static/bootstrap/js/bootstrap-dropdown.js')
+  require('order!/static/bootstrap/js/bootstrap-modal.js')
+  require('order!/static/bootstrap/js/bootstrap-tab.js')
+  require('order!/static/bootstrap/js/bootstrap-alert.js')
   require('order!libs/jquery-iframe-transport/jquery.iframe-transport')  
 
   var App = require('order!app')

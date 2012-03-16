@@ -10,6 +10,7 @@ var SignupView = require('views/users/signup')
   , ContextualMenuView = require('views/products/contextual-menu')
   , PageHeaderView = require('views/site/page-header')
   , SubnavView = require('views/products/subnav')
+  , ContactView = require('views/site/contact')
 
 function showStatic(path) {
     $.get(path, function(obj) {
@@ -73,7 +74,8 @@ return Backbone.Router.extend({
     , 'products/:slug': 'product'
     , 'files'         : 'files'
     , 'login'         : 'login'
-    , '*actions'     :  'home'
+    , 'contact'       : 'contact'
+    , '*actions'      :  'home'
   },
 
   newProduct: _.wrap(function(){
@@ -83,12 +85,7 @@ return Backbone.Router.extend({
       document.title = 'New Product'
     }, restrict),
 
-  home: function() { 
-    $.get('/home', function(html) {
-      $('#app').html(html);
-       document.title = 'Brasilia USA';
-    });
-  },
+  home: function() { showStatic('/') },
    
   support: function(){ showStatic('/support') },
 
@@ -166,13 +163,18 @@ return Backbone.Router.extend({
     }})
   },
 
-  'reset_product': function(){
+  reset_product: function(){
     if (this.contextualMenuView)
       this.contextualMenuView.remove()
     if (this.pageHeaderView)    
       this.pageHeaderView.remove()
   },
 
+  contact: function(){
+    var contact = new ContactView()
+    $('#app').html(contact.render().el)
+    document.title = 'Contact'
+  }, 
 
   login: _.wrap(function(){
     this.loginView = new LoginView({context: 'main'})

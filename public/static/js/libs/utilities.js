@@ -22,3 +22,25 @@ $.fn.center = function () {
     return this;
 }
 
+
+_.extend(Backbone.Validation.callbacks, {
+  valid: function(view, attr, selector) {
+    var el = view.$('[' + selector + '~=' + attr + ']')
+    var errorEl = el.next() 
+    if (errorEl.hasClass('error'))  
+      errorEl.remove()
+  },
+  invalid: function(view, attr, error, selector) {
+    // TODO add multiple errors
+    var el = view.$('[' + selector + '~=' + attr + ']')
+    var sibling = el.next()
+    //reset 
+    if (sibling.hasClass('error')) 
+      sibling.remove()
+    el.after('<span class="error">' + error + '</span>')
+  }
+
+
+})
+
+
