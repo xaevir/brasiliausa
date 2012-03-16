@@ -1252,7 +1252,7 @@ Lexer.prototype = {
    * Case.
    */
   
-  case: function() {
+  'case': function() {
     return this.scan(/^case +([^\n]+)/, 'case');
   },
 
