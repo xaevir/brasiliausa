@@ -13,6 +13,6 @@
     , "validator" : "latest"
     , "mailer": "latest"
     , "http-proxy": "latest"
-    , "connect": "latest"
+    , "node-static": "latest"
   }
 }

@@ -364,8 +364,6 @@ app.get('/files', function(req, res){
 })
 
 
-app.listen(8001);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 httpProxy.createServer(function (req, res, proxy) {
   if (req.url.match(/^\/static/) !== null ) 
@@ -392,4 +390,7 @@ function serveDbFile(req, res, slug){
     file.stream(true).pipe(res)
   })
 }
+
+app.listen(8001);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
