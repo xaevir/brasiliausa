@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!templates/products/product_details.jade')
+var tpl = require('text!templates/products/product-details.mustache')
   , AlertView = require('views/site/alert')
   , Product = require('models/product')
 //  , File = require('views/products/file')
@@ -22,7 +22,7 @@ _.extend(Backbone.Validation.callbacks, {
 
 return Backbone.View.extend({
 
-  template: jade.compile(tpl),
+  template: Hogan.compile(tpl),
 
   className: 'well',
 
@@ -39,7 +39,7 @@ return Backbone.View.extend({
 
   render: function(){
     var locals = this.model.toJSON()
-    var template = this.template(locals)
+    var template = this.template.render(locals)
     $(this.el).html(template);
     return this; 
   },

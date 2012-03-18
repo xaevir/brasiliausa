@@ -1,12 +1,10 @@
 define(function(require) {
 
-var tpl = require('text!templates/products/subnav.jade')
+var tpl = require('text!templates/products/subnav.html')
 
 return Backbone.View.extend({
 
   className: 'subnav',
-
-  template: jade.compile(tpl),
 
   events: {
     "click a": "preventDefault",
@@ -40,8 +38,7 @@ return Backbone.View.extend({
   },
 
   render: function(){
-    var template = this.template()
-    $(this.el).html(template);
+    $(this.el).html(tpl);
     $('#app').before(this.el)
     this.processScroll()
   },

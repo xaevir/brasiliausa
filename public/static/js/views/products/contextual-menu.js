@@ -1,13 +1,13 @@
 define(function(require) {
 
-var tpl = require('text!templates/products/contextual-menu.jade')
+var tpl = require('text!templates/products/contextual-menu.mustache')
 
 return Backbone.View.extend({
 
   className: 'contextual-menu',
   tagName: 'ul',
 
-  template: jade.compile(tpl),
+  template: Hogan.compile(tpl),
 
   events: {
     "click a": "preventDefault",
@@ -20,7 +20,7 @@ return Backbone.View.extend({
 
   render: function() {
     var locals =this.model.toJSON()
-    var template = this.template(locals)
+    var template = this.template.render(locals)
     $(this.el).html(template)
     return this
   },

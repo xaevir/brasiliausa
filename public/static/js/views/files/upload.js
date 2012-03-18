@@ -1,12 +1,10 @@
 define(function(require) {
 
-var tpl = require('text!templates/files/upload.jade')
+var tpl = require('text!templates/files/upload.html')
   , AlertView = require('views/site/alert')         
   , File = require('models/file')
 
 return Backbone.View.extend({
-
-  template: jade.compile(tpl),
 
   events: {
     'change input[type="file"]':  'fileUpload',
@@ -46,9 +44,7 @@ return Backbone.View.extend({
   },
 
   render: function(){
-    var locals = this.model.toJSON()
-    var template = this.template(locals)
-    $(this.el).html(template);
+    $(this.el).html(tpl);
     return this; 
   },
 

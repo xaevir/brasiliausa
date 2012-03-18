@@ -1,13 +1,13 @@
 define(function(require) {
 
 var AlertView = require('views/site/alert')
-  , tpl = require('text!templates/products/product-item.jade')
+  , tpl = require('text!templates/products/product-item.mustache')
 
 var ItemView = Backbone.View.extend({
 
   tagName:  "li",
 
-  template: jade.compile(tpl),
+  template: Hogan.compile(tpl),
 
   events: {
     "click a": "preventDefault",
@@ -30,7 +30,7 @@ var ItemView = Backbone.View.extend({
   },
 
   render: function() {
-    var template = this.template(this.model.toJSON())
+    var template = this.template.render(this.model.toJSON())
     $(this.el).html(template);
     return this;
   },

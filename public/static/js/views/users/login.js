@@ -1,12 +1,10 @@
 define(function(require) {
 
-var tpl = require('text!templates/users/login.jade')
+var tpl = require('text!templates/users/login.html')
   , Session = require('models/session') 
   , AlertView = require('views/site/alert')         
 
 var LoginView = Backbone.View.extend({
-
-  template: jade.compile(tpl),
 
   events: {
     'submit form' : 'submit'
@@ -24,8 +22,7 @@ var LoginView = Backbone.View.extend({
   },
 
   render: function(){
-    var template = this.template();
-    $(this.el).html(template);
+    $(this.el).html(tpl);
     return this; 
   },
 

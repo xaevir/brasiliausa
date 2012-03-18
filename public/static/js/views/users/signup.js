@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!templates/users/signup.jade')
+var tpl = require('text!templates/users/signup.html')
   , AlertView = require('views/site/alert')
 
 require('libs/jquery-validation/jquery.validate')  
@@ -75,8 +75,6 @@ var errorMessages = {
 
 return Backbone.View.extend({
 
-  template: jade.compile(tpl),
-
   initialize: function(options){
     _.bindAll(this, 'render', 'submitHandler', 'xhr'); 
     this.context = options.context
@@ -87,8 +85,7 @@ return Backbone.View.extend({
   },
 
   render: function(){
-    var template = this.template();
-    $(this.el).html(template);
+    $(this.el).html(tpl);
     // validate
     var form = $('form', this.el); 
     $(form).validate({

@@ -1,12 +1,11 @@
 define(function(require) {
 
-var hogan = require('libs/hogan.js/web/builds/2.0.0/hogan-2.0.0.min.amd')
-  , userMenuTpl = require('text!templates/users/userNav.mustache')
+var userMenuTpl = require('text!templates/users/userNav.mustache')
 
 
 return Backbone.View.extend({
 
-  template: hogan.compile(userMenuTpl),
+  template: Hogan.compile(userMenuTpl),
 
   events: {
     'click a[href="#logout"]': 'logout'

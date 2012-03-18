@@ -1,0 +1,26 @@
+<h1>{{name}}</h1>
+<div class="row">
+  <div class="span6">
+    <h2>Description</h2>
+    <div class="description">{{{description}}}</div>
+    <h2>Spec Sheets</h2>
+    <ul class="thumbnails">
+      {{#pdfs}}
+      <li style="width: 187px">
+        <h4>{{caption}}</h4>
+          <a href="/files/{{name}}" class="thumbnail" target='_blank'>
+            <span class="thumbnail-wrapper">
+              <img src="/files/{{thumb}}" class="pdf"/>
+            </span>
+          </a>
+      </li>
+      {{/pdfs}}
+    </ul>
+  </div>          
+  <div class="span6">
+    {{#mainImage}}
+      <img alt="{{name}}" src="/files/{{medium}}" class="main"/>
+    {{/mainImage}} 
+  </div>
+</div>
+

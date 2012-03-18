@@ -1,12 +1,10 @@
 define(function(require) {
 
-var tpl = require('text!templates/site/contact.jade')
+var tpl = require('text!templates/site/contact.html')
   , Contact = require('models/contact') 
   , AlertView = require('views/site/alert')         
 
 return Backbone.View.extend({
-
-  template: jade.compile(tpl),
 
   className: 'contact',
 
@@ -22,8 +20,7 @@ return Backbone.View.extend({
   },
 
   render: function(){
-    var template = this.template()
-    $(this.el).html(template);
+    $(this.el).html(tpl);
     return this; 
   },
 

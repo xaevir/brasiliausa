@@ -28,7 +28,7 @@ define(function(require) {
   require('order!backbone')
   require('order!libs/backbone.validation/backbone.validation')
   require('order!libs/utilities')
-  require('order!libs/jade/jade')
+  require('libs/hogan.js/web/builds/2.0.0/hogan-2.0.0')
   require('order!/static/bootstrap/js/bootstrap-dropdown.js')
   require('order!/static/bootstrap/js/bootstrap-modal.js')
   require('order!/static/bootstrap/js/bootstrap-tab.js')

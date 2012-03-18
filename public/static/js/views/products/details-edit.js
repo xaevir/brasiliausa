@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!templates/products/product_details.jade')
+var tpl = require('text!templates/products/product-details.mustache')
   , AlertView = require('views/site/alert')
   , Product = require('models/product')
   , Products = require('collections/products')
@@ -8,7 +8,7 @@ var tpl = require('text!templates/products/product_details.jade')
 
 return Backbone.View.extend({
 
-  template: jade.compile(tpl),
+  template: Hogan.compile(tpl),
 
   className: 'well',
 
@@ -19,12 +19,25 @@ return Backbone.View.extend({
   initialize: function(options){
     _.bindAll(this); 
     Backbone.Validation.bind(this)
+    this.products = new Products()
 //    this.model.on('validated:valid', this.save, this) 
   },
 
   render: function(){
     var locals = this.model.toJSON()
-    var template = this.template(locals)
+    _.each(this.products.categories, function(option){
+      if(locals.category.slug==option.value) 
+        option.selected = 'selected'
+    })
+    locals.categories = this.products.categories
+
+    _.each(this.products.subcategories, function(option){
+      if(locals.category.slug==option.value) 
+        option.selected = 'selected'
+    })
+    locals.subcategories = this.products.subcategories
+
+    var template = this.template.render(locals)
     $(this.el).html(template);
     return this; 
   },

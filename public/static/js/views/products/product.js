@@ -1,13 +1,13 @@
 define(function(require) {
 
 var AlertView = require('views/site/alert')
-  , tpl = require('text!templates/products/product.jade')
+  , tpl = require('text!templates/products/product.mustache')
 
 return Backbone.View.extend({
 
   className:  "product",
 
-  template: jade.compile(tpl),
+  template: Hogan.compile(tpl),
 
   initialize: function(){
     _.bindAll(this) 
@@ -24,7 +24,7 @@ return Backbone.View.extend({
   render: function() {
     var locals = this.model.toJSON()
     locals.pdfs = this.getPdfs(this.model.get('files'))
-    var template = this.template(locals)
+    var template = this.template.render(locals)
     $(this.el).html(template);
     return this;
   },

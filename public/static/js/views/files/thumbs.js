@@ -1,7 +1,7 @@
 define(function(require) {
 
 var AlertView = require('views/site/alert')         
-  , tpl = require('text!templates/files/thumbs.jade')
+  , tpl = require('text!templates/files/thumbs.mustache')
 
 var ItemView = Backbone.View.extend({
 
@@ -15,7 +15,7 @@ var ItemView = Backbone.View.extend({
     "dblclick div.caption-text"    : "editCaption",
   },
 
-  template: jade.compile(tpl),
+  template: Hogan.compile(tpl),
 
   initialize: function(options){
     this.file = options.file
@@ -67,7 +67,14 @@ var ItemView = Backbone.View.extend({
 
   render: function() {
     var locals = this.model.toJSON()
-    var template = this.template(locals)
+    if (/^image/.test(this.model.type))
+      locals.image = true 
+    if (/application\/pdf/.test(this.model.type)){
+      locals.pdf = true
+      if (typeof this.model.caption !== 'undefined' && this.model.caption)
+        locals.caption_set = true
+    }
+    var template = this.template.render(locals)
     $(this.el).html(template)
     this.input = $('.caption-input', this.el)
     this.addInputBlur()

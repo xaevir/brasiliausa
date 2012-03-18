@@ -11,3 +11,6 @@
 [submodule "public/js/libs/hogan.js"]
 	path = public/static/js/libs/hogan.js
   url = git://github.com/twitter/hogan.js.git
+[submodule "public/static/js/libs/handlebars.js"]
+	path = public/static/js/libs/handlebars.js
+	url = git://github.com/wycats/handlebars.js.git

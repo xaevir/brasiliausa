@@ -4286,6 +4286,7 @@ form span.error {
   float: left;
   width: 175px;
   margin: 0 20px;
+  margin-bottom: 15px;
   display: inline;
   border: 4px solid white;
   text-align: center;
@@ -4293,6 +4294,11 @@ form span.error {
 .products li:hover {
   cursor: pointer;
   border: 4px solid #5FBDFF !important;
+}
+.products .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: .3em;
 }
 .products li a:hover {
   text-decoration: none;
@@ -4317,6 +4323,7 @@ form span.error {
   margin-top: -18px;
 }
 .page-header h3 {
+  font-weight: normal;
   margin-top: 0;
   margin-bottom: 0;
   text-shadow: 1px 1px #fff;
@@ -4352,6 +4359,7 @@ form span.error {
   height: 155px;
   width: 175px;
   text-align: center;
+  display: block;
 }
 .contextual-menu {
   margin: 0;
