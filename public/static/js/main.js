@@ -37,6 +37,7 @@ define(function(require) {
 
   var App = require('order!app')
 
+  $.ajaxSetup({ cache: false });
   App.initialize();
 
 });
