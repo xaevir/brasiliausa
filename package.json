@@ -11,8 +11,9 @@
     , "mongodb": "latest"
     , "mongoskin": "latest"
     , "validator" : "latest"
-    , "mailer": "latest"
+    , "nodemailer": "latest"
     , "http-proxy": "latest"
     , "node-static": "latest"
+    , "hogan.js": "latest"
   }
 }

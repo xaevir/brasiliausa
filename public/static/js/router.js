@@ -146,7 +146,7 @@ return Backbone.Router.extend({
 
   product: function(slug){
     var product = new Product({slug: slug})
-    self = this
+    var self = this
     product.fetch({success: function(model, res){
       var productView = new ProductView({model: model})
       $('#app').html(productView.render().el)

@@ -17,6 +17,7 @@ return Backbone.View.extend({
     this.model = new Contact()
     Backbone.Validation.bind(this)
     this.model.on('sync', this.notice, this) 
+    this.model.on('sync', this.render, this) 
   },
 
   render: function(){

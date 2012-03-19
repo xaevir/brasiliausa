@@ -5,14 +5,20 @@ var express = require('express')
   , imagemagick = require('imagemagick')
   , fs = require('fs')
   , check = require('validator').check
-  , email = require('mailer')
+  , nodemailer = require("nodemailer")
   , httpProxy = require('http-proxy')
   , http = require('http')
   , static = require('node-static')
+  , Hogan = require('hogan.js')
+
 
 var fileServer = new(static.Server)('./public', { cache: 0 });
 
 GridStore = require('mongodb').GridStore
+
+var smtpTransport = nodemailer.createTransport("SMTP",{
+    host: "localhost",
+})
 
 db = mongo.db('localhost/brasiliausa?auto_reconnect');
 
@@ -118,9 +124,38 @@ app.get('/contact', function(req, res) {});
 app.get('/new-product', function(req, res) {});
 
 app.post('/contact', function(req, res) {
-  db.collection('products').insert(req.body, function(err, result){
-    var product = result[0]
-    res.send(product)
+  // Message object
+  var message = {
+      
+      // sender info
+      from: 'Brasilia Contact Page <contact@brasiliausa.com>',
+      
+      // Comma separated list of recipients
+      to: 'bobby.chambers33@gmail.com',
+      
+      // Subject of the message
+      subject: 'Feedback from contact page', //
+  }
+
+  // TODO add cache from mailer code
+  fs.readFile(__dirname + '/views/email.mustache', function(err, result){
+    var template = result.toString()
+    template = Hogan.compile(result.toString())
+    message.html = template.render(req.body)
+    // send mail with defined transport object
+    smtpTransport.sendMail(message, function(error, response){
+        if(error){
+            console.log(error);
+        }else{
+            console.log("Message sent: " + response.message);
+        }
+        smtpTransport.close(); // shut down the connection pool, no more messages
+        res.send({
+          success: true, 
+          message: 'email sent'
+        })
+
+    });
   })
 })
 
