@@ -132,7 +132,7 @@ app.post('/contact', function(req, res) {
       from: 'Brasilia Contact Page <contact@brasiliausa.com>',
       
       // Comma separated list of recipients
-      to: 'bobby.chambers33@gmail.com',
+      to: 'glistino@brasiliausa.com',
       
       // Subject of the message
       subject: 'Feedback from contact page', //

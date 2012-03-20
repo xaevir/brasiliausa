@@ -61,7 +61,7 @@ var ListView = Backbone.View.extend({
 
 var CategoryView = Backbone.View.extend({
 
-  tagName: 'section',
+  className: 'section',
 
   initialize: function(options) {
     this.header = options.header 
