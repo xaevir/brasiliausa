@@ -10,7 +10,8 @@ require.config({
     backbone: 'libs/backbone/backbone',
     text: 'libs/require/text',
     order: 'libs/require/order',
-    templates: '../templates'
+    templates: '../..',
+    bootstrap: '../..'
   }
 
 });

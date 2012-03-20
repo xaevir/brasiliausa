@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!templates/products/product-details.mustache')
+var tpl = require('text!/static/templates/products/product-details.mustache')
   , AlertView = require('views/site/alert')
   , Product = require('models/product')
   , Products = require('collections/products')
