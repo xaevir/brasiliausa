@@ -260,8 +260,8 @@ app.get('/products/new', function(req, res) {})
 
 function toSlug(text, options){
   return text
-    .replace(/[^a-zA-z0-9_-]+/g, '')
-    .replace(/ +/g, '-')
+    .replace(/[^a-zA-z0-9_]+/g, '-')
+    //.replace(/ +/g, '-')
 }
 
 
@@ -399,12 +399,9 @@ app.get('/files', function(req, res){
   })
 })
 
-var something = connect.static(__dirname + '/public')
-
 httpProxy.createServer(function (req, res, proxy) {
   if (req.url.match(/^\/static/) !== null ) 
-    return something(req, res)
-    //return fileServer.serve(req, res)
+    return fileServer.serve(req, res)
 
   var match = /^\/files\/(.+)/.exec(req.url)
   if (match !== null)
