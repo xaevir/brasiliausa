@@ -190,47 +190,52 @@ form {
 .products {  
   margin-top: 10px;
   h1 {
-    //letter-spacing:4px;
-    //text-transform:uppercase;
-    //text-align: center;
-    font-size: 50px;
+    font-size: 54px;
     margin: 20px 0;
-   // font-family: 'Calluna', serif;  
-    font-weight: normal; 
     line-height: 1.2;
   }
-  h2 {
-    color:#666;
-    //letter-spacing:4px;
-    //text-transform:uppercase;
-    //text-align: center;
-    font-size: 30px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-  //  font-family: 'Calluna', serif;  
-    font-weight: normal; 
-    line-height: 1.2;
+  .lead {
+    margin-bottom: 18px;
+    font-weight: 300;
   }
-  ul {
-    overflow: auto;
-  }
-  li {
-    float: left;
-    width: 175px;
-    margin: 0 20px;
-    margin-bottom: 15px;
-    display: inline;
-    border: 4px solid white;
-    text-align: center;
-    &:hover {
-      cursor: pointer;
-      border:4px solid #5FBDFF !important;
+  section {
+    h1 {
+      font-size: 30px; 
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
     }
-  }
-  .title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: .3em;
+    h2 {
+      color:#666;
+      //letter-spacing:4px;
+      //text-transform:uppercase;
+      //text-align: center;
+      font-size: 24px;
+      margin-bottom: 25px;
+      margin-top: 15px;
+    //  font-family: 'Calluna', serif;  
+      line-height: 1.2;
+    }
+    ul {
+      overflow: auto;
+    }
+    li {
+      float: left;
+      width: 175px;
+      margin: 0 20px;
+      margin-bottom: 15px;
+      display: inline;
+      border: 4px solid white;
+      text-align: center;
+      &:hover {
+        cursor: pointer;
+        border:4px solid #5FBDFF !important;
+      }
+    }
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: .3em;
+    }
   }
 }
 .products li a:hover {
@@ -328,7 +333,7 @@ img {
 /* Subnav */
 .subnav {
   //width: 100%;
-  margin-top: -18px;
+ // margin-top: -18px;
   height: 36px;
   background-color: #eeeeee; /* Old browsers */
   background-repeat: repeat-x; /* Repeat the gradient */

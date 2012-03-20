@@ -7,52 +7,48 @@ return Backbone.View.extend({
   className: 'subnav',
 
   events: {
-    "click a": "preventDefault",
-    "click a": "compensateForStaticness",
+    "click a": "scroll",
   },
 
-  preventDefault: function(e) {
+  scroll: function(e){
     e.preventDefault() 
-  },
-
-  compensateForStaticness: function(e){
-    var linkEl = $(e.currentTarget);
-    var target = $(linkEl).data("target");
-    var one = $('#'+target)
-    var section = $('#espresso-grinders')
-    var position = $(section).offset().top - 40
-    $(document.body).animate({
-        'scrollTop': 500 
-    }, 500);
-    e.preventDefault() 
+    var anchor = $(e.currentTarget)
+    // highlight
+    var el = $(anchor).parent()
+    if (el.hasClass('active')) return
+    $('.subnav li').removeClass('active');
+    el.addClass('active');
+    var target = $(anchor).data("target");
+    var position = $('#'+target).offset().top - 50
+    $('body').animate({
+        'scrollTop': position 
+    }, 700);
   },
 
   initialize: function(options){
     _.bindAll(this, 'render') 
-    $win = $(window)
-    $nav = $(this.el)
-    //navTop = $('.subnav').length && $('.subnav').offset().top - 40
-    isFixed = 0
-    $win.on('scroll', this.processScroll)
-    this.render()
   },
 
   render: function(){
     $(this.el).html(tpl);
-    $('#app').before(this.el)
-    this.processScroll()
+    //$('#app').before(this.el)
+    $win = $(window)
+    $nav = $(this.el)
+    navTop = $(this.el).length && $(this.el).offset().top
+    navTop2 = $(this.el).length && $(this.el).offset().top - 38
+    isFixed = 0
+    $win.on('scroll', this.processScroll)
+    return this
   },
 
   processScroll: function() {
-    //navTop = $('.subnav').length && $('.subnav').offset().top - 40
-    //navy = $('.subnav').offset().top 
-    var i, scrollTop = $win.scrollTop()
-    if (scrollTop >= 40 && !isFixed) {
-      isFixed = 1
-      $nav.addClass('subnav-fixed')
-    } else if (scrollTop <= 40 && isFixed) {
-      isFixed = 0
-      $nav.removeClass('subnav-fixed')
+    var i, scrollTop = $win.scrollTop();
+    if (scrollTop >= navTop && !isFixed) {
+      isFixed = 1;
+      $nav.addClass('subnav-fixed');
+    } else if (scrollTop <= navTop && isFixed) {
+      isFixed = 0;
+      $nav.removeClass('subnav-fixed');
     }
   }
 

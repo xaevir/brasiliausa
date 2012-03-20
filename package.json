@@ -15,5 +15,6 @@
     , "http-proxy": "latest"
     , "node-static": "latest"
     , "hogan.js": "latest"
+    , "connect": "latest"
   }
 }
