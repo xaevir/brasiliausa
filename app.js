@@ -10,6 +10,7 @@ var express = require('express')
   , http = require('http')
   , static = require('node-static')
   , Hogan = require('hogan.js')
+  , connect = require('connect')
 
 
 var fileServer = new(static.Server)('./public', { cache: 0 });
@@ -398,11 +399,12 @@ app.get('/files', function(req, res){
   })
 })
 
-
+var something = connect.static(__dirname + '/public')
 
 httpProxy.createServer(function (req, res, proxy) {
   if (req.url.match(/^\/static/) !== null ) 
-    return fileServer.serve(req, res)
+    return something(req, res)
+    //return fileServer.serve(req, res)
 
   var match = /^\/files\/(.+)/.exec(req.url)
   if (match !== null)

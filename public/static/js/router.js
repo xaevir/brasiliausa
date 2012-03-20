@@ -122,7 +122,7 @@ return Backbone.Router.extend({
       this.productsView = new ProductsView({collection: collection})  
       var template = productsView.render().el
       $('#app').html(template)
-      self.subnavView = new SubnavView()
+      //self.subnavView = new SubnavView()
       //self.pageHeaderView = new PageHeaderView({header: header}) 
       //self.pageHeaderView.render()
       document.title = 'Products' 
