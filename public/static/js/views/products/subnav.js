@@ -20,7 +20,7 @@ return Backbone.View.extend({
     el.addClass('active');
     var target = $(anchor).data("target");
     var position = $('#'+target).offset().top - 50
-    $('body').animate({
+    $('html').animate({
         'scrollTop': position 
     }, 700);
   },
