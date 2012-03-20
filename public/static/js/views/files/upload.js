@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!templates/files/upload.html')
+var tpl = require('text!/static/templates/files/upload.html')
   , AlertView = require('views/site/alert')         
   , File = require('models/file')
 

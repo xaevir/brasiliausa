@@ -1,7 +1,7 @@
 define(function(require) {
 
 var AlertView = require('views/site/alert')
-  , tpl = require('text!templates/products/product-item.mustache')
+  , tpl = require('text!/static/templates/products/product-item.mustache')
   , SubnavView = require('views/products/subnav')
 
 var ItemView = Backbone.View.extend({

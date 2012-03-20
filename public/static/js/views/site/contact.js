@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!templates/site/contact.html')
+var tpl = require('text!/static/templates/site/contact.html')
   , Contact = require('models/contact') 
   , AlertView = require('views/site/alert')         
 
