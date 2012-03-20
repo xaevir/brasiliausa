@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!/static/templates/users/login.html')
+var tpl = require('text!templates/users/login.html')
   , Session = require('models/session') 
   , AlertView = require('views/site/alert')         
 

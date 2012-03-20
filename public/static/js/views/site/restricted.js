@@ -2,7 +2,7 @@ define(function(require) {
 
 var SignupView = require('views/users/signup')
   , LoginView = require('views/users/login')         
-  , tpl = require('text!/static/templates/tabs.jade')
+  , tpl = require('text!templates/tabs.jade')
 
 
   return Backbone.View.extend({

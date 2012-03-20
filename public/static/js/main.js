@@ -10,8 +10,6 @@ require.config({
     backbone: 'libs/backbone/backbone',
     text: 'libs/require/text',
     order: 'libs/require/order',
-    templates: '../..',
-    bootstrap: '../..'
   }
 
 });
@@ -30,10 +28,10 @@ define(function(require) {
   require('order!libs/backbone.validation/backbone.validation')
   require('order!libs/utilities')
   require('libs/hogan.js/web/builds/2.0.0/hogan-2.0.0')
-  require('order!/static/bootstrap/js/bootstrap-dropdown.js')
-  require('order!/static/bootstrap/js/bootstrap-modal.js')
-  require('order!/static/bootstrap/js/bootstrap-tab.js')
-  require('order!/static/bootstrap/js/bootstrap-alert.js')
+  require('order!bootstrap/js/bootstrap-dropdown.js')
+  require('order!bootstrap/js/bootstrap-modal.js')
+  require('order!bootstrap/js/bootstrap-tab.js')
+  require('order!bootstrap/js/bootstrap-alert.js')
   require('order!libs/jquery-iframe-transport/jquery.iframe-transport')  
 
   var App = require('order!app')

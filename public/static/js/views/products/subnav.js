@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!/static/templates/products/subnav.html')
+var tpl = require('text!templates/products/subnav.html')
 
 return Backbone.View.extend({
 

@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!/static/templates/products/contextual-menu.mustache')
+var tpl = require('text!templates/products/contextual-menu.mustache')
 
 return Backbone.View.extend({
 

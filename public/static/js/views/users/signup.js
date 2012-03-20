@@ -1,6 +1,6 @@
 define(function(require) {
 
-var tpl = require('text!/static/templates/users/signup.html')
+var tpl = require('text!templates/users/signup.html')
   , AlertView = require('views/site/alert')
 
 require('libs/jquery-validation/jquery.validate')  

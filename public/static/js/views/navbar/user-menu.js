@@ -1,6 +1,6 @@
 define(function(require) {
 
-var userMenuTpl = require('text!/static/templates/users/userNav.mustache')
+var userMenuTpl = require('text!templates/users/userNav.mustache')
 
 
 return Backbone.View.extend({
