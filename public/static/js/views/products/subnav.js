@@ -20,9 +20,18 @@ return Backbone.View.extend({
     el.addClass('active');
     var target = $(anchor).data("target");
     var position = $('#'+target).offset().top - 50
-    $('html').animate({
-        'scrollTop': position 
-    }, 700);
+
+    var isMSIE = /*@cc_on!@*/0;
+    if (isMSIE) {
+       $('html').animate({
+          'scrollTop': position 
+      }, 700);
+    } else {
+       $('body').animate({
+          'scrollTop': position 
+      }, 700);
+    }
+
   },
 
   initialize: function(options){
