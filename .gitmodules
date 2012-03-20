@@ -2,9 +2,6 @@
 [submodule "public/js/libs/jquery-iframe-transport"]
 	path = public/static/js/libs/jquery-iframe-transport
   url = git://github.com/cmlenz/jquery-iframe-transport.git
-[submodule "public/bootstrap"]
-	path = public/static/bootstrap
-  url = git://github.com/twitter/bootstrap.git
 [submodule "public/js/libs/backbone.validation"]
 	path = public/static/js/libs/backbone.validation
   url = git://github.com/thedersen/backbone.validation.git
@@ -14,3 +11,6 @@
 [submodule "public/static/js/libs/handlebars.js"]
 	path = public/static/js/libs/handlebars.js
 	url = git://github.com/wycats/handlebars.js.git
+[submodule "public/static/js/libs/bootstrap"]
+	path = public/static/js/libs/bootstrap
+	url = git://github.com/twitter/bootstrap.git
