@@ -34,24 +34,36 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({ secret: "batman", store: new RedisStore }));
   app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
 });
 
+var staticServer = express.static(__dirname + '/public')
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler()); 
-});
+  app.use(express.errorHandler())
+})
 
 app.get('/*', function(req, res, next) {
   if (req.headers.host.match(/^www/) !== null ) {
     res.redirect('http://' + req.headers.host.replace(/^www\./, '') + req.url);
   } else {
-    next();     
+    next()
   }
+})
+
+app.get('/static/*', function(req, res, next) {
+  staticServer(req, res, next)  
+})
+
+app.get('/files/:slug', function(req, res){
+  db.gridfs().open(req.params.slug, 'r', function(err, file) {
+    res.header('Content-Type', file.contentType);
+    res.header('Content-Length', file.length);
+    file.stream(true).pipe(res)
+  })
 })
 
 function userData(session){
@@ -399,32 +411,6 @@ app.get('/files', function(req, res){
   })
 })
 
-httpProxy.createServer(function (req, res, proxy) {
-  if (req.url.match(/^\/static/) !== null ) 
-    return fileServer.serve(req, res)
-
-  var match = /^\/files\/(.+)/.exec(req.url)
-  if (match !== null)
-    return serveDbFile(req, res, match[1]) 
-  
-  
-  proxy.proxyRequest(req, res, {
-    host: 'localhost',
-    port: 8001
-  })
-  
-}).listen(8000);
-
-
-function serveDbFile(req, res, slug){
-  db.gridfs().open(slug, 'r', function(err, file) {
-    res.header('Content-Type', file.contentType);
-    res.header('Content-Length', file.length);
-    //res.header('Content-Disposition', 'attachment; filename='+req.params.slug)
-    file.stream(true).pipe(res)
-  })
-}
-
-app.listen(8001);
+app.listen(8000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
