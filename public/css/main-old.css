@@ -1,0 +1,920 @@
+html {
+    /* if this is set it will overide the body tag style and the background color will not fill screen */ 
+    background: none;
+}
+body {
+    font-family:"Trebuchet MS","Segoe UI",Trebuchet,"Bitstream Vera Sans","DejaVu Sans",Verdana,"Verdana Ref",sans serif;
+    /* background: #fff url(/img/bg_gradient_grey.jpg) repeat-x top left; */
+    color:#454545;
+	background: #E8E8E8 url(/images/bg.gif) repeat-x top left;
+}
+h1,h2,h3,h4,h5,h6,strong {
+   /*bringing boldness back to headers and the strong element*/
+   font-weight:bold; 
+	color: #ff5d03;
+	color: #828282;
+}
+h1 {
+   /*18px via YUI Fonts CSS foundation*/
+   font-size:30px;  
+	font-weight: normal;
+	margin: .5em 0 .5em 0;
+}
+h2 {
+   /*16px via YUI Fonts CSS foundation*/
+   font-size:20px;
+	font-weight: normal;
+}
+h3 {
+   /*14px via YUI Fonts CSS foundation*/
+   font-size:108%;  
+}
+h2,h3 {
+   /* top & bottom margin based on font size */
+   margin:1em 0;  
+	
+}
+
+hr {
+   border: none;
+   height:1px;
+   margin:10px 0;
+   background-color: #262626;
+   color: #262626;
+}
+abbr,acronym {
+   /*indicating to users that more info is available */
+   border-bottom:1px dotted #000;
+   cursor:help;
+} 
+em {
+   /*bringing italics back to the em element*/
+   font-style:italic;
+}
+blockquote,ul,ol,dl {
+   /*giving blockquotes and lists room to breath*/
+   /* margin:1em; */
+}
+ol,ul,dl {
+   /*bringing lists on to the page with breathing room */
+  /*  margin-left:2em; */
+}
+ol li {
+   /*giving OL's LIs generated numbers*/
+   list-style: decimal inside;  
+}
+ul li {
+   /*giving UL's LIs generated disc markers*/
+   /*list-style: disc outside;*/
+}
+dl dd {
+   /*giving UL's LIs generated numbers*/
+   margin-left:1em;
+}
+th,td {
+   /*borders and padding to make the table readable*/
+/*    border:1px solid #000;
+   padding:.5em;
+   vertical-align: top; */
+}
+th {
+   /*distinguishing table headers from data cells*/
+   font-weight:bold;
+   text-align:center;
+}
+caption {
+   /*coordinated marking to match cell's padding*/
+   margin-bottom:.5em;
+   /*centered so it doesn't blend in to other content*/
+   text-align:center;
+}
+p,fieldset,table {
+   /*so things don't run into each other*/
+   margin-bottom:1em;
+}
+table{
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+input[type=submit] {
+    cursor: pointer;
+}
+input[type=text], input[type=password], textarea{
+  /*width:12.25em;
+  *width:11.9em;*/
+}
+input, select {
+   padding: 3px;
+}
+
+/* only works if img is a block */
+a img {
+    text-decoration: none;
+}
+
+/* if you change, the link color in the caption 
+   must also be changed */
+a {
+  color:#0181E3;
+}
+a:hover {
+    text-decoration: none;
+}
+
+
+/*____________________________________________________________________  Main Div Layout ______*/ 
+#doc2 {
+    background-color: #fff;
+    padding: 0 20px 20px 30px;
+    
+}
+
+#hd {
+    margin-bottom: 20px; 
+}
+#bd {
+    
+}
+#yui-main .yui-b {
+   position: relative;
+}
+#ft {
+    margin-top: 40px;
+    text-align: center; 
+    font-size: 11px;
+}
+
+
+/*-----------------------------------------------------------------------------------------
+                                                                          CLASSES
+-------------------------------------------------------------------------------------------*/
+.clear-both {
+    clear: both;
+}
+.center {
+    text-align: center;
+}
+
+.quote-left {
+    float: left;
+    margin-top: -5px;
+    margin-right: 5px;
+}
+.clearfix:after {
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden;
+} 
+/* ie 7 clear fix 
+ * www.456bereastreet.com/archive/200603/new_clearing_method_needed_for_ie7/  
+ */
+.clearfix {display:inline-block;}
+
+/* Hides from IE-mac \*/
+    * html .clearfix { height:1% }
+    .clearfix {display:block;} /* ie7 clear fix */
+/* End hide from IE-mac */
+
+.blue-dark{
+    color: #0077b3;
+}
+.pale-blue {
+    color: #9acfe9;
+}
+
+.blue {
+    color: #5FBDFF;
+}
+
+.green {
+    color: #629109;
+}
+.purple {
+    color: #910956;
+}
+.purple-light {
+    color: #ea138d;
+}
+.aqua {
+    color: #0BCEFF;
+}
+.blood-red{
+    color: #ac1111;
+}
+
+.orange {
+	color: #ff5d03;	
+}
+
+.has-disc li{
+   list-style-type: disc;     
+}
+
+.button {
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border: 2px solid #079abf;
+    background: #093c91 url(/images/button-blue.jpg) repeat-x top left; 
+    float: left;
+    height: 30px; /* this works with line-height to center text verticallly */
+    line-height: 30px; /* this centers the text */
+}
+
+.add-to-cart {
+    margin-top: 15px;
+}
+
+.button a:hover{
+    text-decoration: underline;
+}
+
+.oneColContent .bd{
+    padding:0 30px 20px 30px;
+    border: 1px solid #ccc;
+}
+
+
+.spaced li{
+	margin-top: 20px
+}
+
+/******************************* these product styles have to come first because I overide the css in 
+                                 later on.
+*/
+.product {
+    text-align: center;
+}
+
+.over {
+    /*background-color: #d7f0fd;*/
+    cursor: pointer;
+    border:4px solid #5FBDFF !important;
+}
+
+/**
+ * wrapping everything in <a> tag
+ * 
+ * I am doing this so that the window.status message shows 
+ * I am also doing this so that the whole section is a hover
+ * I cant do it in js bc it will not show the window.status message.
+ * So I am using <span> tags
+ */
+.product a {
+    text-decoration: none;
+} 
+ 
+.product span {
+    display: block;
+}
+
+.product img {
+
+    padding-top: 10px;
+    display: inline;
+    margin: 0 auto;
+
+}
+
+.product .product-name {
+    font-weight: normal;
+    color: #000;
+    margin-top: 5px;
+}
+
+.product .price {
+    font-weight:bold;
+    margin-bottom: 5px;
+    color:#00AFF0;
+}
+
+.product .find-out-more {
+    margin-bottom: .5em;
+    padding-bottom: 10px;
+    text-decoration: underline;
+}
+
+.product span.find-out-more:hover {
+    text-decoration: none;
+}
+
+/*-----------------------------------------------------------------------------------------
+                                                                          YUI_OVERLAY
+-------------------------------------------------------------------------------------------*/
+
+.yui-overlay-content {
+    background-color: #fff;
+    border: 4px solid #3A89C9;
+    padding: 20px 15px 15px 15px;
+}
+.yui-overlay .yui-widget-bd {
+    text-align:center;
+}
+
+
+.add-to-cart-success {
+    color: #1B325F;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.add-to-cart-product {
+    color: #3A89C9;
+    font-size: 16px;
+    margin-bottom: 10px;
+    
+}
+
+#shopping-cart-view .yui-overlay-content {
+    background-color: #0BCEFF;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+#shopping-cart-view .yui-overlay-content p {
+    margin-bottom: 0;
+}
+
+/*-----------------------------------------------------------------------------------------
+                                                                          layout.phtml
+-------------------------------------------------------------------------------------------*/
+#logo {
+    float: left;	
+}  
+#logo img {
+    margin-top: 20px;
+}
+
+#logo-2 {
+    float: right;	
+}  
+#logo-2 img {
+    margin-top: 10px;
+}
+
+.caption {
+    float: right;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+#banner img {
+    display: block;
+}
+
+/*____________________________________________________________________  Main Navigation  ______*/
+
+    
+#main-menu {
+  font-family: arial, sans-serif;
+    float: left;	
+    margin-top: 5px;
+}
+
+#main-menu li {
+    float: left;
+}
+
+#main-menu li a {
+    /*color:#000; */
+    padding-right: 8px;
+    padding-left: 8px;
+    font-size: 14px;
+    text-decoration: none;
+
+    /*border-right: 1px solid #000; */
+    
+}
+#main-menu #last-link a{
+    border-right: none;
+}
+#main-menu li a:hover {
+    /*background-color: #ff5d03; */
+    color: #ff5d03;
+    text-decoration: underline;
+    /*
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    */
+}
+ 
+ 
+/* link in the header */
+#header-links {
+    background-color: #424242;
+    background: url(/images/gray_bg.jpg) repeat-x bottom left;
+    height: 40px;
+}
+
+#header-links ul{
+    width:73.076em;
+    margin: 0 auto;
+}
+#header-links li{
+    float: right;
+    position: relative;
+    
+} 
+
+a#button-cart {
+	width: 90px;
+	height: 28px;
+	display: block;
+}
+
+
+#header-links img{
+    position: absolute;
+    top: -8px;
+
+	
+	
+}
+#login {
+    margin-top: 20px;
+}
+#login a {
+    color: #ccc;
+    text-decoration: none;
+    margin-top: 15px;
+    margin-right: 50px;
+}
+#login a:hover {
+    text-decoration: underline;
+}
+
+.button-header {
+    -moz-border-radius-topleft:7px;
+    -moz-border-radius-topright:7px;
+    -webkit-border-top-left-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    background-color: #0BCEFF;
+    line-height: 2em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: left;
+    margin-top: 12px;
+    padding-left: 5px;
+  
+}
+.button-header a{
+    text-decoration: none;
+    color: #fff;  
+}
+
+
+/*____________________________________________________________________  Footer  ______*/
+
+#facebook {
+    margin-bottom: 15px;
+}
+
+#facebook a {
+    color: #000;
+    text-decoration: none;
+}
+    
+#footer-links {	
+    margin: 30px 0;
+}
+
+#footer-links li {
+    display: inline;
+    margin-left: 15px;
+}
+
+#footer-links li a {
+    text-decoration: none;
+    
+}
+#footer-links li a:hover {
+
+}
+
+#footer-bottom {
+	color:#6E6E6E;
+	text-decoration: none;
+}
+
+#footer-bottom a{
+	color:#6E6E6E;
+	text-decoration: none;
+}
+
+#friends {
+	color: #0181E3;
+	cursor: pointer;
+}
+
+/*-----------------------------------------------------------------------------------------
+                                                                          HOME PAGE
+-------------------------------------------------------------------------------------------*/
+/*
+ * note about yui grids
+ * the u stands for unit. 
+ * it goes inside yui-g (grid)
+ */
+ 
+#home  {
+    color: #333;
+    /* margin-top: 15px; */
+}  
+.header-home-page {
+    /* margin-bottom: 10px; */
+}
+#home h1 {
+    margin: 0;
+    background: url(/images/home-page-banner.jpg) no-repeat top left;
+    height: 350px;
+    width: 950px;
+    text-indent: 5000px;
+}
+
+#home h1 span {
+	display: block;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	}
+
+#home .yui-gb {
+	margin-top: 15px;
+}
+	
+#home .yui-u {
+	border: 1px solid #ccc;
+	width: 31.7% !important;
+	height: 430px;
+	
+}
+
+#home .yui-u p{
+	padding: 10px;	
+}	
+
+#home .yui-u h2 {
+	border-bottom: 1px solid #ccc;
+	padding-left: 10px;
+	margin-top: .5em;
+	margin-bottom: 0;
+	padding-bottom: .5em;
+	font-weight: normal;
+}
+
+
+
+
+/*____________________________________________________________________ Service page _______________ */
+
+#manuals-button img{
+	margin-top: -50px;
+	float: right;
+}
+
+
+/*
+ * more like a class. I believe this
+ * is on all of the pages
+ */
+.image-float-all p img {
+	float: right;
+	padding: 15px;
+	padding-left: 20px;
+	
+	clear: right;
+}
+
+/*____________________________________________________________________ technology page _______________ */
+
+
+#technology-page .hd{
+	margin-bottom: 10px;	
+}
+
+/*____________________________________________________________________ contact page _______________ */
+
+.left-col {
+	float: left;
+	
+}
+
+/*____________________________________________________________________ What We Do page _______________ */
+#what-we-do {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#what-we-do p {
+    margin-top: 50px;
+    font-size: 28px;
+}
+#what-we-do p a{
+    font-size: 50px;
+}
+
+/*____________________________________________________________________ Products Many page _______________ */
+
+
+
+.one-of-many {
+    float: left;
+    width: 175px;
+    margin: 0 20px; /* 174 (width) * 4 (# of products) = 696 + 8 (1px border on each li) = 704;  950(total page width)-704 = 246; 246/5(numbers of spaces in between li's) = 49.2 */ 
+    /*overflow: hidden; */
+    display: inline; /*double margin float bug in IE6  www.positioniseverything.net/explorer/doubled-margin.html */ 
+    border: 4px solid #fff;
+}
+
+#many-products-page h2 {
+	border-bottom: 1px solid #828282;
+}
+
+/*-----------------------------------------------------------------------------------------
+                                                                          ABOUT PAGE
+-------------------------------------------------------------------------------------------*/
+#about-page .bd{
+/*     background: #fff url(/img/bg-filler.jpg) no-repeat top left;  
+    height: 350px; */
+    /* font-size: 16px; */
+    width: 600px;
+    margin: 0 auto;
+}
+
+#about-page h1 {
+    color:#525252;
+    border: none;
+    font-size: 36px;
+    margin: 20px 0;
+    
+}
+
+/*-----------------------------------------------------------------------------------------
+                                                                          History
+-------------------------------------------------------------------------------------------*/
+.history-date {
+	font-size:123.1%;
+	font-weight:bold;	
+}
+
+ul.orange-bullet li {
+	list-style-image:url(/images/bullet_orange.png);
+	margin-bottom:10px;
+	margin-left:15px;
+}
+
+.orange-bullet {
+	margin:0.5em;
+}
+
+/*-----------------------------------------------------------------------------------------
+                                                                          PRODUCT Detail Page
+-------------------------------------------------------------------------------------------*/
+
+.add-to-cart a{
+    padding: 0 7px;
+    display: block; /* needed to so it fills the parent div */
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;  
+    font-weight: bold;
+}
+
+#product-detail-page h1 {
+	color:#666;
+	font-family:Arial,Helvetica,sans-serif;
+	letter-spacing:4px;
+	text-transform:uppercase;
+}
+#product-detail-page h1 span{
+    text-transform:none;
+    letter-spacing:0;
+    font-size: 20px;
+    display: block;
+}
+
+#product-detail-page h3 {
+    color: #000;
+    margin-bottom: 15px;
+}
+
+#product-detail-page h4 {
+    color: #000;
+}
+
+#product-detail-page b {
+    color: #000;
+}
+
+.snippet {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.snippet li {
+    background: url(/images/tick.png) no-repeat top left;
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.product-description-container img{
+   float: right;
+   margin: 0 15px;
+}
+
+.product-pdf {
+	margin: 20px 0;	
+}
+.product-pdf a {
+	text-decoration: none;
+}
+.product-pdf a:hover {
+	text-decoration: underline;
+}
+
+.product-details-grid dt {
+	float:left;
+	font-weight:bold;
+	margin-bottom:6px;
+	width:140px;
+}
+
+
+
+
+ 
+/* this was to imitate the shopping cart from flying hippier
+ * where it showed a mini pic of the item just purchases on the right side
+  */
+ #mini-shopping-cart {
+   width: 100px;
+   height: 200px;
+   position: absolute;
+   right: -100px;
+   top: 0;
+   background-color: aqua;
+   display: none;
+ }
+
+
+ 
+/*-----------------------------------------------------------------------------------------
+                                                                          Contact Page
+-------------------------------------------------------------------------------------------*/ 
+#contact-page {
+    margin-top: 20px;
+}
+
+#contact-page #sidebar {
+    float: left;
+    width: 265px;
+}
+#contact-page #sidebar p {
+    font-size: 16px;
+}
+
+#contact-page #contact-form{
+    /* margin-top: 100px; */
+    width: 480px;
+    font-size: 16px; 
+}
+
+#address-stuff {
+    font-size: 16px;
+}
+#contact-page form {
+    /* font-size: 16px; */
+}
+#contact-page #contact-form textarea {
+    width: 70%;
+    height: 200px;
+}
+
+#contact-page dt {
+    width: 110px;
+    /* color: #666; */
+}
+#contact-page form{
+    margin-top: 30px;
+}
+#submit {
+    font-size: 16px;
+}
+
+
+
+#contact-page .right-col {
+	float: left;
+	margin-left: 50px;
+}
+
+
+/*-----------------------------------------------------------------------------------------
+                                                                          SHOPPING CART VIEW
+-------------------------------------------------------------------------------------------*/
+
+.cart-header_1 {
+    font-family: georgia;
+}
+
+.button-small {
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    background-color: #000;
+    font-size: 10px;
+    line-height: 1.5em;
+    text-transform: uppercase;
+    padding: 0 3px;
+    float: left;
+
+  
+}
+.button-small a{
+    text-decoration: none;
+    color: #fff;  
+}
+.button-small #update {
+    padding: 2px 1px;
+    font-size: 11px;
+    display: block;
+    
+}
+
+#cart-table{
+    border-collapse: collapse;
+    width: 100%;
+    font-family: georgia;
+    font-size: 14px;
+}
+
+#cart-table th, td {
+    border: none;
+}
+
+.cart_headers td {
+    font-size: 11px;
+    height: 30px;
+}
+
+.rowOdd {
+    background-color: #e9f2f9;
+}
+.cart-image {
+    background-color:#FFFFFF;
+    border:1px solid #DDDDDD;
+    padding:5px;
+    width:105px;
+}
+.cart-image img {
+    display: block;
+    margin: 0 auto;
+}
+.table-text {
+    margin: 0 10px;
+}
+.currency-text {
+    font-family: arial;
+    font-size: 18px;
+    margin-right: 10px;
+}
+.quantity input{
+    font-family: arial;
+    font-size: 16px;
+    padding: 3px;
+    width: 60px;
+}
+.math-operator {
+    font-size: 12px;
+    color: #959595;
+    text-align: center;
+}
+.total {
+    font-family: arial;
+    font-size: 18px;
+}
+.table-row-spacer {
+    height: 10px;
+}
+.table-divider {
+    border-top:1px dotted #898989;
+    height: 10px;
+}
+
+.checkout input{
+    height: 30px;
+    line-height: 30px;
+    border: none;
+    padding: 0 7px;
+    display: block; /* needed to so it fills the parent div */
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;  
+    font-weight: bold;
+    background-color: transparent;
+    cursor: pointer;
+}

@@ -51,7 +51,19 @@ app.get('/*', function(req, res, next) {
   else next();
 });
 
-app.get('/static/*', function(req, res, next) {
+app.get('/css/*', function(req, res, next) {
+  staticServer(req, res, next)  
+})
+
+app.get('/js/*', function(req, res, next) {
+  staticServer(req, res, next)  
+})
+
+app.get('/img/*', function(req, res, next) {
+  staticServer(req, res, next)  
+})
+
+app.get('/fonts/*', function(req, res, next) {
   staticServer(req, res, next)  
 })
 
@@ -408,6 +420,6 @@ app.get('/files', function(req, res){
   })
 })
 
-app.listen(8000);
+app.listen(8001);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
