@@ -47,12 +47,9 @@ app.configure('production', function(){
 })
 
 app.get('/*', function(req, res, next) {
-  if (req.headers.host.match(/^www/) !== null ) {
-    res.redirect('http://' + req.headers.host.replace(/^www\./, '') + req.url);
-  } else {
-    next()
-  }
-})
+  if (req.headers.host.match(/^www/) !== null ) res.redirect('http://' + req.headers.host.replace(/^www\./, '') + req.url, 301);
+  else next();
+});
 
 app.get('/static/*', function(req, res, next) {
   staticServer(req, res, next)  
