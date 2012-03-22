@@ -5,7 +5,6 @@ var tpl = require('text!templates/products/product-details.mustache')
   , Product = require('models/product')
   , Products = require('collections/products')
 
-
 return Backbone.View.extend({
 
   template: Hogan.compile(tpl),
@@ -20,7 +19,7 @@ return Backbone.View.extend({
     _.bindAll(this); 
     Backbone.Validation.bind(this)
     this.products = new Products()
-//    this.model.on('validated:valid', this.save, this) 
+    this.model.on('sync', this.notice, this) 
   },
 
   render: function(){
@@ -58,18 +57,15 @@ return Backbone.View.extend({
     params.subcategory = {slug: params.subcategory, name: subcatLabel}
 
     this.model.save(params);
-    this.synched()
   },
 
-  synched: function(){
+  notice: function(){
     var successAlert = new AlertView({
       message: '<strong>Saved</strong>',
       type: 'info'
     })
     successAlert.fadeOut()
   },
-
-
 });
 
 });

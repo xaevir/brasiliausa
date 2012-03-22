@@ -67,12 +67,14 @@ var ItemView = Backbone.View.extend({
 
   render: function() {
     var locals = this.model.toJSON()
-    if (/^image/.test(this.model.type))
+    if (/^image/.test(locals.type))
       locals.image = true 
-    if (/application\/pdf/.test(this.model.type)){
+    if (/application\/pdf/.test(locals.type)){
       locals.pdf = true
-      if (typeof this.model.caption !== 'undefined' && this.model.caption)
+      if (typeof locals.caption !== 'undefined' && locals.caption)
         locals.caption_set = true
+      else
+        locals.caption_set = false
     }
     var template = this.template.render(locals)
     $(this.el).html(template)

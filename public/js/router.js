@@ -11,6 +11,7 @@ var SignupView = require('views/users/signup')
   , PageHeaderView = require('views/site/page-header')
   , SubnavView = require('views/products/subnav')
   , ContactView = require('views/site/contact')
+  , SubnavView = require('views/products/subnav')
 
 function showStatic(path) {
     $.get(path, function(obj) {
@@ -120,10 +121,13 @@ return Backbone.Router.extend({
     var self = this
     products.fetch({success: function(collection, res){
       this.productsView = new ProductsView({collection: collection})  
-      var template = productsView.render().el
+      var template = this.productsView.render().el
       $('#app').html(template)
+      this.subnavView = new SubnavView()
+      $('#jumboheader').after(this.subnavView.render().el)
+      this.subnavView.setOffsetTop()
       //self.subnavView = new SubnavView()
-      //self.pageHeaderView = new PageHeaderView({header: header}) 
+      //self.pageHeaderView = new PageHeaderView({header: header})
       //self.pageHeaderView.render()
       document.title = 'Products' 
     }})

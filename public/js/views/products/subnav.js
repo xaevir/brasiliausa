@@ -26,27 +26,28 @@ return Backbone.View.extend({
   },
 
   initialize: function(options){
-    _.bindAll(this, 'render', 'processScroll') 
+    _.bindAll(this, 'render', 'processScroll', 'setOffsetTop') 
   },
+
+  isFixed: 0,
 
   render: function(){
     $(this.el).html(tpl);
-    //$('#app').before(this.el)
-    $win = $(window)
-    isFixed = 0
-    $win.on('scroll', this.processScroll)
+    $(window).on('scroll', this.processScroll)
     return this
   },
-  
+ 
+  setOffsetTop: function(){
+    this.topOffset = $(this.el).offset().top
+  },
+
   processScroll: function() {
-    if (typeof navTop === 'undefined')
-      navTop =$(this.el).offset().top
-    var i, scrollTop = $win.scrollTop();
-    if (scrollTop >= navTop && !isFixed) {
-      isFixed = 1;
+    var scrollTop = $(window).scrollTop()
+    if (scrollTop >= this.topOffset && !this.isFixed) {
+      this.isFixed = 1;
       $(this.el).addClass('subnav-fixed');
-    } else if (scrollTop <= navTop && isFixed) {
-      isFixed = 0;
+    } else if (scrollTop <= this.topOffset && this.isFixed) {
+      this.isFixed = 0;
       $(this.el).removeClass('subnav-fixed');
     }
   }

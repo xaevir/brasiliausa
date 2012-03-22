@@ -2,7 +2,6 @@ define(function(require) {
 
 var AlertView = require('views/site/alert')
   , tpl = require('text!templates/products/product-item.mustache')
-  , SubnavView = require('views/products/subnav')
 
 var ItemView = Backbone.View.extend({
 
@@ -182,11 +181,7 @@ return  Backbone.View.extend({
   },
 
   preRender: function(){
-    $(this.el).append('<header class="jumbotron subhead"></header>')
-    $('header', this.el).append('<h1>Our Food Service Equipment</h1>')
-    $('header', this.el).append('<p class="lead">Browse our growing array of food service equipment.</p>')
-    this.subnavView = new SubnavView()
-    $('header', this.el).append(this.subnavView.render().el)
+    $(this.el).append('<h1 id="jumboheader">Our Specialty Caf&eacute; Equipment</h1>')
   }
 
 })
