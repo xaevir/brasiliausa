@@ -4,20 +4,20 @@
   <input class="span3" name="name" value={{name}}>
 
   <label>Description</label>
-  <textarea class="span3" name="description">{{description}}</textarea> 
+  <textarea class="span3" name="description">{{description}}</textarea>
 
   <label>Category</label>
   <select class="span3" name="category">
     <option value="">-- Select Category --</option>
     {{#categories}}
-      <option value={{value}} selected={{selected}}>{{label}}</option>
+      <option value="{{slug}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
     {{/categories}}
   </select>
   <label>Subcategory</label>
   <select class="span3" name="subcategory">
     <option value="">-- Select Subcategory --</option>
     {{#subcategories}}
-      <option value={{value}} selected={{selected}}>{{label}}</option>
+      <option value="{{slug}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
     {{/subcategories}}
   </select>
   <button class="btn" type="submit">Save</button>

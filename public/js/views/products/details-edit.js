@@ -18,23 +18,24 @@ return Backbone.View.extend({
   initialize: function(options){
     _.bindAll(this); 
     Backbone.Validation.bind(this)
-    this.products = new Products()
     this.model.on('sync', this.notice, this) 
   },
 
   render: function(){
+    var products = new Products()
     var locals = this.model.toJSON()
-    _.each(this.products.categories, function(option){
-      if(locals.category.slug==option.value) 
-        option.selected = 'selected'
-    })
-    locals.categories = this.products.categories
+    locals.categories = products.categories
+    locals.subcategories = products.subcategories
 
-    _.each(this.products.subcategories, function(option){
-      if(locals.category.slug==option.value) 
-        option.selected = 'selected'
+    _.each(products.categories, function(category){
+      if(locals.category.slug == category.slug)
+        category.selected = true 
     })
-    locals.subcategories = this.products.subcategories
+
+    _.each(products.subcategories, function(subcategory){
+      if(locals.category.slug == subcategory.value) 
+        subcategory.selected = 'selected'
+    })
 
     var template = this.template.render(locals)
     $(this.el).html(template);

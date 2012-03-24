@@ -8,15 +8,15 @@ define(function(require) {
     url : 'products',
 
     categories :  [
-      {value: 'espresso-machines', label: 'Espresso Machines'}, 
-      {value: 'espresso-grinders', label: 'Espresso Grinders'}, 
-      {value: 'juicers', label: 'Juicers'}, 
-      {value: 'panini-grills', label: 'Panini Grills'}
+      {slug: 'espresso-machines', name: 'Espresso Machines'}, 
+      {slug: 'espresso-grinders', name: 'Espresso Grinders'}, 
+      {slug: 'juicers', name: 'Juicers'}, 
+      {slug: 'panini-grills', name: 'Panini Grills'}
      ],
     
     subcategories: [
-      {value: 'bar-line', label: 'Bar Line'}, 
-      {value: 'compact', label: 'Compact'}
+      {slug: 'bar-line', name: 'Bar Line'}, 
+      {slug: 'compact', name: 'Compact'}
     ] 
 
   })
