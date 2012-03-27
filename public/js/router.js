@@ -12,6 +12,9 @@ var SignupView = require('views/users/signup')
   , SubnavView = require('views/products/subnav')
   , ContactView = require('views/site/contact')
   , SubnavView = require('views/products/subnav')
+  , ManualsView = require('views/manuals/list')
+  , ManualsEdit = require('views/manuals/edit')
+  , Manuals = require('collections/manuals')
 
 function showStatic(path) {
     $.get(path, function(obj) {
@@ -46,18 +49,10 @@ function autoResetRouter(){
 return Backbone.Router.extend({
 
   initialize: function() {
-
     this.on('all', this.highlight)
     _.bindAll(this); 
     autoResetRouter.call(this)
     window.dispatcher.on('session:logout', this.logout, this)
-
-
-
-//    _.each(['newProduct'], function(method){ 
-//      this[method] = _.wrap(this[method], restrict); 
-//    }, this)
-
   },
 
   routes: {
@@ -76,6 +71,7 @@ return Backbone.Router.extend({
     , 'files'         : 'files'
     , 'login'         : 'login'
     , 'contact'       : 'contact'
+    , 'manuals'       : 'manuals'
     , '*actions'      :  'home'
   },
 
@@ -115,6 +111,21 @@ return Backbone.Router.extend({
       document.title = 'Edit Product'
     }})
   }, restrict),
+
+  manuals: function(){ 
+    var manuals = new Manuals()
+    var self = this
+    manuals.fetch({success: function(collection, res){
+      this.manualsView = new ManualsView({collection: collection})
+      var template = this.manualsView.render().el
+      $('#app').html(template)
+      document.title = 'User Manuals' 
+      if (window.user.isLoggedIn()) {
+        var manualsEdit = new ManualsEdit({collection: collection})
+        $('#jumboheader').after(manualsEdit.render().el)
+      }
+    }})
+  }, 
 
   products: function(){ 
     var products = new Products()
@@ -186,7 +197,6 @@ return Backbone.Router.extend({
     $('#app').html(this.loginView.el)
     document.title = 'Login'
   }, alreadyLoggedIn),
-
 
   signup: function(){ 
     if (window.user.isLoggedIn()) 

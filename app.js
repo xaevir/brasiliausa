@@ -280,21 +280,22 @@ app.get('/products/:slug/edit', function(req, res) {})
 app.get('/products/new', function(req, res) {})
 
 function toSlug(text, options){
-  return text
-    .replace(/[^a-zA-z0-9_]+/g, '-')
-    //.replace(/ +/g, '-')
+  return text.replace(/[^a-zA-z0-9_]+/g, '-')
 }
 
-
-function toSlugFile(filename){
-  // if this doesnt match. server stops
-  // ie. pic.JPG was crashing server added A-Z to regex
+function splitFilename(filename){
   var regex = /^(.+)\.([a-zA-Z]+)/
   var match = regex.exec(filename);
   var name = match[1]
   var extension = match[2]
-  name = toSlug(name) 
-  return name + '.' + extension
+  return {name: name, extension: extension}
+}
+
+function toSlugFile(filename){
+  var split = splitFilename(filename)
+  name = toSlug(split.name) 
+  extension = split.extension.toLowerCase() 
+  return name+'.'+extension
 }
 
 app.del('/files/:slug', restrict, function(req, res){
@@ -313,6 +314,22 @@ app.del('/files/:slug', restrict, function(req, res){
     })
   })
 })
+
+app.del('/manuals/:slug', restrict, function(req, res){
+  GridStore.unlink(db.db, req.params.slug, function(err, gs) {
+    console.log('orginal deleted')
+    GridStore.unlink(db.db, req.body.metadata.thumbName, function(err, gs) {
+      console.log('thumbnail removed')
+      res.send({
+        success: true, 
+        message: 'file removed', 
+        data: {name: req.params.slug }
+      })
+    })
+  })
+})
+
+
 /*
  * handling all me.jpg pics. Create folder 
  * for each person and save in 
@@ -414,9 +431,91 @@ app.post('/upload/:product_id', restrict, function(req, res){
   }
 })
 
+
+app.post('/manuals', restrict, function(req, res){
+  req.files.file.name = toSlugFile(req.files.file.name)
+  var file = req.files.file
+  var split = splitFilename(file.name)
+
+  var thumbName = split.name+'_thumb_pdf.png'
+  var image_input = file.path + '[0]'
+  var input = file.path
+  var output = '/tmp/'+file.name+'.png'
+  var mediumSize = '300x400>'
+  var thumbnailSize = '175x155>'
+
+  var fs_opts = {
+    content_type: file.type,
+    metadata: {
+      category: req.body.category,
+      name: req.body.name,
+      manuals: true,
+      thumbName: thumbName, 
+    }
+  }
+
+  var fs_opts_thumb = {
+    content_type: 'image/png',
+    metadata: {
+      category: req.body.category,
+      manuals: true
+    }
+  }
+
+  var gs_original = new GridStore(db.db, file.name, "w", fs_opts)
+  var gs_thumb = new GridStore(db.db, thumbName, "w", fs_opts_thumb)
+
+  createThumb()
+
+  function createThumb(){
+    imagemagick.convert([image_input, '-resize', thumbnailSize, '-quality', '100', output], function(err, metadata){
+      gs_thumb.open(function(err, gs) {
+        gs.writeFile(output, function(err, reply) {
+          fs.unlink(output, function (err) {
+            console.log('image thumbnail created and saved')
+            gs.close(function(err, reply){
+              saveOriginal()
+            })
+          })
+        })
+      })
+    })
+  }
+
+  function saveOriginal(){
+    gs_original.open(function(err, gs) {
+      gs.writeFile(input, function(err, reply) {
+        fs.unlink(input, function (err) {
+          console.log('original saved')
+          gs.close(function(err, reply){
+            done(file.name)
+          })
+        })
+      })
+    })
+  }
+ 
+  function done(name) {
+    console.log('image manipulation done and saved')
+    db.collection('fs.files').findOne({filename:file.name}, function(err, manual) {
+      res.send({
+        success: true, 
+        message: file.type+' resized and saved',
+        data: manual 
+      })    
+    })
+  }
+})
+
 app.get('/files', function(req, res){
   db.collection('fs.files').find().toArray(function(err, products) {
     res.send(products);
+  })
+})
+
+app.get('/manuals', function(req, res){
+  db.collection('fs.files').find({'metadata.manuals':true, contentType: 'application/pdf'}).toArray(function(err, manuals) {
+    res.send(manuals);
   })
 })
 
