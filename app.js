@@ -519,6 +519,6 @@ app.get('/manuals', function(req, res){
   })
 })
 
-app.listen(8001);
+app.listen(8000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
