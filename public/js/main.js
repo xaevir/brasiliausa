@@ -1,8 +1,5 @@
 require.config({
   paths: {
-    jquery: 'libs/jquery/jquery-min',
-    underscore: 'libs/underscore/underscore',
-    backbone: 'libs/backbone/backbone',
     text: 'libs/require/text',
     order: 'libs/require/order',
   }
@@ -10,9 +7,9 @@ require.config({
 
 
 define(function(require) {
-  require('order!jquery')
-  require('order!underscore')
-  require('order!backbone')
+  require('order!libs/jquery/jquery-min')
+  require('order!libs/underscore/underscore')
+  require('order!libs/backbone/backbone')
   require('order!libs/backbone.validation/backbone.validation')
   require('order!libs/utilities')
   require('order!libs/hogan.js/web/builds/2.0.0/hogan-2.0.0')
