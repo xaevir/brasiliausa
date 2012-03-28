@@ -52,7 +52,7 @@ var ListView = Backbone.View.extend({
     $(this.el).append(view.render().el)
   },
 
-  render: function() {}
+  render: function() {
     _.each(this.products, this.addOne, this);
     return this
   },
@@ -92,7 +92,7 @@ var SubcategoryView = Backbone.View.extend({
 
 return  Backbone.View.extend({
   
-  className: 'products',
+  className: 'items',
 
   initialize: function() {
     _.bindAll(this) 

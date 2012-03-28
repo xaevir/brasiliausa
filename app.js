@@ -21,7 +21,6 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
     host: "localhost",
 })
 
-db = mongo.db('localhost/brasiliausa?auto_reconnect');
 
 var app = module.exports = express.createServer();
 
@@ -40,10 +39,12 @@ var staticServer = express.static(__dirname + '/public')
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  db = mongo.db('localhost/dev_brasilia?auto_reconnect');
 });
 
 app.configure('production', function(){
   app.use(express.errorHandler())
+  db = mongo.db('localhost/brasiliausa?auto_reconnect');
 })
 
 app.get('/*', function(req, res, next) {
@@ -329,7 +330,6 @@ app.del('/manuals/:slug', restrict, function(req, res){
   })
 })
 
-
 /*
  * handling all me.jpg pics. Create folder 
  * for each person and save in 
@@ -514,7 +514,7 @@ app.get('/files', function(req, res){
 })
 
 app.get('/manuals', function(req, res){
-  db.collection('fs.files').find({'metadata.manuals':true, contentType: 'application/pdf'}).toArray(function(err, manuals) {
+  db.collection('fs.files').find({'metadata.manuals':true, contentType: 'application/pdf'}).sort({'metadata.name': 1}).toArray(function(err, manuals) {
     res.send(manuals);
   })
 })
