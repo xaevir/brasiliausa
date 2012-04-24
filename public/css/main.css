@@ -4076,9 +4076,21 @@ h3 {
 }
 #home h2 {
   font-size: 20px;
+  text-align: center;
 }
 #home .row {
   margin-top: 20px;
+}
+#home p {
+  font-family: 'Ovo', serif;
+  font-size: 15px;
+  line-height: 1.3em;
+  padding: 10px;
+  padding-top: 0;
+}
+#home .content {
+  margin-top: -1px;
+  width: 298px;
 }
 #what-we-do p {
   line-height: 1.2;
