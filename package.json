@@ -16,5 +16,6 @@
     , "node-static": "latest"
     , "hogan.js": "latest"
     , "connect": "latest"
+    , "async": "latest"
   }
 }

@@ -1,11 +1,3 @@
-require.config({
-  paths: {
-    text: 'libs/require/text',
-    order: 'libs/require/order',
-  }
-});
-
-
 define(function(require) {
   require('order!libs/jquery/jquery-min')
   require('order!libs/underscore/underscore')

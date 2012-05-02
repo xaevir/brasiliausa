@@ -11,6 +11,7 @@ var express = require('express')
   , static = require('node-static')
   , Hogan = require('hogan.js')
   , connect = require('connect')
+  , async = require('async')
 
 
 var fileServer = new(static.Server)('./public', { cache: 0 });
@@ -298,6 +299,40 @@ function toSlugFile(filename){
   extension = split.extension.toLowerCase() 
   return name+'.'+extension
 }
+
+app.del('/products/:slug', restrict, function(req, res){
+  db.collection('products').findOne({slug:req.params.slug}, function(err, result) {
+    if (err) throw err;
+    var productName = result.name
+    async.forEach(result.files, function (file, callback){ 
+        GridStore.unlink(db.db, file.name, function(err, gs) {
+          if (err) throw err
+          console.log(file.name + ' orginal deleted')
+          GridStore.unlink(db.db, file.thumb, function(err, gs) {
+            if (err) throw err;
+            console.log(file.thumb + 'thumbnail removed')
+            GridStore.unlink(db.db, file.medium, function(err, gridStore) {
+              if (err) throw err;
+              console.log(file.medium + 'medium removed')
+              callback(); // tell async that the iterator has completed
+            })
+          })
+        })
+
+    }, function(err) {
+        console.log('iterating done. all files removed');
+        db.collection('products').remove({slug:req.params.slug}, function(err, result) {
+          if (err) throw err;
+          console.log(productName + 'file removed')
+          res.send({
+            success: true, 
+            message: productName + ' file removed', 
+            data: {name: productName }
+          })
+        })
+    })
+  })
+})
 
 app.del('/files/:slug', restrict, function(req, res){
   GridStore.unlink(db.db, req.params.slug, function(err, gs) {

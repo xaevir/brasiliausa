@@ -33,7 +33,7 @@ return Backbone.View.extend({
     })
 
     _.each(products.subcategories, function(subcategory){
-      if(locals.category.slug == subcategory.value) 
+      if(locals.subcategory.slug == subcategory.slug) 
         subcategory.selected = 'selected'
     })
 

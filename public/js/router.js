@@ -15,6 +15,7 @@ var SignupView = require('views/users/signup')
   , ManualsView = require('views/manuals/list')
   , ManualsEdit = require('views/manuals/edit')
   , Manuals = require('collections/manuals')
+  , AlertView = require('views/site/alert')         
 
 function showStatic(path) {
     $.get(path, function(obj) {
@@ -66,6 +67,7 @@ return Backbone.Router.extend({
     , 'signup':         'signup'
     , 'products':       'products'
     , 'products/:slug/edit': 'productEdit'
+    , 'products/:slug/delete': 'productDelete'
     , 'products/new'  : 'newProduct'
     , 'products/:slug': 'product'
     , 'files'         : 'files'
@@ -110,6 +112,22 @@ return Backbone.Router.extend({
       $('#app').html(productEditView.render().el)
       document.title = 'Edit Product'
     }})
+  }, restrict),
+
+  productDelete: _.wrap(function(slug){
+    $.ajax({
+      type: "DELETE",
+      url: "/products/" + slug,
+      success: function(res){
+        var successAlert = new AlertView({
+          message: '<strong>' + res.data.name + ' removed</strong>',
+          type: 'info'
+        })
+        successAlert.fadeOut()
+        var router = new Backbone.Router();
+        router.navigate('products', {trigger: true})
+      }
+    });
   }, restrict),
 
   manuals: function(){ 
@@ -162,6 +180,9 @@ return Backbone.Router.extend({
   product: function(slug){
     var product = new Product({slug: slug})
     var self = this
+    //if scrolled down when clicking on product from products page
+    // then the top navbar was being cut off on click of the specific product 
+    $('html, body').scrollTop(0)
     product.fetch({success: function(model, res){
       var productView = new ProductView({model: model})
       $('#app').html(productView.render().el)

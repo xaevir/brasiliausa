@@ -123,7 +123,8 @@ return Backbone.View.extend({
 
   addOne: function(model){
     var view = new ItemView({ model: model })
-    $(this.el).append(view.render().el)
+    var html = view.render().el
+    $(this.el).append(html)
   },
 
   render: function() {
