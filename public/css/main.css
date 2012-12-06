@@ -4074,6 +4074,80 @@ h2,
 h3 {
   margin: .5em 0;
 }
+#landing #banner {
+  background: url(/img/banner.jpg) no-repeat top left;
+  width: 940px;
+}
+#landing #banner #content {
+  margin-left: 320px;
+}
+#landing #banner #content h1 {
+  line-height: 1.2;
+  font-size: 48px;
+  padding-top: 15px;
+  margin: 0;
+}
+#landing #banner #content h2 {
+  margin: 0;
+}
+#landing #banner #content b {
+  font-style: normal;
+  text-align: center;
+  display: block;
+}
+#landing #banner #content form {
+  border-left: 1px solid #fff;
+  border-top: 1px solid #fff;
+  margin-top: 37px;
+  background-color: #ff5d03;
+  margin-left: 45px;
+  padding: 25px;
+  margin-bottom: 0;
+}
+#landing #banner #content form h2 {
+  margin-top: 0;
+  margin-bottom: .5em;
+  line-height: 1.2;
+}
+#landing #banner #content form p {
+  margin-bottom: 15px;
+  color: #fff;
+  font-size: 16px;
+}
+#landing #banner #content form label {
+  font-size: 20px;
+  color: #fff;
+  float: left;
+  margin-right: 10px;
+  line-height: 1.8;
+}
+#landing #banner #content form input {
+  line-height: 1.2;
+  margin-right: 10px;
+  padding: 8px;
+}
+#landing #banner #content form .btn {
+  display: inline;
+  line-height: 1.2;
+  margin-top: -9px;
+}
+#landing #machines {
+  padding: 10px;
+  border: 2px solid #dfdfdf;
+  border-top: 0;
+}
+#landing #machines img {
+  margin-right: 5px;
+}
+#landing #copy {
+  padding: 10px;
+}
+#landing #copy p {
+  margin-top: 0;
+  padding-top: 10px;
+  font-size: 24px;
+  line-height: 1.2;
+}
 #home h2 {
   font-size: 20px;
   text-align: center;
@@ -4083,14 +4157,17 @@ h3 {
 }
 #home p {
   font-family: 'Ovo', serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.3em;
   padding: 10px;
   padding-top: 0;
 }
 #home .content {
   margin-top: 10px;
-  width: 298px;
+  background-color: #eee;
+  min-height: 305px;
+  background-color: #fafafa;
+  padding: 10px;
 }
 #what-we-do p {
   line-height: 1.2;

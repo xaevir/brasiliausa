@@ -3,8 +3,10 @@
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
-      "express": "2.5.5"
+      "express": "3.x"
     , "jade": ">= 0.0.1"
+    , "hogan.js": "latest"
+    , "consolidate": "latest"
     , "connect-redis": "latest"
     , "bcrypt": "latest"
     , "imagemagick": "latest"
@@ -14,7 +16,6 @@
     , "nodemailer": "latest"
     , "http-proxy": "latest"
     , "node-static": "latest"
-    , "hogan.js": "latest"
     , "connect": "latest"
     , "async": "latest"
   }

@@ -50,7 +50,7 @@ _.extend(Backbone.Validation.callbacks, {
     //reset 
     if (sibling.hasClass('error')) 
       sibling.remove()
-    el.after('<span class="error">' + error + '</span>')
+    el.before('<span class="error">' + error + '</span>')
   }
 
 

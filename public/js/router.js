@@ -2,6 +2,7 @@ define(function(require) {
 
 var SignupView = require('views/users/signup')
   , LoginView = require('views/users/login')         
+  , NavBar = require('views/navbar/navbar')         
   , Products = require('collections/products') 
   , Product = require('models/product') 
   , ProductsView = require('views/products/products')
@@ -11,6 +12,7 @@ var SignupView = require('views/users/signup')
   , PageHeaderView = require('views/site/page-header')
   , SubnavView = require('views/products/subnav')
   , ContactView = require('views/site/contact')
+  , LandingView = require('views/site/landing')
   , SubnavView = require('views/products/subnav')
   , ManualsView = require('views/manuals/list')
   , ManualsEdit = require('views/manuals/edit')
@@ -18,10 +20,10 @@ var SignupView = require('views/users/signup')
   , AlertView = require('views/site/alert')         
 
 function showStatic(path) {
-    $.get(path, function(obj) {
-      $('#app').html(obj.body);
-       document.title = obj.title;
-    });
+  $.get(path, function(obj) {
+    $('#app').html(obj.body);
+     document.title = obj.title
+  })
 }
 
 var alreadyLoggedIn = function(callback) { 
@@ -57,24 +59,25 @@ return Backbone.Router.extend({
   },
 
   routes: {
-      '':               'home'
-    , 'support':        'support'
-    , 'technology':     'technology'
-    , 'history':        'history'
-    , 'our-team':       'our-team'
-    , 'technology':     'technology'
-    , 'what-we-do':     'what-we-do'
-    , 'signup':         'signup'
-    , 'products':       'products'
-    , 'products/:slug/edit': 'productEdit'
-    , 'products/:slug/delete': 'productDelete'
-    , 'products/new'  : 'newProduct'
-    , 'products/:slug': 'product'
-    , 'files'         : 'files'
-    , 'login'         : 'login'
-    , 'contact'       : 'contact'
-    , 'manuals'       : 'manuals'
-    , '*actions'      :  'home'
+      '':                                'home'
+    , 'commercial-espresso-machines':    'commercial_espresso_machines'
+    , 'support':                         'support'
+    , 'technology':                      'technology'
+    , 'history':                         'history'
+    , 'our-team':                        'our-team'
+    , 'technology':                      'technology'
+    , 'what-we-do':                      'what-we-do'
+    , 'signup':                          'signup'
+    , 'products':                        'products'
+    , 'products/:slug/edit':             'productEdit'
+    , 'products/:slug/delete':           'productDelete'
+    , 'products/new'  :                  'newProduct'
+    , 'products/:slug':                  'product'
+    , 'files'         :                  'files'
+    , 'login'         :                  'login'
+    , 'contact'       :                  'contact'
+    , 'manuals'       :                  'manuals'
+//    , '*actions'      :                  'home'
   },
 
   newProduct: _.wrap(function(){
@@ -85,7 +88,7 @@ return Backbone.Router.extend({
     }, restrict),
 
   home: function() { showStatic('/') },
-   
+
   support: function(){ showStatic('/support') },
 
   technology: function(){ showStatic('/technology') },
@@ -211,6 +214,12 @@ return Backbone.Router.extend({
     $('#app').html(contact.render().el)
     document.title = 'Contact'
   }, 
+
+  commercial_espresso_machines: function() { 
+    var landing = new LandingView()
+    $('body').html(landing.render().el);
+    document.title = 'Commercial Espresso Machines'
+  },
 
   login: _.wrap(function(){
     this.loginView = new LoginView({context: 'main'})

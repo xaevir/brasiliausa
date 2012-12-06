@@ -1,4 +1,6 @@
 var express = require('express')
+  , app = express()
+  , cons = require('consolidate')
   , mongo = require('mongoskin')
   , RedisStore = require('connect-redis')(express)
   , bcrypt = require('bcrypt')
@@ -22,9 +24,6 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
     host: "localhost",
 })
 
-
-var app = module.exports = express.createServer();
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -38,15 +37,22 @@ app.configure(function(){
 
 var staticServer = express.static(__dirname + '/public')
 
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-  db = mongo.db('localhost/dev_brasilia?auto_reconnect');
-});
 
 app.configure('production', function(){
-  app.use(express.errorHandler())
-  db = mongo.db('localhost/brasiliausa?auto_reconnect');
+  app.set('port', process.env.PORT || 8000);
+  db = mongo.db("localhost/brasiliausa?auto_reconnect=true", {safe: true})
 })
+
+app.configure('staging', function(){
+  app.set('port', process.env.PORT || 8001);
+  db = mongo.db("localhost/dev_brasilia?auto_reconnect=true", {safe: true})
+})
+
+app.configure('development', function(){
+  app.use(express.errorHandler());
+  app.set('port', process.env.PORT || 8002);
+  db = mongo.db("localhost/dev_brasilia?auto_reconnect=true", {safe: true})
+});
 
 app.get('/*', function(req, res, next) {
   if (req.headers.host.match(/^www/) !== null ) res.redirect('http://' + req.headers.host.replace(/^www\./, '') + req.url, 301);
@@ -88,11 +94,15 @@ function userData(session){
   return data
 }
 
+
 app.get('/*', function(req, res, next) { /* force xhr */
-  if (!(req.xhr)) 
-    res.render('layout', userData(req.session))
-  else 
+  if (!(req.xhr)) {
+    var data = userData(req.session)
+    data.development = (app.settings.env == 'development') ? true : false
+    res.render('layout', data)
+  } else {
     next()
+  }
 })
 
 function restrict(req, res, next) {
@@ -108,6 +118,18 @@ app.get('/', function(req, res) {
     res.send({title: 'Brasilia USA', body: html});
   });
 })
+
+/*
+app.get('/commercial-espresso-machines', function(req, res) {
+  var locals = {}
+  if (app.settings.env == 'development') 
+    locals.development = true  
+  cons.hogan( app.get('views') + '/landing.mustache', locals, function(err, html){
+    if (err) throw err;
+    res.send({title: 'Commercial Espresso Machines', body: html});
+  })
+})
+*/
 
 app.get('/support', function(req, res) {
   res.render('static/support', function(err, html){
@@ -181,6 +203,23 @@ app.post('/contact', function(req, res) {
 
     });
   })
+})
+
+app.post('/landing', function(req, res) {
+  var message = {
+    from: 'Landing Page <landing@brasiliausa.com>',
+    to: 'bobby.chambers33@gmail.com',
+    subject: 'New Sign Up!', 
+  }
+  message.html = '<p>email: '+req.body.email+'</p>' 
+  smtpTransport.sendMail(message, function(error, response){
+    if(error)
+      console.log(error);
+    else
+      console.log("Message sent: " + response.message);
+    smtpTransport.close(); // shut down the connection pool, no more messages
+    res.send(req.body)
+  });
 })
 
 
@@ -554,6 +593,5 @@ app.get('/manuals', function(req, res){
   })
 })
 
-app.listen(8000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-
+app.listen(app.get('port'))
+console.log("Express server listening on port %d in %s mode", app.get('port'), app.settings.env);
