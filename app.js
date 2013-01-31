@@ -29,12 +29,13 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.set('view options', { layout: false });
   app.use(express.compress());
+  app.use(express.logger());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   app.use(express.session({ secret: "batman", store: new RedisStore }));
   app.use(app.router);
-  app.use(express.logger('dev'));
+  
 });
 
 var staticServer = express.static(__dirname + '/public')
