@@ -51,8 +51,8 @@ app.configure('staging', function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
-  app.set('port', process.env.PORT || 8002);
-  db = mongo.db("localhost/dev_brasilia?auto_reconnect=true", {safe: true})
+  app.set('port', process.env.PORT || 8001);
+  db = mongo.db("localhost/dev_brasilia?auto_reconnect=true", {safe: false})
 });
 
 app.get('/*', function(req, res, next) {
