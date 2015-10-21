@@ -1,0 +1,18 @@
+.app {
+  :global(.navbar-nav) > li > a {
+    padding-top: 20px;
+  }
+  nav :global(.fa) {
+    font-size: 2em;
+    line-height: 20px;
+  }
+}
+.appContent {
+  padding-bottom: 30px; //seperate off footer
+}
+:global footer {
+  text-align: center;
+  .container {
+    padding: 20px;
+  }
+}

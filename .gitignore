@@ -1,3 +1,6 @@
-/node_modules
-*.rdb
-/art
+.idea/
+node_modules/
+dist/
+*.iml
+webpack-stats.json
+npm-debug.log

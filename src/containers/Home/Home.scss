@@ -1,0 +1,21 @@
+.home {
+  :global .header {
+     padding-top: 50px;
+  }
+  :global .row {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    img {
+      padding-bottom: 30px;
+    }
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-size: 40px;
+      color: #666;
+    }
+  }
+}
