@@ -54,6 +54,7 @@ export default class App extends Component {
               </li>
 
               <li><NavbarLink to="/widgets">Widgets</NavbarLink></li>
+              <li><NavbarLink to="/products">Products</NavbarLink></li>
               <li><NavbarLink to="/survey">Survey</NavbarLink></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">

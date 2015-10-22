@@ -27,16 +27,13 @@ app.use(bodyParser.json());
 
 
 app.use((req, res) => {
-
   const matcher = req.url.split('?')[0].split('/').slice(1);
-
   let action = false;
   let params = null;
   let apiActions = actions;
   let sliceIndex = 0;
 
   for (const actionName of matcher) {
-
     if (apiActions[actionName]) {
       action = apiActions[actionName];
     }

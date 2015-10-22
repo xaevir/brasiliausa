@@ -1,0 +1,719 @@
+[{
+    "_id" : "4f5a5983445ec61c23000001",
+    "name" : "Belle Epoque",
+    "description" : "Original “Liberty” style custom built Brasilia espresso machine with programmable volumetric dosing. Static Pre-Infusion per group head. 24KT Gold Plating Available. Special Order-Call for Lead Time. Available in copper, brass, and chrome finishes.",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "bar-line",
+        "name" : "Bar Line"
+    },
+    "mainImage" : {
+        "name" : "belle-epoque.jpg",
+        "type" : "image/jpeg",
+        "medium" : "belle-epoque_medium.jpg",
+        "thumb" : "belle-epoque_thumb.jpg"
+    },
+    "slug" : "Belle-Epoque",
+    "files" : [
+        {
+            "name" : "belle-epoque.pdf",
+            "type" : "application/pdf",
+            "medium" : "belle-epoque_medium_pdf.png",
+            "thumb" : "belle-epoque_thumb_pdf.png",
+            "caption" : ""
+        },
+        {
+            "name" : "belle-epoque.jpg",
+            "type" : "image/jpeg",
+            "medium" : "belle-epoque_medium.jpg",
+            "thumb" : "belle-epoque_thumb.jpg"
+        }
+    ]
+},
+{
+    "_id" : "4f5a5a39445ec61c2300002d",
+    "name" : "Cadetta",
+    "description" : "Automatic Brasilia espresso machine with programmable volumetric dosing. Semi-Automatic button for manual delivery. Ergonomic portafilters. Two (2) stainless steel swivel steam wand and one (1) swivel hot water wand.",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "bar-line",
+        "name" : "Bar Line"
+    },
+    "mainImage" : {
+        "name" : "cadetta.jpg",
+        "type" : "image/jpeg",
+        "medium" : "cadetta_medium.jpg",
+        "thumb" : "cadetta_thumb.jpg"
+    },
+    "slug" : "Cadetta",
+    "files" : [
+        {
+            "name" : "cadetta.jpg",
+            "type" : "image/jpeg",
+            "medium" : "cadetta_medium.jpg",
+            "thumb" : "cadetta_thumb.jpg"
+        },
+        {
+            "name" : "cadetta.pdf",
+            "type" : "application/pdf",
+            "medium" : "cadetta_medium_pdf.png",
+            "thumb" : "cadetta_thumb_pdf.png",
+            "caption" : ""
+        }
+    ]
+},
+{
+    "_id" : "4f5a5b21a45981a623000001",
+    "name" : "Decurtis",
+    "description" : "Traditional decorative, custom built two and three group Brasilia espresso machines with stainless steal outercase and 24Kt gold plated finishing. Programmable volumetric dosing with touchpad. Features patented “Bullone Rosso” brewing system with steady temperature device for perfect thermal stability. Dynamic Pre-Infusion brewing system with Independently adjustable temperature for each group. 2 stainless steal steam wands, 1 stainless steal hot water tap. Customization with logo, signage, and lighting available. Special Order-Call for Lead Time",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "bar-line",
+        "name" : "Bar Line"
+    },
+    "mainImage" : {
+        "name" : "decurtis.jpg",
+        "type" : "image/jpeg",
+        "medium" : "decurtis_medium.jpg",
+        "thumb" : "decurtis_thumb.jpg"
+    },
+    "slug" : "Decurtis",
+    "files" : [
+        {
+            "name" : "decurtis.pdf",
+            "type" : "application/pdf",
+            "medium" : "decurtis_medium_pdf.png",
+            "thumb" : "decurtis_thumb_pdf.png"
+        },
+        {
+            "name" : "decurtis.jpg",
+            "type" : "image/jpeg",
+            "medium" : "decurtis_medium.jpg",
+            "thumb" : "decurtis_thumb.jpg"
+        }
+    ]
+},
+{
+    "_id" : "4f5a5b69a45981a62300001d",
+    "name" : "Excelsior",
+    "description" : "Traditional art decorative Brasilia espresso machine with retro Italian design. Features patented “Bullone Rosso” brewing system with steady temperature devices for perfect thermal stability. Dynamic Pre-Infusion brewing system which Independently adjustable temperature for each group. Programmable soft-touch buttons for precise volumetric dosing. Automatic Backflush cycle. 2 stainless steal steam wands, 1 SS hot water tap all designed to swivel at 360 degrees. Available in a Raised Version with elevated group heads and built in stainless steel retractable cup rests to accommodate large cup sizes.",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "bar-line",
+        "name" : "Bar Line"
+    },
+    "mainImage" : {
+        "name" : "excelsior-raised.png",
+        "type" : "image/png",
+        "medium" : "excelsior-raised_medium.png",
+        "thumb" : "excelsior-raised_thumb.png"
+    },
+    "slug" : "Excelsior",
+    "files" : [
+        {
+            "name" : "excelsior.jpg",
+            "type" : "image/jpeg",
+            "medium" : "excelsior_medium.jpg",
+            "thumb" : "excelsior_thumb.jpg"
+        },
+        {
+            "name" : "excelsior-raised-cuprest.jpg",
+            "type" : "image/jpeg",
+            "medium" : "excelsior-raised-cuprest_medium.jpg",
+            "thumb" : "excelsior-raised-cuprest_thumb.jpg"
+        },
+        {
+            "name" : "excelsior.pdf",
+            "type" : "application/pdf",
+            "medium" : "excelsior_medium_pdf.png",
+            "thumb" : "excelsior_thumb_pdf.png"
+        },
+        {
+            "name" : "excelsior-raised.png",
+            "type" : "image/png",
+            "medium" : "excelsior-raised_medium.png",
+            "thumb" : "excelsior-raised_thumb.png"
+        }
+    ]
+},
+{
+    "_id" : "4f5a6cbbc218622b27000055",
+    "name" : "Gabriella",
+    "description" : "On Group Semi Professional Brasilia espresso machine. Stainless Steel Outer Case. Professional Brew Group with Pre-Infusion operated by camme switch. One (1) stainless steel swivel steam wand and one (1) hot water wand.",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "compact",
+        "name" : "Compact"
+    },
+    "mainImage" : {
+        "name" : "gabriella.jpg",
+        "type" : "image/jpeg",
+        "medium" : "gabriella_medium.jpg",
+        "thumb" : "gabriella_thumb.jpg"
+    },
+    "slug" : "Gabriella",
+    "files" : [
+        {
+            "name" : "gabriella.jpg",
+            "type" : "image/jpeg",
+            "medium" : "gabriella_medium.jpg",
+            "thumb" : "gabriella_thumb.jpg"
+        },
+        {
+            "name" : "gabriella.pdf",
+            "type" : "application/pdf",
+            "medium" : "gabriella_medium_pdf.png",
+            "thumb" : "gabriella_thumb_pdf.png"
+        }
+    ]
+},
+{
+    "_id" : "4f5a5d2ca45981a62300006f",
+    "name" : "Opus",
+    "description" : "Traditional Brasilia espresso machine with special Italian design by “Architettura Laboratorio.” Programmable soft-touch buttons for precise volumetric dosing. Dynamic Pre-Infusion brewing system with Independently adjustable temperature for each group. Automatic Backflush cycle, ergonomic portafilters, 1 stainless steal steam wand + 1 Hyperwand for automatic milk frothing, 2 stainless steal swivel hot water taps: 1 with programmable doses, 1 traditional. Raised group heads with built in S/S retractable cup rests to accommodate large size cups.",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "bar-line",
+        "name" : "Bar Line"
+    },
+    "mainImage" : {
+        "name" : "opus.jpg",
+        "type" : "image/jpeg",
+        "medium" : "opus_medium.jpg",
+        "thumb" : "opus_thumb.jpg"
+    },
+    "slug" : "Opus",
+    "files" : [
+        {
+            "name" : "opus.jpg",
+            "type" : "image/jpeg",
+            "medium" : "opus_medium.jpg",
+            "thumb" : "opus_thumb.jpg"
+        },
+        {
+            "name" : "opus-b03.pdf",
+            "type" : "application/pdf",
+            "medium" : "opus-b03_medium_pdf.png",
+            "thumb" : "opus-b03_thumb_pdf.png",
+            "caption" : "Opus B03"
+        },
+        {
+            "name" : "opus-classica.pdf",
+            "type" : "application/pdf",
+            "medium" : "opus-classica_medium_pdf.png",
+            "thumb" : "opus-classica_thumb_pdf.png",
+            "caption" : "Opus Classica"
+        }
+    ]
+},
+{
+    "_id" : "4f5a5fc97019772126000001",
+    "name" : "Opus Sublima",
+    "description" : "Professional Brasilia espresso machine with patented “Sublima” infusion and extraction System with digital PID temperature control and independent boiler for each group. Programmable soft-touch buttons for precise volumetric dosing. Automatic Backflush cycle, ergonomic portafilters, 2 stainless steal swivel steam wands, 2 stainless steal swivel hot water taps: 1 w/ programmable doses, 1 traditional. Raised group heads with built in stainless steal retractable cup rests to accommodate large cup sizes. \r\n\r\n<br />\r\nSpecial Steam Version: 1 swivel stainless steal + Hyperwand for automatic, temperature controlled milk frothing.\r\n",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "bar-line",
+        "name" : "Bar Line"
+    },
+    "mainImage" : {
+        "name" : "sublima.png",
+        "type" : "image/png",
+        "medium" : "sublima_medium.png",
+        "thumb" : "sublima_thumb.png"
+    },
+    "slug" : "Opus-Sublima",
+    "files" : [
+        {
+            "name" : "sublima.png",
+            "type" : "image/png",
+            "medium" : "sublima_medium.png",
+            "thumb" : "sublima_thumb.png"
+        },
+        {
+            "name" : "opus-sublima.pdf",
+            "type" : "application/pdf",
+            "medium" : "opus-sublima_medium_pdf.png",
+            "thumb" : "opus-sublima_thumb_pdf.png"
+        }
+    ]
+},
+{
+    "_id" : "4f5a63f6c218622b27000035",
+    "name" : "Portofino Executive",
+    "description" : "Traditional Brasilia espresso machine with classic stainless steel design and molded side and back panels. Programmable touchpads for volumetric dosing, and automatic backflush rinse cycle. B-61 group head with dynamic pre-infusion brewing system. Ergonomic portafilters, LCD display, 2 Stainless steel swivel steam wands, 1 hot water tap. Available in Raised Version with elevated group heads and built in retractable cups rests to accommodate large cups.",
+    "category" : {
+        "slug" : "espresso-machines",
+        "name" : "Espresso Machines"
+    },
+    "subcategory" : {
+        "slug" : "bar-line",
+        "name" : "Bar Line"
+    },
+    "mainImage" : {
+        "name" : "portofino-executive.jpg",
+        "type" : "image/jpeg",
+        "medium" : "portofino-executive_medium.jpg",
+        "thumb" : "portofino-executive_thumb.jpg"
+    },
+    "slug" : "Portofino-Executive",
+    "files" : [
+        {
+            "name" : "portofino-executive-usa.pdf",
+            "type" : "application/pdf",
+            "medium" : "portofino-executive-usa_medium_pdf.png",
+            "thumb" : "portofino-executive-usa_thumb_pdf.png"
+        },
+        {
+            "name" : "portofino-executive.jpg",
+            "type" : "image/jpeg",
+            "medium" : "portofino-executive_medium.jpg",
+            "thumb" : "portofino-executive_thumb.jpg"
+        }
+    ]
+},
+{
+    "_id" : "4f5b397544b8ca6d43000001",
+    "name" : "Zumex Multi-Fruit",
+    "description" : "The Zumex Multi-Fruit juicer is the perfect juicer for all type of fruits and vegetables. It has a lower speed for soft fruits such as apples, kiwi, and pineapple, and a higher speed for hard vegetables such as carrots and celery to produce the maximum yield of juice possible.  It’s efficient design includes an energy saving STAND BY status, non-drip faucet, remove-able drip tray, broad inlet feeder mouth, and SILENT Block system for quiet operation.  Perfect for juice bars, “healthy food” restaurants, bars or any other type of establishment that wishes to provide natural juices.",
+    "category" : {
+        "slug" : "juicers",
+        "name" : "Juicers"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "MULTIFRUIT.jpg",
+        "type" : "image/jpeg",
+        "medium" : "MULTIFRUIT_medium.jpg",
+        "thumb" : "MULTIFRUIT_thumb.jpg"
+    },
+    "slug" : "ZumexMulti-Fruit",
+    "files" : [
+        {
+            "name" : "MULTIFRUIT.jpg",
+            "type" : "image/jpeg",
+            "medium" : "MULTIFRUIT_medium.jpg",
+            "thumb" : "MULTIFRUIT_thumb.jpg"
+        },
+        {
+            "name" : "ZumexCitrusJuicers.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZumexCitrusJuicers_medium_pdf.png",
+            "thumb" : "ZumexCitrusJuicers_thumb_pdf.png",
+            "caption" : "Zumex Citrus Juicers"
+        },
+        {
+            "name" : "ZUMEXMULTIFRUIT.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZUMEXMULTIFRUIT_medium_pdf.png",
+            "thumb" : "ZUMEXMULTIFRUIT_thumb_pdf.png",
+            "caption" : "Zumex Multi Fruit"
+        }
+    ]
+},
+{
+    "_id" : "4f5b4052599e8d2d44000001",
+    "category" : {
+        "slug" : "espresso-grinders",
+        "name" : "Espresso Grinders"
+    },
+    "description" : "Professional Brasilia espresso grinder with super micrometric (infinite) adjusting device. Automatic version with stop device. 63.5mm tempered steel flat burrs. Dosing adjustment device from 5 to 8.5 grams. Adjustable filter holder position. Hopper capacity 2.6 lbs",
+    "files" : [
+        {
+            "name" : "mac64.pdf",
+            "type" : "application/pdf",
+            "medium" : "mac64_medium_pdf.png",
+            "thumb" : "mac64_thumb_pdf.png"
+        },
+        {
+            "name" : "mac64.jpg",
+            "type" : "image/jpeg",
+            "medium" : "mac64_medium.jpg",
+            "thumb" : "mac64_thumb.jpg"
+        }
+    ],
+    "mainImage" : {
+        "name" : "mac64.jpg",
+        "type" : "image/jpeg",
+        "medium" : "mac64_medium.jpg",
+        "thumb" : "mac64_thumb.jpg"
+    },
+    "name" : "MAC64",
+    "slug" : "MAC64",
+    "subcategory" : {
+        "name" : "",
+        "slug" : ""
+    }
+},
+{
+    "_id" : "4f5b4467b8d2306c4400001d",
+    "name" : "RR45",
+    "description" : "Professional Brasilia grinder with micrometric adjusting device. 63.5mm tempered steel flat burrs. Dosing adjustment device from 5 to 9 grams. Hopper capacity 2.6lbs",
+    "category" : {
+        "slug" : "espresso-grinders",
+        "name" : "Espresso Grinders"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "rr45.jpg",
+        "type" : "image/jpeg",
+        "medium" : "rr45_medium.jpg",
+        "thumb" : "rr45_thumb.jpg"
+    },
+    "slug" : "RR45",
+    "files" : [
+        {
+            "name" : "rr45.jpg",
+            "type" : "image/jpeg",
+            "medium" : "rr45_medium.jpg",
+            "thumb" : "rr45_thumb.jpg"
+        },
+        {
+            "name" : "rr45-rr55.pdf",
+            "type" : "application/pdf",
+            "medium" : "rr45-rr55_medium_pdf.png",
+            "thumb" : "rr45-rr55_thumb_pdf.png"
+        }
+    ]
+},
+{
+    "_id" : "4f5b4515b8d2306c44000037",
+    "name" : "RR45 OD",
+    "description" : "Professional Brasilia espresso grinder with fresh On Demand grinding. Two precise electronic controlled programmable doses for single and double. stainless steal chute evenly distributes coffee in portafilter while eliminating static. 63.5mm tempered steel flat burrs. Hopper capacity 2.6lbs. Silent: only 69db.",
+    "category" : {
+        "slug" : "espresso-grinders",
+        "name" : "Espresso Grinders"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "rr45od-nero.jpg",
+        "type" : "image/jpeg",
+        "medium" : "rr45od-nero_medium.jpg",
+        "thumb" : "rr45od-nero_thumb.jpg"
+    },
+    "slug" : "RR45-OD",
+    "files" : [
+        {
+            "name" : "rr45-rr55.pdf",
+            "type" : "application/pdf",
+            "medium" : "rr45-rr55_medium_pdf.png",
+            "thumb" : "rr45-rr55_thumb_pdf.png"
+        },
+        {
+            "name" : "rr45od-nero.jpg",
+            "type" : "image/jpeg",
+            "medium" : "rr45od-nero_medium.jpg",
+            "thumb" : "rr45od-nero_thumb.jpg"
+        }
+    ]
+},
+{
+    "_id" : "4f5b45c8b8d2306c4400004e",
+    "name" : "RR55 OD",
+    "description" : "Professional Brasilia espresso grinder with fresh On Demand grinding. Two precise electronic controlled programmable doses for single and double. stainless steal chute evenly distributes coffee in portafilter while eliminating static. 63.5mm tempered steel flat burrs. Hopper capacity 2.6lbs. Silent: only 69db.",
+    "category" : {
+        "slug" : "espresso-grinders",
+        "name" : "Espresso Grinders"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "rr55od-counter-nero.jpg",
+        "type" : "image/jpeg",
+        "medium" : "rr55od-counter-nero_medium.jpg",
+        "thumb" : "rr55od-counter-nero_thumb.jpg"
+    },
+    "slug" : "RR55-OD",
+    "files" : [
+        {
+            "name" : "rr55od-counter-nero.jpg",
+            "type" : "image/jpeg",
+            "medium" : "rr55od-counter-nero_medium.jpg",
+            "thumb" : "rr55od-counter-nero_thumb.jpg"
+        },
+        {
+            "name" : "rr45-rr55.pdf",
+            "type" : "application/pdf",
+            "medium" : "rr45-rr55_medium_pdf.png",
+            "thumb" : "rr45-rr55_thumb_pdf.png"
+        }
+    ]
+},
+{
+    "_id" : "4f5b46fdb8d2306c44000065",
+    "name" : "Single Sandwich Grill",
+    "description" : "Commercial Single Panini Grill. Stainless Steel Body Construction with Cast Iron Plates for Fast, Even Heat Distribution and Recovery. Coated with Non-Stick Seasoned Ceramic Material that Won't Chip, or Peel. Adjustable Self-Balancing Upper Plates. Shock-proof Coated Heating Elements. Adjustable Cooking Temperature up to 570 Degrees F. Mechanical Timer. Includes Scraping Bruch.",
+    "category" : {
+        "slug" : "panini-grills",
+        "name" : "Panini Grills"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "Elio_SingleSandwichGrill.jpg",
+        "type" : "image/jpeg",
+        "medium" : "Elio_SingleSandwichGrill_medium.jpg",
+        "thumb" : "Elio_SingleSandwichGrill_thumb.jpg"
+    },
+    "slug" : "SingleSandwichGrill",
+    "files" : [
+        {
+            "name" : "paninigrillELIOUSA.pdf",
+            "type" : "application/pdf",
+            "medium" : "paninigrillELIOUSA_medium_pdf.png",
+            "thumb" : "paninigrillELIOUSA_thumb_pdf.png"
+        },
+        {
+            "name" : "Elio_SingleSandwichGrill.jpg",
+            "type" : "image/jpeg",
+            "medium" : "Elio_SingleSandwichGrill_medium.jpg",
+            "thumb" : "Elio_SingleSandwichGrill_thumb.jpg"
+        }
+    ]
+},
+{
+    "_id" : "4f5b489e8d039cf946000003",
+    "name" : "Double Sandwich Grill",
+    "description" : "Commercial Double Panini Grill. Stainless Steel Body Construction with Cast Iron Plates for Fast, Even Heat Distribution and Recovery. Coated with Non-Stick Seasoned Ceramic Material that Won't Chip, or Peel. Adjustable Self-Balancing Upper Plates. Shock-proof Coated Heating Elements. Adjustable Cooking Temperature up to 570 Degrees F. Mechanical Timer. Includes Scraping Bruch.",
+    "category" : {
+        "slug" : "panini-grills",
+        "name" : "Panini Grills"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "PD_DoubleSandwichGrill220V.JPG",
+        "type" : "image/jpeg",
+        "medium" : "PD_DoubleSandwichGrill220V_medium.JPG",
+        "thumb" : "PD_DoubleSandwichGrill220V_thumb.JPG"
+    },
+    "slug" : "DoubleSandwichGrill",
+    "files" : [
+        {
+            "name" : "paninigrillPDUSA.pdf",
+            "type" : "application/pdf",
+            "medium" : "paninigrillPDUSA_medium_pdf.png",
+            "thumb" : "paninigrillPDUSA_thumb_pdf.png"
+        },
+        {
+            "name" : "PD_DoubleSandwichGrill220V.JPG",
+            "type" : "image/jpeg",
+            "medium" : "PD_DoubleSandwichGrill220V_medium.JPG",
+            "thumb" : "PD_DoubleSandwichGrill220V_thumb.JPG"
+        }
+    ]
+},
+{
+    "_id" : "4f5b4a2ddfd660c24700000f",
+    "name" : "Minex Citrus Juicer",
+    "description" : "The Minex citrus juicer is ideal for low volume orange juice outlets. It has a sleek, yet compact design with anti-dripping system, integrated juice pitcher, and an electronic orange counter. Like all Zumex citrus juicers, it’s extremely easy to dis-assemble and clean.",
+    "category" : {
+        "slug" : "juicers",
+        "name" : "Juicers"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "Zumex-Minex-Orange.jpg",
+        "type" : "image/jpeg",
+        "medium" : "Zumex-Minex-Orange_medium.jpg",
+        "thumb" : "Zumex-Minex-Orange_thumb.jpg"
+    },
+    "slug" : "Minex-Citrus-Juicer",
+    "files" : [
+        {
+            "name" : "ZumexCitrusJuicers.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZumexCitrusJuicers_medium_pdf.png",
+            "thumb" : "ZumexCitrusJuicers_thumb_pdf.png"
+        },
+        {
+            "name" : "ZUMEXMINEXBILINGUAL.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZUMEXMINEXBILINGUAL_medium_pdf.png",
+            "thumb" : "ZUMEXMINEXBILINGUAL_thumb_pdf.png"
+        },
+        {
+            "name" : "Zumex-Minex-Orange.jpg",
+            "type" : "image/jpeg",
+            "medium" : "Zumex-Minex-Orange_medium.jpg",
+            "thumb" : "Zumex-Minex-Orange_thumb.jpg"
+        }
+    ]
+},
+{
+    "_id" : "4f5b4aecdfd660c247000045",
+    "name" : "Essential Basic Citrus Juicer",
+    "description" : "The Essential Basic Citrus Juicer is perfect for catering, or establishments that have low to medium demand for fresh squeezed juice.  It has an 8 fruit feeder basket, and can process 14 oranges (approximately a quarter gallon of juice) per minute. The Essential basic also has the option of adding the smaller squeezing kit for lemons and limes.",
+    "category" : {
+        "slug" : "juicers",
+        "name" : "Juicers"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "ZUMEXESSENTIALBASIC.jpg",
+        "type" : "image/jpeg",
+        "medium" : "ZUMEXESSENTIALBASIC_medium.jpg",
+        "thumb" : "ZUMEXESSENTIALBASIC_thumb.jpg"
+    },
+    "files" : [
+        {
+            "name" : "ZUMEXESSENTIALBASIC.jpg",
+            "type" : "image/jpeg",
+            "medium" : "ZUMEXESSENTIALBASIC_medium.jpg",
+            "thumb" : "ZUMEXESSENTIALBASIC_thumb.jpg"
+        },
+        {
+            "name" : "ZumexCitrusJuicers.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZumexCitrusJuicers_medium_pdf.png",
+            "thumb" : "ZumexCitrusJuicers_thumb_pdf.png"
+        },
+        {
+            "name" : "FlyerZumexEssentialBasic.pdf",
+            "type" : "application/pdf",
+            "medium" : "FlyerZumexEssentialBasic_medium_pdf.png",
+            "thumb" : "FlyerZumexEssentialBasic_thumb_pdf.png"
+        }
+    ],
+    "slug" : "EssentialBasicCitrusJuicer"
+},
+{
+    "_id" : "4f5b4baddfd660c247000072",
+    "name" : "Zumex Speed",
+    "description" : "The Speed models are for perfect for all type of high volume juice outlets including supermarkets and those that wish to bottle fresh squeezed juice.  The hopper has a 33lb capacity, and the Speed can process 38 oranges (approximately a gallon of juice) per minute. The Speed is available in several versions: Semi-Automatic; Digital with touchpad and display to control a variety of parameters including the number of oranges to be squeezed, and an orange counter; Self Service, and Tank, with a transparent 5 liter tank to hold and dispense freshly squeezed juice. The Speed is available for use with the lemon/lime squeezing kit; and has a variety of stainless steel podium options with large waste baskets, and also a 7 liter temperature controlled “cooler podium” to provide cooled freshly squeezed juice on demand.",
+    "category" : {
+        "slug" : "juicers",
+        "name" : "Juicers"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "ZumexSpeed.JPG",
+        "type" : "image/jpeg",
+        "medium" : "ZumexSpeed_medium.JPG",
+        "thumb" : "ZumexSpeed_thumb.JPG"
+    },
+    "slug" : "ZumexSpeed",
+    "files" : [
+        {
+            "name" : "ZumexSpeed.JPG",
+            "type" : "image/jpeg",
+            "medium" : "ZumexSpeed_medium.JPG",
+            "thumb" : "ZumexSpeed_thumb.JPG"
+        },
+        {
+            "name" : "ZumexSpeed-TankPodium.JPG",
+            "type" : "image/jpeg",
+            "medium" : "ZumexSpeed-TankPodium_medium.JPG",
+            "thumb" : "ZumexSpeed-TankPodium_thumb.JPG"
+        },
+        {
+            "name" : "FlyerZumexSpeed.pdf",
+            "type" : "application/pdf",
+            "medium" : "FlyerZumexSpeed_medium_pdf.png",
+            "thumb" : "FlyerZumexSpeed_thumb_pdf.png"
+        },
+        {
+            "name" : "FlyerZumexSpeed-PodiumTank.pdf",
+            "type" : "application/pdf",
+            "medium" : "FlyerZumexSpeed-PodiumTank_medium_pdf.png",
+            "thumb" : "FlyerZumexSpeed-PodiumTank_thumb_pdf.png"
+        },
+        {
+            "name" : "ZUMEXSPEED.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZUMEXSPEED_medium_pdf.png",
+            "thumb" : "ZUMEXSPEED_thumb_pdf.png"
+        },
+        {
+            "name" : "ZumexCitrusJuicers.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZumexCitrusJuicers_medium_pdf.png",
+            "thumb" : "ZumexCitrusJuicers_thumb_pdf.png"
+        }
+    ]
+},
+{
+    "_id" : "4f68152ca6799d093e000001",
+    "name" : "Versatile Pro",
+    "description" : "The Versatile Pro is ideal for all type of establishments that have a medium demand for fresh squeezed juice. It has a hopper capable of holding up to 22lbs of fruit (approximately a case), and can process 22 oranges (approximately a half gallon of juice) per minute. The Versatile Pro is equipped with a digital touchpad and display to control a variety of parameters including the number of oranges to be squeezed, orange counter, and even a self-serve on demand squeezing mode. Options for the Versatile Pro include the lemon/lime squeezing kit, as well as a mobile podium complete with wheels and 12 gallon waste container for orange rind ejection and storage.",
+    "category" : {
+        "slug" : "juicers",
+        "name" : "Juicers"
+    },
+    "subcategory" : {
+        "slug" : "",
+        "name" : ""
+    },
+    "mainImage" : {
+        "name" : "ZUMEX-VERSATILE-PRO-WITH-PODIUM.jpg",
+        "type" : "image/jpeg",
+        "medium" : "ZUMEX-VERSATILE-PRO-WITH-PODIUM_medium.jpg",
+        "thumb" : "ZUMEX-VERSATILE-PRO-WITH-PODIUM_thumb.jpg"
+    },
+    "slug" : "Versatile-Pro",
+    "files" : [
+        {
+            "name" : "ZUMEX-VERSATILE-PRO-WITH-PODIUM.jpg",
+            "type" : "image/jpeg",
+            "medium" : "ZUMEX-VERSATILE-PRO-WITH-PODIUM_medium.jpg",
+            "thumb" : "ZUMEX-VERSATILE-PRO-WITH-PODIUM_thumb.jpg"
+        },
+        {
+            "name" : "Zumex-Citrus-Juicers.pdf",
+            "type" : "application/pdf",
+            "medium" : "Zumex-Citrus-Juicers_medium_pdf.png",
+            "thumb" : "Zumex-Citrus-Juicers_thumb_pdf.png"
+        },
+        {
+            "name" : "ZUMEX-VERSATILE-PRO-INTRO.pdf",
+            "type" : "application/pdf",
+            "medium" : "ZUMEX-VERSATILE-PRO-INTRO_medium_pdf.png",
+            "thumb" : "ZUMEX-VERSATILE-PRO-INTRO_thumb_pdf.png"
+        }
+    ]
+}
+]

@@ -103,4 +103,3 @@ class Widgets extends Component {
     );
   }
 }
-
